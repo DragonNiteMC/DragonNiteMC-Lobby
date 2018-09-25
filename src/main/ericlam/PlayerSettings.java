@@ -43,13 +43,7 @@ public class PlayerSettings extends JavaPlugin {
             try {
                 mysql.openConnection();
                 Statement statment = mysql.connection.createStatement();
-                statment.execute("CREATE TABLE IF NOT EXISTS `"+
-                                          table+
-                                          "` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY,"+
-                                          "`Fly` bit NOT NULL,"+
-                                          "`HideChat` bit NOT NULL,"+
-                                          "`Stacker` bit NOT NULL," +
-                                            ")");
+                statment.execute("CREATE TABLE IF NOT EXISTS `"+ table+ "` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit NOT NULL, `HideChat` bit NOT NULL, `Stacker` bit NOT NULL)");
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
