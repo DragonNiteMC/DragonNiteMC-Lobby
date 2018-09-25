@@ -1,0 +1,43 @@
+General:
+  Prefix: "&4系統// &r"
+  No-Perm: "&c你沒有此操作的許可權。"
+  Player-Not-Found: "&c找不到此玩家。"
+  arug-wrong: "&c你所輸入的參數過長!"
+Commands:
+  Fly:
+    Turn-On: "&a你的飛行模式已開啟。"
+    Turn-Off: "&c你的飛行模式已關閉。"
+    Be-Turn-On: "&a成功開啟 &e<player>&a 的飛行模式。"
+    Be-Turn-Off: "&c成功關閉 &e<player>&a 的飛行模式。"
+  Heal:
+    active: "&a已補完你的血量。"
+    no-need: "&c你的血量已滿, 因此不需要再補。"
+    Be-active: "&a已成功補充 &e<player>&a 的血量。"
+    Be-no-need: "&e<player> &c目前已是滿血狀態。"
+  Ping:
+    self: "&7你的網絡延遲為 &e<ping>&ams"
+    other: "&d<player> &7的網絡延遲為 &e<ping>&ams"
+  HideChat:
+    hide: "&c聊天訊息顯示已被隱藏。"
+    show: "&a聊天訊息顯示已被開啟。"
+    be-hide: "&c已隱藏 &b<player> &c的聊天訊息顯示。"
+    be-show: "&a已開啟 &b<player> &a的聊天訊息顯示。"
+    hidden: "&7由於你已隱藏了聊天訊息, 因此你無法發送訊息。"
+  Stacker:
+    enable: "&a你的層層疊模式已被開啟。"
+    disable: "&c你的層層疊模式已被關閉。"
+    be-enable: "&a已開啟 &e<player> &a的層層疊模式。"
+    be-disable: "&c已關閉 &e<player> &a的層層疊模式。"
+    stacked: "&7你把 &e<player> &7疊到了你頭上!"
+    pushed: "&7你拋走了 &a<player> &7!"
+    pushed-all: "&7你拋走了所有疊在你頭上的玩家!"
+    disactive: "&c你沒有開啟層層疊!"
+    be-disactive: "&c對方沒有開啟層層疊!"
+    Max: "&7你已達到可疊加的玩家數量上限。"
+Functions:
+  Sneak:
+    show-location-title: "&a你目前的位置是"
+  ChatResponse:
+    block-message: "&e請不要發送不雅用語。"
+  ShowUUID:
+    JoinMessage: "&7你的UUID是 &e<UUID>"

@@ -1,0 +1,33 @@
+General:
+  #Saveing-Type 可以是 SQL 或 YAML。
+  Saving-Type: yaml
+  MySQL:
+    host: node2.hypernite.com
+    port: 50000
+    username: lcw
+    password: "Eric@6645563214"
+    database: test
+    table: Status
+ChatFilter:
+  Enable: true
+  List:
+    - "fuck"
+    - "屌"
+    - "on9"
+    - "弱智"
+    - "shit"
+    - "bitch"
+    - "damn"
+    - "gay"
+    - "nigger"
+    - "pussy"
+    - "diu"
+SneakShowLocation:
+  Enable: true
+Join-Show-UUID:
+  Enable: true
+Stacker:
+  Enable: true
+  Throw-Power: 10
+  Throw-Y: 5.0
+  Max-Stack: 5

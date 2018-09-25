@@ -1,0 +1,44 @@
+name: PlayerSettings
+main: main.ericlam.PlayerSettings
+version: 1.0
+commands:
+  fly:
+    aliases: [flight, sky, elfly]
+    description: fly command
+  heal:
+    aliases: [blood, elheal]
+    description: heal command
+  ping:
+    aliases: elping
+    description: ping command
+  hidechat:
+    aliases: [chathide, ignoreall, elhidechat]
+    description: hide the chat
+  stacker:
+    aliases: [stack, elstacker]
+    description: open stacker
+permissions:
+  ericlam.fly:
+    default: op
+  ericlam.fly.other:
+    default: op
+  ericlam.heal:
+    default: op
+  ericlam.heal.other:
+    default: op
+  ericlam.ping:
+    default: true
+  ericlam.ping.other:
+    default: op
+  ericlam.hidechat:
+    default: true
+  ericlam.hidechat.other:
+    default: op
+  ericlam.stacker:
+    default: true
+  ericlam.stacker.other:
+    default: op
+  ericlam.sneak.showlocation:
+    default: true
+  ericlam.chat.bypass:
+    default: op
