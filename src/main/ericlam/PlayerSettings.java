@@ -43,7 +43,7 @@ public class PlayerSettings extends JavaPlugin {
             try {
                 mysql.openConnection();
                 Statement statment = mysql.connection.createStatement();
-                statment.executeQuery("CREATE TABLE IF NOT EXISTS `"+
+                statment.execute("CREATE TABLE IF NOT EXISTS `"+
                                           table+
                                           "` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY,"+
                                           "`Fly` bit NOT NULL,"+
