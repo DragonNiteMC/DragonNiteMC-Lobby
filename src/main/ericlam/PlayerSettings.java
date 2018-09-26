@@ -1,10 +1,12 @@
 package main.ericlam;
+import Listener.*;
 import addon.ericlam.MySQL;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
@@ -31,7 +33,10 @@ public class PlayerSettings extends JavaPlugin {
             CommandExecutor cmdexe = cmdexecutor[i];
             this.getCommand(cmd).setExecutor(cmdexe);
         }
-        getServer().getPluginManager().registerEvents(new Listen(), this);
+        Listener[] listeners = {new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak()};
+        for (Listener listen : listeners) {
+            getServer().getPluginManager().registerEvents(listen, this);
+        }
         addNewFile("Messages.yml");
         addNewFile("config.yml");
         if (yaml) {

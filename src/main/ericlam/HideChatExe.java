@@ -67,7 +67,7 @@ public class HideChatExe implements CommandExecutor{
             }
             if (Variable.MYsql){
                 MySQL mysql = MySQL.getinstance();
-                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HideOnChat=1 WHERE PlayerUUID = ?");
+                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HideChat=1 WHERE PlayerUUID = ?");
                 ps.setString(1, puuid.toString());
                 ps.execute();
             }
@@ -78,7 +78,7 @@ public class HideChatExe implements CommandExecutor{
             }
             if (Variable.MYsql){
                 MySQL mysql = MySQL.getinstance();
-                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HideOnChat=0 WHERE PlayerUUID = ?");
+                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HideChat=0 WHERE PlayerUUID = ?");
                 ps.setString(1, puuid.toString());
                 ps.execute();
             }
