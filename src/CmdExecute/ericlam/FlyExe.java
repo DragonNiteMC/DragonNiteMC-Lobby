@@ -72,7 +72,7 @@ public class FlyExe implements CommandExecutor {
         if (Variable.MYsql){
             MySQL mysql = MySQL.getinstance();
             PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Fly=? WHERE PlayerUUID = ?");
-            ps.setString(1, (fly ? "1" : "0"));
+            ps.setInt(1, (fly ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();
         }

@@ -1,6 +1,5 @@
 package addon.ericlam;
 
-import main.ericlam.PlayerSettings;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -32,16 +31,13 @@ public class Variable {
     public static FileConfiguration uuidYml(UUID uuid){
         return YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "PlayerData/"+uuid.toString()+".yml"));
     }
+
     public static String returnColoredMessage(String messagePath) {
         String path = messagefile.getString(messagePath);
         return ChatColor.translateAlternateColorCodes('&', path);
     }
 
-    public static void addNewFile(String pathname) {
-        File filename = new File(plugin.getDataFolder(), pathname);
-        if (!filename.exists()) plugin.saveResource(pathname, true);
-        YamlConfiguration.loadConfiguration(filename);
-    }
+
 
     public static void renametoUUID(UUID puuid, Player player) throws IOException {
         File folder = new File(plugin.getDataFolder(), "PlayerData" + File.separator);

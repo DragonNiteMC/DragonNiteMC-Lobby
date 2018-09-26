@@ -77,7 +77,7 @@ public class StackerExe implements CommandExecutor{
             MySQL mysql = MySQL.getinstance();
             PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Stacker=? WHERE PlayerUUID = ?");
             ps.setInt(1,(nostack ? 1 : 0));
-            ps.setString(0, puuid.toString());
+            ps.setString(2, puuid.toString());
             ps.execute();
         }
     }

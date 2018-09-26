@@ -62,6 +62,10 @@ public class PlayerSettings extends JavaPlugin {
         getLogger().info("PlayerSettings Disabled.");
     }
 
-
+    public static void addNewFile(String pathname) {
+        File filename = new File(plugin.getDataFolder(), pathname);
+        if (!filename.exists()) plugin.saveResource(pathname, true);
+        YamlConfiguration.loadConfiguration(filename);
+    }
 }
 

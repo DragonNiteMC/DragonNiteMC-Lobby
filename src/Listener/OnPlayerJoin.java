@@ -31,17 +31,18 @@ public class OnPlayerJoin implements Listener {
         UUID puuid = player.getUniqueId();
         if (MYsql){
             MySQL mysql = MySQL.getinstance();
-            PreparedStatement ps = mysql.connection.prepareStatement("INSERT IGNORE "+table+" VALUES (?, ?, ?, ?, ?);");
+            PreparedStatement ps = mysql.connection.prepareStatement("INSERT IGNORE " + table + " VALUES (?, ?, ?, ?, ?, ?);");
             ps.setString(1, puuid.toString());
             ps.setInt(2, 0);
             ps.setInt(3, 0);
             ps.setInt(4, 0);
-            ps.setInt(5,0);
+            ps.setInt(5, 0);
+            ps.setInt(6, 0);
             ps.execute();
-            PreparedStatement ps2 =  mysql.connection.prepareStatement("SELECT * FROM "+table+" WHERE PlayerUUID=?");
+            PreparedStatement ps2 = mysql.connection.prepareStatement("SELECT * FROM " + table + " WHERE PlayerUUID=?");
             ps2.setString(1, puuid.toString());
             ResultSet result = ps2.executeQuery();
-            if (result.getString("PlayerUUID") != null) {
+            if (result.next()) {
                 boolean speed = !player.hasPotionEffect(PotionEffectType.SPEED);
                 boolean nohide = !HidePlayerExe.vanished.contains(player);
                 if (result.getInt("Fly") == 1) {
