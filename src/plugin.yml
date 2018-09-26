@@ -17,27 +17,48 @@ commands:
   stacker:
     aliases: [stack, elstacker]
     description: open stacker
+  speed:
+    aliases: [elspeed, sprint, fast]
+    description: speed command
+  hideplayer:
+    aliases: [elhideplayer, hidep]
+    description: hide all players
 permissions:
-  ericlam.fly:
-    default: op
   ericlam.fly.other:
     default: op
-  ericlam.heal:
-    default: op
+    children:
+      ericlam.fly:
+        default: op
   ericlam.heal.other:
     default: op
-  ericlam.ping:
-    default: true
+    children:
+      ericlam.heal:
+        default: op
   ericlam.ping.other:
     default: op
-  ericlam.hidechat:
-    default: true
+    children:
+      ericlam.ping:
+        default: true
   ericlam.hidechat.other:
     default: op
-  ericlam.stacker:
-    default: true
+    children:
+      ericlam.hidechat:
+        default: true
   ericlam.stacker.other:
     default: op
+    children:
+      ericlam.stacker:
+        default: true
+  ericlam.hideplayer.other:
+    default: op
+    children:
+      ericlam.hideplayer:
+        default: true
+  ericlam.speed.other:
+    default: op
+    children:
+      ericlam.speed:
+        default: true
   ericlam.sneak.showlocation:
     default: true
   ericlam.chat.bypass:

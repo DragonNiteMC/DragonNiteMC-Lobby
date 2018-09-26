@@ -1,7 +1,8 @@
-package main.ericlam;
+package CmdExecute.ericlam;
 
 import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
+import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -22,7 +23,7 @@ public class HideChatExe implements CommandExecutor{
     public static Set<UUID> chatdisabled = new HashSet<>();
     private final PlayerSettings plugin;
 
-    HideChatExe(PlayerSettings plugin) {
+    public HideChatExe(PlayerSettings plugin) {
         this.plugin = plugin;
     }
 
@@ -44,7 +45,7 @@ public class HideChatExe implements CommandExecutor{
             else commandSender.sendMessage(ChatColor.RED + "Console can only use /hidechat <player>");
         } else if (permother || terminal) {
             target = Bukkit.getPlayer(strings[0]);
-            if (target == null) commandSender.sendMessage(prefix + PlayerSettings.returnColoredMessage("General.Player-Not-Found"));
+            if (target == null) commandSender.sendMessage(prefix + returnColoredMessage("General.Player-Not-Found"));
             else {
                 try {
                     HideChat(target,commandSender);
@@ -58,30 +59,20 @@ public class HideChatExe implements CommandExecutor{
     public static void HideChat(Player name, CommandSender sender) throws IOException, SQLException {
         Player player = name.getPlayer();
         UUID puuid = player.getUniqueId();
-        if (sender != name)  sender.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.HideChat.be-" + (!chatdisabled.contains(puuid) ? "hide" : "show")).replace("<player>", name.getDisplayName()));
-        name.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.HideChat." + (!chatdisabled.contains(puuid) ? "hide" : "show")));
-        if (!chatdisabled.contains(puuid)) {
-            chatdisabled.add(puuid);
-            if (Variable.yaml) {
-                Variable.setYml("HideChat",puuid,true);
-            }
-            if (Variable.MYsql){
-                MySQL mysql = MySQL.getinstance();
-                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HideChat=1 WHERE PlayerUUID = ?");
-                ps.setString(1, puuid.toString());
-                ps.execute();
-            }
-        }else{
-            chatdisabled.remove(puuid);
-            if (Variable.yaml) {
-                Variable.setYml("HideChat",puuid,false);
-            }
-            if (Variable.MYsql){
-                MySQL mysql = MySQL.getinstance();
-                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HideChat=0 WHERE PlayerUUID = ?");
-                ps.setString(1, puuid.toString());
-                ps.execute();
-            }
+        boolean hide = !chatdisabled.contains(puuid);
+        if (sender != name)  sender.sendMessage(prefix + returnColoredMessage("Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getDisplayName()));
+        name.sendMessage(prefix + returnColoredMessage("Commands.HideChat." + (hide ? "hide" : "show")));
+        if (hide) chatdisabled.add(puuid);
+        else chatdisabled.remove(puuid);
+        if (Variable.yaml) {
+            Variable.setYml("HideChat",puuid,hide);
+        }
+        if (Variable.MYsql){
+            MySQL mysql = MySQL.getinstance();
+            PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HideChat=? WHERE PlayerUUID = ?");
+            ps.setInt(1,(hide ? 1 : 0));
+            ps.setString(2, puuid.toString());
+            ps.execute();
         }
     }
 }

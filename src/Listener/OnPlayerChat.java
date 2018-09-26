@@ -1,6 +1,6 @@
 package Listener;
 
-import main.ericlam.HideChatExe;
+import CmdExecute.ericlam.HideChatExe;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,7 +28,7 @@ public class OnPlayerChat implements Listener {
             for (String keyword : keys) {
                 if (msg.contains(keyword) && !chatbypass) {
                     event.setCancelled(true);
-                    player.sendMessage(prefix + PlayerSettings.returnColoredMessage("Functions.ChatResponse.block-message"));
+                    player.sendMessage(prefix + returnColoredMessage("Functions.ChatResponse.block-message"));
                     break;
                 }
             }
@@ -56,7 +56,7 @@ public class OnPlayerChat implements Listener {
         if (HideChatExe.chatdisabled.contains(puuid)) {
             event.setCancelled(true);
             event.getRecipients().remove(player);
-            player.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.HideChat.hidden"));
+            player.sendMessage(prefix + returnColoredMessage("Commands.HideChat.hidden"));
         }
         for (Player pl : event.getRecipients()) {
             if (HideChatExe.chatdisabled.contains(pl.getUniqueId())) event.getRecipients().remove(pl);

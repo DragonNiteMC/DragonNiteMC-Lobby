@@ -1,8 +1,9 @@
-package main.ericlam;
+package CmdExecute.ericlam;
 
 
 import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
+import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -25,7 +26,7 @@ import static main.ericlam.PlayerSettings.plugin;
 public class FlyExe implements CommandExecutor {
 
     private final PlayerSettings plugin;
-    FlyExe(PlayerSettings plugin){
+    public FlyExe(PlayerSettings plugin){
         this.plugin = plugin;
     }
         @Override
@@ -46,7 +47,7 @@ public class FlyExe implements CommandExecutor {
             } else if(permother || terminal){
                 target = (Bukkit.getServer().getPlayer(strings[0]));
                 if (target == null){
-                    commandSender.sendMessage(prefix + PlayerSettings.returnColoredMessage("General.Player-Not-Found"));
+                    commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
                 }else {
                     try {
                         flyExecutor(target, commandSender);
@@ -75,9 +76,9 @@ public class FlyExe implements CommandExecutor {
             ps.setString(2, puuid.toString());
             ps.execute();
         }
-        name.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.Fly.Turn-" + (fly ? "On":"Off")));
+        name.sendMessage(prefix + Variable.returnColoredMessage("Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {
-            sender.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getDisplayName()));
+            sender.sendMessage(prefix + Variable.returnColoredMessage("Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getDisplayName()));
         }
     }
 }

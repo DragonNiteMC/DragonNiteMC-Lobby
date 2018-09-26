@@ -1,6 +1,6 @@
 package Listener;
 
-import main.ericlam.PlayerSettings;
+import addon.ericlam.Variable;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,7 @@ public class OnPlayerSneak implements Listener {
             int z = (int) loc.getZ();
             String xyz = x + " " + y + " " + z;
             if (player.isSneaking() && player.getWalkSpeed() < 0.25 && player.isOnGround() && perm) {
-                player.sendTitle(PlayerSettings.returnColoredMessage("Functions.Sneak.show-location-title"), xyz, 5, 30, 5);
+                player.sendTitle(Variable.returnColoredMessage("Functions.Sneak.show-location-title"), xyz, 5, 30, 5);
             }
         }
     }

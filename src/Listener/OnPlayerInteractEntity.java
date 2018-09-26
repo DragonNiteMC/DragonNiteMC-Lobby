@@ -1,7 +1,7 @@
 package Listener;
 
 import main.ericlam.PlayerSettings;
-import main.ericlam.StackerExe;
+import CmdExecute.ericlam.StackerExe;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import java.util.List;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.config;
+import static addon.ericlam.Variable.*;
 
 public class OnPlayerInteractEntity implements Listener {
     @EventHandler
@@ -30,22 +30,22 @@ public class OnPlayerInteractEntity implements Listener {
                 if (StackerExe.stackerenabled.contains(puuid)) {
                     if (rider == null && StackerExe.stackerenabled.contains(rideruuid)) {
                         player.addPassenger(entity);
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(PlayerSettings.returnColoredMessage("Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName())));
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(returnColoredMessage("Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName())));
                     } else if (StackerExe.stackerenabled.contains(rideruuid)) {
                         for (Entity ride : rider) {
                             if (rider.size() >= (config.getInt("Stacker.Max-Stack"))) {
-                                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(PlayerSettings.returnColoredMessage("Commands.Stacker.Max")));
+                                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(returnColoredMessage("Commands.Stacker.Max")));
                                 break;
                             }
                             Player ridep = (Player) ride;
                             if (ridep.getPassengers() == null) ridep.addPassenger(entity);
                         }
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(PlayerSettings.returnColoredMessage("Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName())));
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(returnColoredMessage("Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName())));
                     } else {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(PlayerSettings.returnColoredMessage("Commands.Stacker.be-disactive")));
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(returnColoredMessage("Commands.Stacker.be-disactive")));
                     }
                 } else {
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(PlayerSettings.returnColoredMessage("Commands.Stacker.disactive")));
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(returnColoredMessage("Commands.Stacker.disactive")));
                 }
             }
         }

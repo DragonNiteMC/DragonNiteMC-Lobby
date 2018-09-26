@@ -1,6 +1,8 @@
-package main.ericlam;
+package CmdExecute.ericlam;
 
 
+import addon.ericlam.Variable;
+import main.ericlam.PlayerSettings;
 import net.minecraft.server.v1_13_R2.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +19,7 @@ public class PingExe implements CommandExecutor {
 
     private final PlayerSettings plugin;
 
-    PingExe(PlayerSettings plugin) {
+    public PingExe(PlayerSettings plugin) {
         this.plugin = plugin;
     }
 
@@ -29,15 +31,15 @@ public class PingExe implements CommandExecutor {
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;
-                player.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.Ping.self").replace("<ping>", "" + getPing(player)));
+                player.sendMessage(prefix + Variable.returnColoredMessage("Commands.Ping.self").replace("<ping>", "" + getPing(player)));
             }
              else commandSender.sendMessage(ChatColor.RED + "Console can only use /ping <player>");
         } else if (permother || terminal) {
             Player target = Bukkit.getServer().getPlayer(strings[0]);
             if (target == null) {
-                commandSender.sendMessage(prefix + PlayerSettings.returnColoredMessage("General.Player-Not-Found"));
+                commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
             } else {
-                commandSender.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.Ping.other").replace("<ping>", "" + getPing(target)).replace("<player>", target.getDisplayName()));
+                commandSender.sendMessage(prefix + Variable.returnColoredMessage("Commands.Ping.other").replace("<ping>", "" + getPing(target)).replace("<player>", target.getDisplayName()));
             }
         } else {
             commandSender.sendMessage(prefix + noperm);

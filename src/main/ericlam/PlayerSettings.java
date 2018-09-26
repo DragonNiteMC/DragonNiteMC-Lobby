@@ -1,4 +1,5 @@
 package main.ericlam;
+import CmdExecute.ericlam.*;
 import Listener.*;
 import addon.ericlam.MySQL;
 import org.bukkit.ChatColor;
@@ -26,8 +27,8 @@ public class PlayerSettings extends JavaPlugin {
         console.sendMessage(ChatColor.GOLD + "PlayerSettings Enabled!");
         console.sendMessage(ChatColor.LIGHT_PURPLE + "Plugin Created by EricLam");
         console.sendMessage(ChatColor.GREEN + "Remember use /help for help!");
-        String[] commands = {"fly", "heal", "ping", "hidechat", "stacker"};
-        CommandExecutor[] cmdexecutor = {new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this)};
+        String[] commands = {"fly", "heal", "ping", "hidechat", "stacker", "speed", "hideplayer"};
+        CommandExecutor[] cmdexecutor = {new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this), new SpeedExe(this), new HidePlayerExe(this)};
         for (int i = 0; i < commands.length; i++) {
             String cmd = commands[i];
             CommandExecutor cmdexe = cmdexecutor[i];
@@ -48,9 +49,10 @@ public class PlayerSettings extends JavaPlugin {
             try {
                 mysql.openConnection();
                 Statement statment = mysql.connection.createStatement();
-                statment.execute("CREATE TABLE IF NOT EXISTS `"+ table+ "` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit NOT NULL, `HideChat` bit NOT NULL, `Stacker` bit NOT NULL)");
+                statment.execute("CREATE TABLE IF NOT EXISTS `"+table+ "` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit, `HideChat` bit, `Stacker` bit, `Speed` bit, `HidePlayer` bit)");
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
+                console.sendMessage(ChatColor.RED + "Cannot connect to MySQL !");
             }
         }
         console.sendMessage(ChatColor.YELLOW + "===========================================");
@@ -60,23 +62,6 @@ public class PlayerSettings extends JavaPlugin {
         getLogger().info("PlayerSettings Disabled.");
     }
 
-    public static String returnColoredMessage(String messagePath) {
-        String path = messagefile.getString(messagePath);
-        return ChatColor.translateAlternateColorCodes('&', path);
-    }
 
-    public static void addNewFile(String pathname) {
-        File filename = new File(plugin.getDataFolder(), pathname);
-        if (!filename.exists()) plugin.saveResource(pathname, true);
-        YamlConfiguration.loadConfiguration(filename);
-    }
-
-    public static void renametoUUID(UUID puuid, Player player) throws IOException {
-        File folder = new File(plugin.getDataFolder(), "PlayerData" + File.separator);
-        File filename = new File(plugin.getDataFolder(),  "PlayerData"+File.separator + puuid.toString() + ".yml");
-        if (!folder.exists()) folder.mkdir();
-        filename.createNewFile();
-        YamlConfiguration.loadConfiguration(filename);
-    }
 }
 

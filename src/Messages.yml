@@ -9,6 +9,11 @@ Commands:
     Turn-Off: "&c你的飛行模式已關閉。"
     Be-Turn-On: "&a成功開啟 &e<player>&a 的飛行模式。"
     Be-Turn-Off: "&c成功關閉 &e<player>&a 的飛行模式。"
+  Speed:
+    Turn-On: "&a你的加速已開啟。"
+    Turn-Off: "&c你的加速已關閉。"
+    Be-Turn-On: "&a成功開啟 &e<player> &a的加速。"
+    Be-Turn-Off: "&c成功關閉 &e<player> &c的加速。"
   Heal:
     active: "&a已補完你的血量。"
     no-need: "&c你的血量已滿, 因此不需要再補。"
@@ -23,6 +28,11 @@ Commands:
     be-hide: "&c已隱藏 &b<player> &c的聊天訊息顯示。"
     be-show: "&a已開啟 &b<player> &a的聊天訊息顯示。"
     hidden: "&7由於你已隱藏了聊天訊息, 因此你無法發送訊息。"
+  HidePlayer:
+    hide: "&c已為你隱藏所有玩家。"
+    show: "&a已為你顯示所有玩家。"
+    be-hide: "&c已為 &e<player> &c隱藏所有玩家。"
+    be-show: "&a已為 &e<player> &a顯示所有玩家。"
   Stacker:
     enable: "&a你的層層疊模式已被開啟。"
     disable: "&c你的層層疊模式已被關閉。"

@@ -1,7 +1,8 @@
-package main.ericlam;
+package CmdExecute.ericlam;
 
 import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
+import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,7 +24,7 @@ public class StackerExe implements CommandExecutor{
     public static Set<UUID> stackerenabled = new HashSet<>();
     private final PlayerSettings plugin;
 
-    StackerExe(PlayerSettings plugin) {
+    public StackerExe(PlayerSettings plugin) {
         this.plugin = plugin;
     }
 
@@ -46,7 +47,7 @@ public class StackerExe implements CommandExecutor{
             } else if (permother || terminal) {
                 target = Bukkit.getPlayer(strings[0]);
                 if (target == null)
-                    commandSender.sendMessage(prefix + PlayerSettings.returnColoredMessage("General.Player-Not-Found"));
+                    commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
                 else {
                     try {
                         StackerOn(target, commandSender);
@@ -64,30 +65,20 @@ public class StackerExe implements CommandExecutor{
     public static void StackerOn(Player name, CommandSender sender) throws IOException, SQLException {
         Player player = name.getPlayer();
         UUID puuid = player.getUniqueId();
-        if (sender != name)  sender.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.Stacker.be-" + (!stackerenabled.contains(puuid) ? "enable" : "disable")).replace("<player>", name.getDisplayName()));
-        name.sendMessage(prefix + PlayerSettings.returnColoredMessage("Commands.Stacker." + (!stackerenabled.contains(puuid) ? "enable" : "disable")));
-        if (!stackerenabled.contains(puuid)) {
-            stackerenabled.add(puuid);
-            if (Variable.yaml) {
-                Variable.setYml("Stacker",puuid,true);
-            }
-            if (Variable.MYsql){
-                MySQL mysql = MySQL.getinstance();
-                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Stacker=1 WHERE PlayerUUID = ?");
-                ps.setString(1, puuid.toString());
-                ps.execute();
-            }
-        }else{
-            stackerenabled.remove(puuid);
-            if (Variable.yaml) {
-                Variable.setYml("Stacker",puuid,false);
-            }
-            if (Variable.MYsql){
-                MySQL mysql = MySQL.getinstance();
-                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Stacker=0 WHERE PlayerUUID = ?");
-                ps.setString(1, puuid.toString());
-                ps.execute();
-            }
+        boolean nostack = !stackerenabled.contains(puuid);
+        if (sender != name)  sender.sendMessage(prefix + Variable.returnColoredMessage("Commands.Stacker.be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getDisplayName()));
+        name.sendMessage(prefix + Variable.returnColoredMessage("Commands.Stacker." + (nostack ? "enable" : "disable")));
+        if (nostack) stackerenabled.add(puuid);
+        else stackerenabled.remove(puuid);
+        if (Variable.yaml) {
+            Variable.setYml("Stacker",puuid,nostack);
+        }
+        if (Variable.MYsql){
+            MySQL mysql = MySQL.getinstance();
+            PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Stacker=? WHERE PlayerUUID = ?");
+            ps.setInt(1,(nostack ? 1 : 0));
+            ps.setString(0, puuid.toString());
+            ps.execute();
         }
     }
 }

@@ -31,3 +31,5 @@ Stacker:
   Throw-Power: 10
   Throw-Y: 5.0
   Max-Stack: 5
+Speed:
+  Level: 2
