@@ -61,7 +61,7 @@ public class SpeedExe implements CommandExecutor {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
         boolean speed = !p.hasPotionEffect(PotionEffectType.SPEED);
-        int amplifier = config.getInt("Speed.Level");
+        int amplifier = config.getInt("Speed.Level") - 1;
         if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getDisplayName()));
         name.sendMessage(prefix + returnColoredMessage("Commands.Speed.Turn-" + (speed ? "On":"Off")));
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
