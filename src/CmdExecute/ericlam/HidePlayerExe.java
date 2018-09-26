@@ -62,23 +62,16 @@ public class HidePlayerExe implements CommandExecutor {
         if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getDisplayName()));
         name.sendMessage(prefix + returnColoredMessage("Commands.HidePlayer." + (nohide ? "hide":"show")));
         Collection<? extends Player> online = Bukkit.getServer().getOnlinePlayers();
-        Collection<? extends  Player> offline = Bukkit.getServer().getOnlinePlayers();
         if (nohide) {
             vanished.add(p);
-            for (int i = 0;i < online.size() + offline.size();i++) {
-                Player onlinep = (Player) online;
-                Player offlinep = (Player) offline;
+            for (Player onlinep : online) {
                 p.hidePlayer(PlayerSettings.plugin, onlinep);
-                p.hidePlayer(PlayerSettings.plugin, offlinep);
             }
         }
         else {
             vanished.remove(p);
-            for (int i = 0;i < online.size() + offline.size();i++) {
-                Player onlinep = (Player) online;
-                Player offlinep = (Player) offline;
+            for (Player onlinep : online) {
                 p.showPlayer(PlayerSettings.plugin, onlinep);
-                p.showPlayer(PlayerSettings.plugin, offlinep);
             }
         }
         if (yaml) Variable.setYml("HidePlayer",puuid,nohide);
