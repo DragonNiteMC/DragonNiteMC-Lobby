@@ -33,3 +33,5 @@ Stacker:
   Max-Stack: 5
 Speed:
   Level: 2
+GUI:
+  Enable-Notify-On-OpenGUI: true

@@ -69,7 +69,7 @@ public class SettingsExe implements CommandExecutor {
         Inventory gui = getInventoryGUI();
         p.openInventory(gui);
         if (sender != name) sender.sendMessage(returnColoredMessage("Commands.GUI.be-show"));
-        if (messagefile.getBoolean("Commands.GUI.show.Enable-MSG-On-OpenGUI")) name.sendMessage("Commands.GUI.show");
+        if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(returnColoredMessage("Commands.GUI.show"));
         changeStatus(p, gui);
         return gui;
     }

@@ -45,7 +45,6 @@ Commands:
     Max: "&7你已達到可疊加的玩家數量上限。"
   GUI:
     show: "&a已為你打開設定選單。"
-      Enable-MSG-On-OpenGUI: true
     be-show: "&a已為 &e<player> &a打開設定選單。"
     title: "&5玩家設定選單"
     Speed: "&f速度"
