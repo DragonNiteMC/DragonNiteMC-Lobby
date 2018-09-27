@@ -3,9 +3,9 @@ General:
   Saving-Type: yaml
   MySQL:
     host: node2.hypernite.com
-    port: 50000
+    port: 3306
     username: lcw
-    password: "Eric@6645563214"
+    password: "password"
     database: test
     table: Status
 ChatFilter:
