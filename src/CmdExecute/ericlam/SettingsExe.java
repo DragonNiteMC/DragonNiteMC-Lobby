@@ -90,10 +90,12 @@ public class SettingsExe implements CommandExecutor {
         boolean HideChat = HideChatExe.chatdisabled.contains(puuid);
         boolean Stacker = StackerExe.stackerenabled.contains(puuid);
         Integer[] StatusSlot = {19, 22, 25, 38, 42};
-        if (Fly || Speed || HidePlayer || HideChat || Stacker) {
-            for (int slot : StatusSlot) PlayerSettingGUI.setItem(slot, new ItemStack(Material.LIME_STAINED_GLASS_PANE));
-        }else {
-            for (int slot : StatusSlot) PlayerSettingGUI.setItem(slot, new ItemStack(Material.RED_STAINED_GLASS_PANE));
-        }
+        Boolean[] Status = {Fly, Speed, HidePlayer, HideChat, Stacker};
+            for (int i = 0; i < Status.length;i++) {
+                int slot = StatusSlot[i];
+                boolean stats = Status[i];
+                if (stats) PlayerSettingGUI.setItem(slot, new ItemStack(Material.LIME_STAINED_GLASS_PANE));
+                else PlayerSettingGUI.setItem(slot, new ItemStack(Material.RED_STAINED_GLASS_PANE));
+            }
     }
 }
