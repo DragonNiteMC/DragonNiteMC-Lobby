@@ -9,3 +9,15 @@ Functions:
 - HideChat
 - Stacker(not tested)
 - Ping
+- HidePlayer
+- Speed
+- InventoryGUI
+
+
+Remaining:
+
+- Stacker Test
+- Hooking to MySQL Library
+
+
+# completion:  90%
