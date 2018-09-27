@@ -48,7 +48,7 @@ public class OnInventoryClick implements Listener {
                         event.setCancelled(true);
                         break;
                 }
-                changeStatus(player, SettingsExe.OpenGUI(player,player));
+                changeStatus(player, inventory);
             }
         event.setCancelled(true);
     }

@@ -1,6 +1,7 @@
 package CmdExecute.ericlam;
 
 import addon.ericlam.Variable;
+import com.oracle.deploy.update.UpdateInfo;
 import jdk.nashorn.internal.ir.ReturnNode;
 import main.ericlam.PlayerSettings;
 import net.minecraft.server.v1_13_R2.DataWatcher;
@@ -64,14 +65,13 @@ public class SettingsExe implements CommandExecutor {
         }
         return PlayerSettingGUI;
     }
-    public static Inventory OpenGUI(Player name, CommandSender sender) {
+    public static void OpenGUI(Player name, CommandSender sender) {
         Player p = name.getPlayer();
         Inventory gui = getInventoryGUI();
         p.openInventory(gui);
         if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.GUI.be-show"));
         if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(prefix + returnColoredMessage("Commands.GUI.show"));
         changeStatus(p, gui);
-        return gui;
     }
     private static ItemStack AddedMetaItem(ItemStack Material, String ItemName){
         List<String> list = returnColoredStringList("Commands.GUI.Lore");

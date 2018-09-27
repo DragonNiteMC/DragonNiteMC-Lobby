@@ -5,6 +5,7 @@ import addon.ericlam.MySQL;
 import main.ericlam.PlayerSettings;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.Stack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,12 +46,12 @@ public class OnPlayerJoin implements Listener {
                 if (result.getInt("Fly") == 1) {
                     FlyExe.flyExecutor(player, player);
                 }
-                if (result.getInt("Stacker") == 1) {
+                if (result.getInt("Stacker") == 1 && config.getBoolean("Stacker.Enable")) {
                     StackerExe.stackerenabled.add(puuid);
-                }
+                }else StackerExe.stackerenabled.remove(puuid);
                 if (result.getInt("HideChat") == 1) {
                     HideChatExe.chatdisabled.add(puuid);
-                }
+                }else HideChatExe.chatdisabled.remove(puuid);
                 if (result.getInt("Speed") == 1){
                     if(speed) SpeedExe.SetSpeed(player,player);
                 }else if (!speed) player.removePotionEffect(PotionEffectType.SPEED);
@@ -71,11 +72,11 @@ public class OnPlayerJoin implements Listener {
             //HideChat Stats
             if (uuidFileName.contains("HideChat") && uuidFileName.getBoolean("HideChat")) {
                 HideChatExe.chatdisabled.add(puuid);
-            }
+            }else HideChatExe.chatdisabled.remove(puuid);
             //Stacker Stats
-            if (uuidFileName.contains("Stacker") && uuidFileName.getBoolean("Stacker")) {
+            if (uuidFileName.contains("Stacker") && uuidFileName.getBoolean("Stacker") && config.getBoolean("Stacker.Enable")) {
                 StackerExe.stackerenabled.add(puuid);
-            }
+            }else StackerExe.stackerenabled.remove(puuid);
             if (uuidFileName.contains("Speed") && uuidFileName.getBoolean("Speed")){
                 if(speed) SpeedExe.SetSpeed(player,player);
             }else if (!speed) player.removePotionEffect(PotionEffectType.SPEED);
