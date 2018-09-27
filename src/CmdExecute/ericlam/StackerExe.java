@@ -30,7 +30,6 @@ public class StackerExe implements CommandExecutor{
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (config.getBoolean("Stacker.Enable")) {
             Player target;
             boolean terminal = commandSender instanceof ConsoleCommandSender;
             boolean perm = commandSender.hasPermission("ericlam.stacker");
@@ -59,27 +58,28 @@ public class StackerExe implements CommandExecutor{
                 commandSender.sendMessage(prefix + noperm);
             }
             return true;
-        }
-        return false;
     }
     public static void StackerOn(Player name, CommandSender sender) throws IOException, SQLException {
-        Player player = name.getPlayer();
-        UUID puuid = player.getUniqueId();
-        boolean nostack = !stackerenabled.contains(puuid);
-        if (sender != name)  sender.sendMessage(prefix + Variable.returnColoredMessage("Commands.Stacker.be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getDisplayName()));
-        name.sendMessage(prefix + Variable.returnColoredMessage("Commands.Stacker." + (nostack ? "enable" : "disable")));
-        if (nostack) stackerenabled.add(puuid);
-        else stackerenabled.remove(puuid);
-        if (Variable.yaml) {
-            Variable.setYml("Stacker",puuid,nostack);
-        }
-        if (Variable.MYsql){
-            MySQL mysql = MySQL.getinstance();
-            PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Stacker=? WHERE PlayerUUID = ?");
-            ps.setInt(1,(nostack ? 1 : 0));
-            ps.setString(2, puuid.toString());
-            ps.execute();
-        }
+        if (config.getBoolean("Stacker.Enable")) {
+            Player player = name.getPlayer();
+            UUID puuid = player.getUniqueId();
+            boolean nostack = !stackerenabled.contains(puuid);
+            if (sender != name)
+                sender.sendMessage(prefix + Variable.returnColoredMessage("Commands.Stacker.be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getDisplayName()));
+            name.sendMessage(prefix + Variable.returnColoredMessage("Commands.Stacker." + (nostack ? "enable" : "disable")));
+            if (nostack) stackerenabled.add(puuid);
+            else stackerenabled.remove(puuid);
+            if (Variable.yaml) {
+                Variable.setYml("Stacker", puuid, nostack);
+            }
+            if (Variable.MYsql) {
+                MySQL mysql = MySQL.getinstance();
+                PreparedStatement ps = mysql.connection.prepareStatement("UPDATE " + table + " SET Stacker=? WHERE PlayerUUID = ?");
+                ps.setInt(1, (nostack ? 1 : 0));
+                ps.setString(2, puuid.toString());
+                ps.execute();
+            }
+        } else sender.sendMessage(prefix + ChatColor.RED + "此功能已被管理員禁用。");
     }
 }
 

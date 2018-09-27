@@ -68,8 +68,8 @@ public class SettingsExe implements CommandExecutor {
         Player p = name.getPlayer();
         Inventory gui = getInventoryGUI();
         p.openInventory(gui);
-        if (sender != name) sender.sendMessage(returnColoredMessage("Commands.GUI.be-show"));
-        if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(returnColoredMessage("Commands.GUI.show"));
+        if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.GUI.be-show"));
+        if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(prefix + returnColoredMessage("Commands.GUI.show"));
         changeStatus(p, gui);
         return gui;
     }
