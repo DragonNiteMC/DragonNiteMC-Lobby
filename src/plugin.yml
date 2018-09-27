@@ -1,6 +1,7 @@
 name: PlayerSettings
 main: main.ericlam.PlayerSettings
 version: 1.0
+api-version: 1.13
 commands:
   fly:
     aliases: [flight, sky, elfly]
@@ -23,6 +24,9 @@ commands:
   hideplayer:
     aliases: [elhideplayer, hidep]
     description: hide all players
+  settings:
+    aliases: [elsettings, playersettings, elmenu]
+    description: open GUI menu
 permissions:
   ericlam.fly.other:
     default: op
@@ -58,6 +62,11 @@ permissions:
     default: op
     children:
       ericlam.speed:
+        default: true
+  ericlam.settings.other:
+    default: op
+    children:
+      ericlam.settings:
         default: true
   ericlam.sneak.showlocation:
     default: true

@@ -44,6 +44,19 @@ Commands:
     disactive: "&c你沒有開啟層層疊!"
     be-disactive: "&c對方沒有開啟層層疊!"
     Max: "&7你已達到可疊加的玩家數量上限。"
+  GUI:
+    show: "&a已為你打開設定選單。"
+    be-show: "&a已為 &e<player> &a打開設定選單。"
+    title: "&5玩家設定選單"
+    Speed: "&f速度"
+    Fly: "&a飛行"
+    HideChat: "&c隱藏聊天訊息"
+    HidePlayer: "&d隱藏玩家"
+    Stacker: "&6層層疊"
+    UnitedLore:
+      - "&7&m----------"
+      - "&e點擊以切換"
+      - "&7&m----------"
 Functions:
   Sneak:
     show-location-title: "&a你目前的位置是"

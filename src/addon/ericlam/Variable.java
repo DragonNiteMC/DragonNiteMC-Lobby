@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import static main.ericlam.PlayerSettings.plugin;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Variable {
@@ -37,7 +39,14 @@ public class Variable {
         return ChatColor.translateAlternateColorCodes('&', path);
     }
 
-
+    public static List<String> returnColoredStringList(String messagePath){
+        List<String> path = messagefile.getStringList(messagePath);
+        List<String> list = new ArrayList<>();
+        for (String ReturnMSG : path){
+            list.add(ChatColor.translateAlternateColorCodes('&',ReturnMSG));
+        }
+        return list;
+    }
 
     public static void renametoUUID(UUID puuid, Player player) throws IOException {
         File folder = new File(plugin.getDataFolder(), "PlayerData" + File.separator);

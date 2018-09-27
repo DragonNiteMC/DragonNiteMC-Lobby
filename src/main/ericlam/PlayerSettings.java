@@ -27,14 +27,14 @@ public class PlayerSettings extends JavaPlugin {
         console.sendMessage(ChatColor.GOLD + "PlayerSettings Enabled!");
         console.sendMessage(ChatColor.LIGHT_PURPLE + "Plugin Created by EricLam");
         console.sendMessage(ChatColor.GREEN + "Remember use /help for help!");
-        String[] commands = {"fly", "heal", "ping", "hidechat", "stacker", "speed", "hideplayer"};
-        CommandExecutor[] cmdexecutor = {new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this), new SpeedExe(this), new HidePlayerExe(this)};
+        String[] commands = {"fly", "heal", "ping", "hidechat", "stacker", "speed", "hideplayer", "Settings"};
+        CommandExecutor[] cmdexecutor = {new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this), new SpeedExe(this), new HidePlayerExe(this), new SettingsExe(this)};
         for (int i = 0; i < commands.length; i++) {
             String cmd = commands[i];
             CommandExecutor cmdexe = cmdexecutor[i];
             this.getCommand(cmd).setExecutor(cmdexe);
         }
-        Listener[] listeners = {new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak()};
+        Listener[] listeners = {new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak(), new OnInventoryClick()};
         for (Listener listen : listeners) {
             getServer().getPluginManager().registerEvents(listen, this);
         }
@@ -62,7 +62,7 @@ public class PlayerSettings extends JavaPlugin {
         getLogger().info("PlayerSettings Disabled.");
     }
 
-    public static void addNewFile(String pathname) {
+    private static void addNewFile(String pathname) {
         File filename = new File(plugin.getDataFolder(), pathname);
         if (!filename.exists()) plugin.saveResource(pathname, true);
         YamlConfiguration.loadConfiguration(filename);

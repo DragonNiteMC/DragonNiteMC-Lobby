@@ -37,7 +37,7 @@ public class HidePlayerExe implements CommandExecutor {
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
-            }else{commandSender.sendMessage(ChatColor.RED + "Console can only use /speed <player>");}
+            }else{commandSender.sendMessage(ChatColor.RED + "Console can only use /hideplayer <player>");}
         } else if(permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
