@@ -1,5 +1,6 @@
 package addon.ericlam;
 
+import main.ericlam.PlayerSettings;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,6 +18,7 @@ public class Variable {
     public static FileConfiguration messagefile = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "Messages.yml"));
     public static FileConfiguration config = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
     public static String prefix = returnColoredMessage("General.Prefix");
+    public static String title = returnColoredMessage("Commands.GUI.title");
     public static String noperm = returnColoredMessage("General.No-Perm");
     private static String savingtype = config.getString("General.Saving-Type");
     public static boolean yaml = savingtype.equalsIgnoreCase("YAML");

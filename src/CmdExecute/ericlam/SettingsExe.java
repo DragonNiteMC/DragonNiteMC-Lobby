@@ -1,6 +1,7 @@
 package CmdExecute.ericlam;
 
 import addon.ericlam.Variable;
+import jdk.nashorn.internal.ir.ReturnNode;
 import main.ericlam.PlayerSettings;
 import net.minecraft.server.v1_13_R2.DataWatcher;
 import org.bukkit.Bukkit;
@@ -24,9 +25,9 @@ import java.util.*;
 import static addon.ericlam.Variable.*;
 
 public class SettingsExe implements CommandExecutor {
+    private static SettingsExe setting;
     private final PlayerSettings plugin;
     public SettingsExe(PlayerSettings plugin){ this.plugin = plugin;}
-
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -36,33 +37,22 @@ public class SettingsExe implements CommandExecutor {
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;
-                try {
                     OpenGUI(player, player);
-                } catch (IOException | SQLException e) {
-                    e.printStackTrace();
-                }
             }else{commandSender.sendMessage(ChatColor.RED + "Console can only use /settings <player>");}
         } else if(permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
                 commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
             }else {
-                try {
                     OpenGUI(target, commandSender);
-                } catch (IOException | SQLException e) {
-                    e.printStackTrace();
-                }
             }
         }else{
             commandSender.sendMessage(prefix + noperm);
         }
         return true;
     }
-    private static List<String> lore = returnColoredStringList("Commands.GUI.UnitedLore");
-    private static String title = returnColoredMessage("Commands.GUI.title");
-    public static Inventory PlayerSettingGUI = Bukkit.createInventory(null, 54, title);
-    private static void OpenGUI(Player name, CommandSender sender) throws IOException, SQLException {
-        Player p = name.getPlayer();
+    public static Inventory getInventoryGUI(){
+        Inventory PlayerSettingGUI = Bukkit.createInventory(null, 54, title);
         ItemStack[] representItem = {new ItemStack(Material.IRON_BOOTS), new ItemStack(Material.ELYTRA), new ItemStack(Material.PAPER), new ItemStack(Material.PLAYER_HEAD), new ItemStack(Material.STICKY_PISTON)};
         String[] ItemName = {"Speed", "Fly", "HideChat", "HidePlayer", "Stacker"};
         Integer[] ItemSlot = {10, 13, 16, 29, 33};
@@ -72,17 +62,26 @@ public class SettingsExe implements CommandExecutor {
             int slot = ItemSlot[i];
             PlayerSettingGUI.setItem(slot, AddedMetaItem(IS, IN));
         }
-        changeStatus(p);
-        p.openInventory(PlayerSettingGUI);
+        return PlayerSettingGUI;
+    }
+    public static Inventory OpenGUI(Player name, CommandSender sender) {
+        Player p = name.getPlayer();
+        Inventory gui = getInventoryGUI();
+        p.openInventory(gui);
+        if (sender != name) sender.sendMessage(returnColoredMessage("Commands.GUI.be-show"));
+        if (messagefile.getBoolean("Commands.GUI.show.Enable-MSG-On-OpenGUI")) name.sendMessage("Commands.GUI.show");
+        changeStatus(p, gui);
+        return gui;
     }
     private static ItemStack AddedMetaItem(ItemStack Material, String ItemName){
+        List<String> list = returnColoredStringList("Commands.GUI.Lore");
         ItemMeta MetaName = Material.getItemMeta();
         MetaName.setDisplayName(returnColoredMessage("Commands.GUI."+ItemName));
-        MetaName.setLore(lore);
+        MetaName.setLore(list);
         Material.setItemMeta(MetaName);
         return Material;
     }
-    public static void changeStatus(Player player){
+    public static void changeStatus(Player player,Inventory inventory) {
         UUID puuid = player.getUniqueId();
         boolean Fly = player.getAllowFlight();
         boolean Speed = player.hasPotionEffect(PotionEffectType.SPEED);
@@ -90,12 +89,12 @@ public class SettingsExe implements CommandExecutor {
         boolean HideChat = HideChatExe.chatdisabled.contains(puuid);
         boolean Stacker = StackerExe.stackerenabled.contains(puuid);
         Integer[] StatusSlot = {19, 22, 25, 38, 42};
-        Boolean[] Status = {Fly, Speed, HidePlayer, HideChat, Stacker};
+        Boolean[] Status = {Speed, Fly, HideChat, HidePlayer, Stacker};
             for (int i = 0; i < Status.length;i++) {
                 int slot = StatusSlot[i];
                 boolean stats = Status[i];
-                if (stats) PlayerSettingGUI.setItem(slot, new ItemStack(Material.LIME_STAINED_GLASS_PANE));
-                else PlayerSettingGUI.setItem(slot, new ItemStack(Material.RED_STAINED_GLASS_PANE));
+                if (stats) inventory.setItem(slot, new ItemStack(Material.LIME_STAINED_GLASS_PANE));
+                else inventory.setItem(slot, new ItemStack(Material.RED_STAINED_GLASS_PANE));
             }
     }
 }
