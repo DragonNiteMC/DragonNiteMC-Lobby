@@ -24,7 +24,7 @@ public class OnPlayerChat implements Listener {
             String msg = event.getMessage();
             BukkitScheduler scheduler = Bukkit.getScheduler();
             List<String> keys = config.getStringList("ChatFilter.List");
-            boolean chatbypass = player.hasPermission("ericlam.chat.bypass");
+            boolean chatbypass = player.hasPermission("settings.chat.bypass");
             for (String keyword : keys) {
                 if (msg.contains(keyword) && !chatbypass) {
                     event.setCancelled(true);

@@ -37,8 +37,8 @@ public class SettingsExe implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
-        boolean perm = commandSender.hasPermission("ericlam.settings");
-        boolean permother = commandSender.hasPermission("ericlam.settings.other");
+        boolean perm = commandSender.hasPermission("settings.gui");
+        boolean permother = commandSender.hasPermission("settings.gui.other");
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;

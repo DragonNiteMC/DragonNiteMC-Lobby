@@ -33,8 +33,8 @@ public class StackerExe implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
             Player target;
             boolean terminal = commandSender instanceof ConsoleCommandSender;
-            boolean perm = commandSender.hasPermission("ericlam.stacker");
-            boolean permother = commandSender.hasPermission("ericlam.stacker.other");
+            boolean perm = commandSender.hasPermission("settings.stacker");
+            boolean permother = commandSender.hasPermission("settings.stacker.other");
             if (strings.length <= 0 && perm) {
                 if (!terminal) {
                     Player player = (Player) commandSender;

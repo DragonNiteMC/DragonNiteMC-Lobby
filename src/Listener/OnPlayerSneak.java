@@ -15,7 +15,7 @@ public class OnPlayerSneak implements Listener {
         if (config.getBoolean("SneakShowLocation.Enable")) {
             Player player = event.getPlayer();
             Location loc = player.getLocation();
-            boolean perm = player.hasPermission("ericlam.sneak.showlocation");
+            boolean perm = player.hasPermission("settings.sneak.showlocation");
             int x = (int) loc.getX();
             int y = (int) loc.getY();
             int z = (int) loc.getZ();

@@ -46,18 +46,23 @@ public class OnPlayerJoin implements Listener {
             ps2.setString(1, puuid.toString());
             ResultSet result = ps2.executeQuery();
             if (result.next()) {
+                //Flight Stats
                 if (result.getInt("Fly") == 1) {
                     FlyExe.flyExecutor(player, player);
                 }
+                //Stacker Stats
                 if (result.getInt("Stacker") == 1 && config.getBoolean("Stacker.Enable")) {
                     StackerExe.stackerenabled.add(puuid);
                 }else StackerExe.stackerenabled.remove(puuid);
+                //HideChat Stats
                 if (result.getInt("HideChat") == 1) {
                     HideChatExe.chatdisabled.add(puuid);
                 }else HideChatExe.chatdisabled.remove(puuid);
+                //Speed Stats
                 if (result.getInt("Speed") == 1){
                     if(speed) SpeedExe.SetSpeed(player,player);
                 }else if (!speed) player.removePotionEffect(PotionEffectType.SPEED);
+                //HidePlayer Stats
                 if (result.getInt("HidePlayer") == 1){
                     if (nohide) HidePlayerExe.HidePlayer(player, player);
                 }else if (!nohide) {
@@ -80,9 +85,11 @@ public class OnPlayerJoin implements Listener {
             if (uuidFileName.contains("Stacker") && uuidFileName.getBoolean("Stacker") && config.getBoolean("Stacker.Enable")) {
                 StackerExe.stackerenabled.add(puuid);
             }else StackerExe.stackerenabled.remove(puuid);
+            //Speed Stats
             if (uuidFileName.contains("Speed") && uuidFileName.getBoolean("Speed")){
                 if(speed) SpeedExe.SetSpeed(player,player);
             }else if (!speed) player.removePotionEffect(PotionEffectType.SPEED);
+            //HidePlayer Stats
             if (uuidFileName.contains("HidePlayer") && uuidFileName.getBoolean("HidePlayer")){
                 if (nohide) HidePlayerExe.HidePlayer(player,player);
             } else if (!nohide) HidePlayerExe.HidePlayer(player,player);

@@ -30,8 +30,8 @@ public class SpeedExe implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
-        boolean perm = commandSender.hasPermission("ericlam.speed");
-        boolean permother = commandSender.hasPermission("ericlam.speed.other");
+        boolean perm = commandSender.hasPermission("settings.speed");
+        boolean permother = commandSender.hasPermission("settings.speed.other");
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;

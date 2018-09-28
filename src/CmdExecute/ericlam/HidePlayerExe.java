@@ -28,8 +28,8 @@ public class HidePlayerExe implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
-        boolean perm = commandSender.hasPermission("ericlam.hideplayer");
-        boolean permother = commandSender.hasPermission("ericlam.hideplayer.other");
+        boolean perm = commandSender.hasPermission("settings.hideplayer");
+        boolean permother = commandSender.hasPermission("settings.hideplayer.other");
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;

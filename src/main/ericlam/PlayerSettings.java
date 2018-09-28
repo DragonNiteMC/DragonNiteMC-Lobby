@@ -2,21 +2,15 @@ package main.ericlam;
 import CmdExecute.ericlam.*;
 import Listener.*;
 import MySQL.HyperNite.SQLDataSourceManager;
-import addon.ericlam.MySQL;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.UUID;
 
 import static addon.ericlam.Variable.*;
 
@@ -40,8 +34,8 @@ public class PlayerSettings extends JavaPlugin {
         for (Listener listen : listeners) {
             getServer().getPluginManager().registerEvents(listen, this);
         }
-        addNewFile("Messages.yml");
-        addNewFile("config.yml");
+        addNewFile("Resources/Messages.yml");
+        addNewFile("Resources/config.yml");
         if (yaml) {
             console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
         }

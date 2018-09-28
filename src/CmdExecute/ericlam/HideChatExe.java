@@ -32,8 +32,8 @@ public class HideChatExe implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
-        boolean perm = commandSender.hasPermission("ericlam.hidechat");
-        boolean permother = commandSender.hasPermission("ericlam.hidechat.other");
+        boolean perm = commandSender.hasPermission("settings.hidechat");
+        boolean permother = commandSender.hasPermission("settings.hidechat.other");
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;

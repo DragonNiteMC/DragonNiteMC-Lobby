@@ -26,8 +26,8 @@ public class PingExe implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         boolean terminal = commandSender instanceof ConsoleCommandSender;
-        boolean perm = commandSender.hasPermission("ericlam.ping");
-        boolean permother = commandSender.hasPermission("ericlam.ping.other");
+        boolean perm = commandSender.hasPermission("settings.ping");
+        boolean permother = commandSender.hasPermission("settings.ping.other");
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;

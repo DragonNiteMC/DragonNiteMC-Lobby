@@ -1,0 +1,31 @@
+name: PlayerSettings
+main: main.ericlam.PlayerSettings
+version: 1.0
+api-version: 1.13
+authors: [ericlam, hydranapse_]
+depend: [HyperNiteMC-Core]
+commands:
+  fly:
+    aliases: [flight, sky, elfly]
+    description: fly command
+  heal:
+    aliases: [blood, elheal]
+    description: heal command
+  ping:
+    aliases: elping
+    description: ping command
+  hidechat:
+    aliases: [chathide, ignoreall, elhidechat]
+    description: hide the chat
+  stacker:
+    aliases: [stack, elstacker]
+    description: open stacker
+  speed:
+    aliases: [elspeed, sprint, fast]
+    description: speed command
+  hideplayer:
+    aliases: [elhideplayer, hidep]
+    description: hide all players
+  settings:
+    aliases: [elsettings, playersettings, elmenu]
+    description: open GUI menu
