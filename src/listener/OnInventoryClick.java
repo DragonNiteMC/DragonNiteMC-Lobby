@@ -10,12 +10,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static command.ericlam.SettingsExe.*;
+import static command.ericlam.SettingsExe.changeStatus;
 
 public class OnInventoryClick implements Listener {
     private SpeedExe speedExe;
