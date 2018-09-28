@@ -1,57 +1,50 @@
 package addon.ericlam;
 
-import org.bukkit.ChatColor;
+import functions.hypernite.mc.Functions;
+import main.ericlam.PlayerSettings;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
-import static main.ericlam.PlayerSettings.plugin;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
+import static main.ericlam.PlayerSettings.plugin;
+
 public class Variable {
-    public static Variable var;
-    public static FileConfiguration messagefile = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "Messages.yml"));
-    public static FileConfiguration config = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
-    public static String prefix = returnColoredMessage("General.Prefix");
-    public static String title = returnColoredMessage("Commands.GUI.title");
-    public static String noperm = returnColoredMessage("General.No-Perm");
+    private static Variable plugin;
+    private Functions fs = new Functions(PlayerSettings.plugin);
+    private static Variable var;
+    public static FileConfiguration messagefile = YamlConfiguration.loadConfiguration(new File(PlayerSettings.plugin.getDataFolder(), "Messages.yml"));
+    public static FileConfiguration config = YamlConfiguration.loadConfiguration(new File(PlayerSettings.plugin.getDataFolder(), "config.yml"));
+    public static Variable getInstance() {
+        if (var == null) var = new Variable();
+        return var;
+    }
+    public Functions getFs(){
+        return fs;
+    }
+    public String prefix(){
+        return fs.returnColoredMessage(messagefile, "General.Prefix");
+    }
+    public String title(){
+         return fs.returnColoredMessage(messagefile, "Commands.GUI.title");
+    }
+    public String noperm(){
+        return fs.returnColoredMessage(messagefile, "General.No-Perm");
+    }
     private static String savingtype = config.getString("General.Saving-Type");
     public static boolean yaml = savingtype.equalsIgnoreCase("YAML");
     public static boolean MYsql = savingtype.equalsIgnoreCase("SQL");
 
     synchronized public static void setYml(String YmlName, UUID puuid,boolean status) throws IOException {
-        File data = new File(plugin.getDataFolder(), "PlayerData/"+puuid.toString()+".yml");
+        File data = new File(PlayerSettings.plugin.getDataFolder(), "PlayerData/"+puuid.toString()+".yml");
         FileConfiguration yml = YamlConfiguration.loadConfiguration(data);
         yml.set(YmlName,status);
         yml.save(data);
     }
     public static FileConfiguration uuidYml(UUID uuid){
-        return YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "PlayerData/"+uuid.toString()+".yml"));
-    }
-
-    public static String returnColoredMessage(String messagePath) {
-        String path = messagefile.getString(messagePath);
-        return ChatColor.translateAlternateColorCodes('&', path);
-    }
-
-    public static List<String> returnColoredStringList(String messagePath){
-        List<String> path = messagefile.getStringList(messagePath);
-        List<String> list = new ArrayList<>();
-        for (String ReturnMSG : path){
-            list.add(ChatColor.translateAlternateColorCodes('&',ReturnMSG));
-        }
-        return list;
-    }
-
-    public static void renametoUUID(UUID puuid, Player player) throws IOException {
-        File folder = new File(plugin.getDataFolder(), "PlayerData" + File.separator);
-        File filename = new File(plugin.getDataFolder(),  "PlayerData"+File.separator + puuid.toString() + ".yml");
-        if (!folder.exists()) folder.mkdir();
-        filename.createNewFile();
-        YamlConfiguration.loadConfiguration(filename);
+        return YamlConfiguration.loadConfiguration(new File(PlayerSettings.plugin.getDataFolder(), "PlayerData/"+uuid.toString()+".yml"));
     }
 }

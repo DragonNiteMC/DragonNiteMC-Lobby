@@ -1,4 +1,4 @@
-package CmdExecute.ericlam;
+package command.ericlam;
 
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
@@ -10,11 +10,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import static addon.ericlam.Variable.noperm;
-import static addon.ericlam.Variable.prefix;
+import static addon.ericlam.Variable.messagefile;
 
 public class HealExe implements CommandExecutor{
     private final PlayerSettings plugin;
+    private Variable var = Variable.getInstance();
     public HealExe(PlayerSettings plugin){
         this.plugin = plugin;
     }
@@ -32,23 +32,23 @@ public class HealExe implements CommandExecutor{
                         }else if(permother || terminal){
                             target = Bukkit.getServer().getPlayer(strings[0]);
                             if (target == null){
-                                commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
+                                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
                             }else{ healExector(target, commandSender);}
-                        }else{commandSender.sendMessage(prefix + noperm);}
+                        }else{commandSender.sendMessage(var.prefix() + var.noperm());}
                     return true;
     }
-    public static void healExector(Player name, CommandSender sender){
+    public void healExector(Player name, CommandSender sender){
         int hp = (int) name.getHealth();
         int hg = name.getFoodLevel();
         if (hp < 20 || hg < 20){
             name.setHealth(20);
             name.setFoodLevel(20);
-            name.sendMessage(prefix + Variable.returnColoredMessage("Commands.Heal.active"));
+            name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Heal.active"));
             if (name != sender){
-                sender.sendMessage(prefix + Variable.returnColoredMessage("Commands.Heal.Be-active").replace("<player>", name.getDisplayName()));
+                sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Heal.Be-active").replace("<player>", name.getDisplayName()));
             }
         } else {
-            sender.sendMessage(prefix + Variable.returnColoredMessage(( name == sender ? "Commands.Heal.no-need" : "Commands.Heal.Be-no-need")).replace("<player>",name.getDisplayName()));
+            sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,( name == sender ? "Commands.Heal.no-need" : "Commands.Heal.Be-no-need")).replace("<player>",name.getDisplayName()));
         }
     }
 }

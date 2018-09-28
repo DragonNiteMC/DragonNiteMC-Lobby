@@ -1,12 +1,11 @@
-package CmdExecute.ericlam;
+package command.ericlam;
 
-import MySQL.HyperNite.SQLDataSourceManager;
-import addon.ericlam.MySQL;
+
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
+import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,7 +24,7 @@ import static addon.ericlam.Variable.*;
 public class SpeedExe implements CommandExecutor {
     private final PlayerSettings plugin;
     public SpeedExe(PlayerSettings plugin){ this.plugin = plugin;}
-
+    private Variable var = Variable.getInstance();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -44,7 +43,7 @@ public class SpeedExe implements CommandExecutor {
         } else if(permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
-                commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
+                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
             }else {
                 try {
                     SetSpeed(target, commandSender);
@@ -53,18 +52,18 @@ public class SpeedExe implements CommandExecutor {
                 }
             }
         }else{
-            commandSender.sendMessage(prefix + noperm);
+            commandSender.sendMessage(var.prefix() + var.noperm());
         }
         return true;
     }
 
-    public static void SetSpeed(Player name, CommandSender sender) throws IOException, SQLException {
+    public void SetSpeed(Player name, CommandSender sender) throws IOException, SQLException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
         boolean speed = !p.hasPotionEffect(PotionEffectType.SPEED);
         int amplifier = config.getInt("Speed.Level") - 1;
-        if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getDisplayName()));
-        name.sendMessage(prefix + returnColoredMessage("Commands.Speed.Turn-" + (speed ? "On":"Off")));
+        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getDisplayName()));
+        name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Turn-" + (speed ? "On":"Off")));
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
         if (yaml) Variable.setYml("Speed",puuid,speed);

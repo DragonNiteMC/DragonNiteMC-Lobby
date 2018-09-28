@@ -1,29 +1,29 @@
-package CmdExecute.ericlam;
+package command.ericlam;
 
-import MySQL.HyperNite.SQLDataSourceManager;
-import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
+import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
-import static addon.ericlam.Variable.*;
+import static addon.ericlam.Variable.messagefile;
 
 public class HideChatExe implements CommandExecutor{
     public static Set<UUID> chatdisabled = new HashSet<>();
     private final PlayerSettings plugin;
-
+    private Variable var = Variable.getInstance();
     public HideChatExe(PlayerSettings plugin) {
         this.plugin = plugin;
     }
@@ -46,7 +46,7 @@ public class HideChatExe implements CommandExecutor{
             else commandSender.sendMessage(ChatColor.RED + "Console can only use /hidechat <player>");
         } else if (permother || terminal) {
             target = Bukkit.getPlayer(strings[0]);
-            if (target == null) commandSender.sendMessage(prefix + returnColoredMessage("General.Player-Not-Found"));
+            if (target == null) commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
             else {
                 try {
                     HideChat(target,commandSender);
@@ -54,15 +54,15 @@ public class HideChatExe implements CommandExecutor{
                     e.printStackTrace();
                 }
             }
-        }else{commandSender.sendMessage(prefix + noperm);}
+        }else{commandSender.sendMessage(var.prefix() + var.noperm());}
         return true;
     }
-    public static void HideChat(Player name, CommandSender sender) throws IOException, SQLException {
+    public void HideChat(Player name, CommandSender sender) throws IOException, SQLException {
         Player player = name.getPlayer();
         UUID puuid = player.getUniqueId();
         boolean hide = !chatdisabled.contains(puuid);
-        if (sender != name)  sender.sendMessage(prefix + returnColoredMessage("Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getDisplayName()));
-        name.sendMessage(prefix + returnColoredMessage("Commands.HideChat." + (hide ? "hide" : "show")));
+        if (sender != name)  sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getDisplayName()));
+        name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat." + (hide ? "hide" : "show")));
         if (hide) chatdisabled.add(puuid);
         else chatdisabled.remove(puuid);
         if (Variable.yaml) {

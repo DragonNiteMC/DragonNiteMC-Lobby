@@ -1,11 +1,7 @@
-package CmdExecute.ericlam;
+package command.ericlam;
 
 import addon.ericlam.Variable;
-import com.oracle.deploy.update.UpdateInfo;
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
-import jdk.nashorn.internal.ir.ReturnNode;
 import main.ericlam.PlayerSettings;
-import net.minecraft.server.v1_13_R2.DataWatcher;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,15 +15,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 
-import java.io.IOException;
-import java.sql.Array;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
-import static addon.ericlam.Variable.*;
+import static addon.ericlam.Variable.config;
+import static addon.ericlam.Variable.messagefile;
 
 public class SettingsExe implements CommandExecutor {
     private static SettingsExe setting;
+    private Variable var = Variable.getInstance();
     private static Inventory PlayerSettingGUI;
     private final PlayerSettings plugin;
     public SettingsExe(PlayerSettings plugin){
@@ -47,17 +43,17 @@ public class SettingsExe implements CommandExecutor {
         } else if(permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
-                commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
+                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
             }else {
                     OpenGUI(target, commandSender);
             }
         }else{
-            commandSender.sendMessage(prefix + noperm);
+            commandSender.sendMessage(var.prefix() + var.noperm());
         }
         return true;
     }
     public void getInventoryGUI(){
-        Inventory gui = Bukkit.createInventory(null, 54, title);
+        Inventory gui = Bukkit.createInventory(null, 54, var.title());
         ItemStack[] representItem = {new ItemStack(Material.IRON_BOOTS), new ItemStack(Material.ELYTRA), new ItemStack(Material.PAPER), new ItemStack(Material.PLAYER_HEAD), new ItemStack(Material.STICKY_PISTON)};
         String[] ItemName = {"Speed", "Fly", "HideChat", "HidePlayer", "Stacker"};
         Integer[] ItemSlot = {10, 13, 16, 29, 33};
@@ -76,17 +72,17 @@ public class SettingsExe implements CommandExecutor {
         if (setting == null) setting = new SettingsExe((PlayerSettings) PlayerSettings.plugin);
         return setting;
     }
-    public static void OpenGUI(Player name, CommandSender sender) {
+    public void OpenGUI(Player name, CommandSender sender) {
         Player p = name.getPlayer();
         p.openInventory(PlayerSettingGUI);
-        if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.GUI.be-show").replace("<player>", name.getDisplayName()));
-        if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(prefix + returnColoredMessage("Commands.GUI.show"));
+        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.be-show").replace("<player>", name.getDisplayName()));
+        if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.show"));
         changeStatus(p, PlayerSettingGUI);
     }
-    private static ItemStack AddedMetaItem(ItemStack Material, String ItemName){
-        List<String> list = returnColoredStringList("Commands.GUI.Lore");
+    private ItemStack AddedMetaItem(ItemStack Material, String ItemName){
+        List<String> list = var.getFs().returnColoredStringList(messagefile,"Commands.GUI.Lore");
         ItemMeta MetaName = Material.getItemMeta();
-        MetaName.setDisplayName(returnColoredMessage("Commands.GUI."+ItemName));
+        MetaName.setDisplayName(var.getFs().returnColoredMessage(messagefile,"Commands.GUI."+ItemName));
         MetaName.setLore(list);
         Material.setItemMeta(MetaName);
         return Material;

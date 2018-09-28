@@ -1,4 +1,4 @@
-package CmdExecute.ericlam;
+package command.ericlam;
 
 
 import addon.ericlam.Variable;
@@ -12,13 +12,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import static addon.ericlam.Variable.noperm;
-import static addon.ericlam.Variable.prefix;
+
+import static addon.ericlam.Variable.messagefile;
 
 public class PingExe implements CommandExecutor {
-
     private final PlayerSettings plugin;
-
+    private Variable var = Variable.getInstance();
     public PingExe(PlayerSettings plugin) {
         this.plugin = plugin;
     }
@@ -31,18 +30,18 @@ public class PingExe implements CommandExecutor {
         if (strings.length <= 0 && perm) {
             if (!terminal) {
                 Player player = (Player) commandSender;
-                player.sendMessage(prefix + Variable.returnColoredMessage("Commands.Ping.self").replace("<ping>", "" + getPing(player)));
+                player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Ping.self").replace("<ping>", "" + getPing(player)));
             }
              else commandSender.sendMessage(ChatColor.RED + "Console can only use /ping <player>");
         } else if (permother || terminal) {
             Player target = Bukkit.getServer().getPlayer(strings[0]);
             if (target == null) {
-                commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
+                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
             } else {
-                commandSender.sendMessage(prefix + Variable.returnColoredMessage("Commands.Ping.other").replace("<ping>", "" + getPing(target)).replace("<player>", target.getDisplayName()));
+                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Ping.other").replace("<ping>", "" + getPing(target)).replace("<player>", target.getDisplayName()));
             }
         } else {
-            commandSender.sendMessage(prefix + noperm);
+            commandSender.sendMessage(var.prefix() + var.noperm());
         }
         return true;
     }

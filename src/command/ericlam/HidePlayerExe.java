@@ -1,9 +1,8 @@
-package CmdExecute.ericlam;
+package command.ericlam;
 
-import MySQL.HyperNite.SQLDataSourceManager;
-import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
+import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,14 +14,16 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.UUID;
 
 import static addon.ericlam.Variable.*;
 
 public class HidePlayerExe implements CommandExecutor {
     private final PlayerSettings plugin;
     public HidePlayerExe(PlayerSettings plugin){ this.plugin = plugin;}
-
+    private Variable var = Variable.getInstance();
     public static HashSet<Player> vanished = new HashSet<>();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -42,7 +43,7 @@ public class HidePlayerExe implements CommandExecutor {
         } else if(permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
-                commandSender.sendMessage(prefix + Variable.returnColoredMessage("General.Player-Not-Found"));
+                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
             }else {
                 try {
                     HidePlayer(target, commandSender);
@@ -51,17 +52,17 @@ public class HidePlayerExe implements CommandExecutor {
                 }
             }
         }else{
-            commandSender.sendMessage(prefix + noperm);
+            commandSender.sendMessage(var.prefix() + var.noperm());
         }
         return true;
     }
 
-    public static void HidePlayer(Player name, CommandSender sender) throws IOException, SQLException {
+    public void HidePlayer(Player name, CommandSender sender) throws IOException, SQLException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
         boolean nohide = !vanished.contains(p);
-        if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getDisplayName()));
-        name.sendMessage(prefix + returnColoredMessage("Commands.HidePlayer." + (nohide ? "hide":"show")));
+        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getDisplayName()));
+        name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer." + (nohide ? "hide":"show")));
         Collection<? extends Player> online = Bukkit.getServer().getOnlinePlayers();
         if (nohide) {
             vanished.add(p);

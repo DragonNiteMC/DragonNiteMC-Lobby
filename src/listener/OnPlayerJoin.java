@@ -1,12 +1,12 @@
-package Listener;
+package listener;
 
-import CmdExecute.ericlam.*;
-import MySQL.HyperNite.SQLDataSourceManager;
-import addon.ericlam.MySQL;
+import addon.ericlam.Variable;
+import command.ericlam.*;
+import functions.hypernite.mc.Functions;
 import main.ericlam.PlayerSettings;
+import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.Stack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,10 +21,16 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.*;
-import static addon.ericlam.Variable.config;
-import static addon.ericlam.Variable.prefix;
 
 public class OnPlayerJoin implements Listener {
+    private Variable var = Variable.getInstance();
+    private Functions fs = new Functions(PlayerSettings.plugin);
+    private PlayerSettings ps = (PlayerSettings) PlayerSettings.plugin;
+    private FlyExe FlyExe = new FlyExe(ps);
+    private SpeedExe SpeedExe = new SpeedExe(ps);
+    private HidePlayerExe hidePlayerExe = new HidePlayerExe(ps);
+    private HideChatExe hideChatExe = new HideChatExe(ps);
+    private StackerExe stackerExe = new StackerExe(ps);
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) throws IOException, SQLException {
         Player player = event.getPlayer();
@@ -64,15 +70,15 @@ public class OnPlayerJoin implements Listener {
                 }else if (!speed) player.removePotionEffect(PotionEffectType.SPEED);
                 //HidePlayer Stats
                 if (result.getInt("HidePlayer") == 1){
-                    if (nohide) HidePlayerExe.HidePlayer(player, player);
+                    if (nohide) hidePlayerExe.HidePlayer(player, player);
                 }else if (!nohide) {
-                    HidePlayerExe.HidePlayer(player, player);
+                    hidePlayerExe.HidePlayer(player, player);
                 }
-            } else {player.sendMessage(prefix + ChatColor.RED + "錯誤，我們無法讀取你的UUID數據!");}
+            } else {player.sendMessage(var.prefix() + ChatColor.RED + "錯誤，我們無法讀取你的UUID數據!");}
         }
         if (yaml) {
             //Flight Stats
-            renametoUUID(puuid, player);
+            fs.renametoUUID(puuid, player);
             FileConfiguration uuidFileName = uuidYml(puuid);
             if (uuidFileName.contains("Flight") && uuidFileName.getBoolean("Flight")) {
                 FlyExe.flyExecutor(player, player);
@@ -91,11 +97,11 @@ public class OnPlayerJoin implements Listener {
             }else if (!speed) player.removePotionEffect(PotionEffectType.SPEED);
             //HidePlayer Stats
             if (uuidFileName.contains("HidePlayer") && uuidFileName.getBoolean("HidePlayer")){
-                if (nohide) HidePlayerExe.HidePlayer(player,player);
-            } else if (!nohide) HidePlayerExe.HidePlayer(player,player);
+                if (nohide) hidePlayerExe.HidePlayer(player,player);
+            } else if (!nohide) hidePlayerExe.HidePlayer(player,player);
         }
         if (config.getBoolean("Join-Show-UUID.Enable"))
-            player.sendMessage(prefix + returnColoredMessage("Functions.ShowUUID.JoinMessage").replace("<UUID>", puuid.toString()));
+            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Functions.ShowUUID.JoinMessage").replace("<UUID>", puuid.toString()));
     }
     @EventHandler
     public void HidePlayerOnJoin(PlayerJoinEvent e){

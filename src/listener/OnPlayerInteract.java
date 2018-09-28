@@ -1,6 +1,6 @@
-package Listener;
+package listener;
 
-import main.ericlam.PlayerSettings;
+import addon.ericlam.Variable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -15,6 +15,7 @@ import java.util.List;
 import static addon.ericlam.Variable.*;
 
 public class OnPlayerInteract implements Listener {
+    private Variable var = Variable.getInstance();
     @EventHandler
     public  void onPlayerPush(PlayerInteractEvent event){
         if (event.getAction().equals(Action.LEFT_CLICK_AIR) && event.getPlayer().getPassengers().equals(EntityType.PLAYER)){
@@ -26,7 +27,7 @@ public class OnPlayerInteract implements Listener {
                 toPush.eject();
                 toPush.setVelocity(toPush.getLocation().getDirection().multiply(config.getInt("Stacker.Throw-Power")));
                 toPush.setVelocity(new Vector(toPush.getVelocity().getX(), config.getDouble("Stacker.Throw-Y"), toPush.getVelocity().getZ()));
-                thrower.sendMessage(prefix + returnColoredMessage("Commands.Stacker.pushed" + (toThrow.size() > 1 ? "-all" : "")).replace("<player>", toPush.getDisplayName()));
+                thrower.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.pushed" + (toThrow.size() > 1 ? "-all" : "")).replace("<player>", toPush.getDisplayName()));
             }
         }
     }

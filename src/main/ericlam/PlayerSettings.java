@@ -1,18 +1,20 @@
 package main.ericlam;
-import CmdExecute.ericlam.*;
-import Listener.*;
-import MySQL.HyperNite.SQLDataSourceManager;
+
+import command.ericlam.*;
+import functions.hypernite.mc.Functions;
+import listener.*;
+import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import java.io.File;
+
 import java.sql.SQLException;
 
-import static addon.ericlam.Variable.*;
+import static addon.ericlam.Variable.MYsql;
+import static addon.ericlam.Variable.yaml;
 
 public class PlayerSettings extends JavaPlugin {
     public static Plugin plugin;
@@ -34,8 +36,9 @@ public class PlayerSettings extends JavaPlugin {
         for (Listener listen : listeners) {
             getServer().getPluginManager().registerEvents(listen, this);
         }
-        addNewFile("Messages.yml");
-        addNewFile("config.yml");
+        Functions f = new Functions(this);
+        f.addNewFile("Messages.yml");
+        f.addNewFile("config.yml");
         if (yaml) {
             console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
         }
@@ -50,7 +53,6 @@ public class PlayerSettings extends JavaPlugin {
         }
         SettingsExe start = SettingsExe.getInstance();
         start.getInventoryGUI();
-
         console.sendMessage(ChatColor.YELLOW + "===========================================");
     }
 
@@ -58,10 +60,5 @@ public class PlayerSettings extends JavaPlugin {
         getLogger().info("PlayerSettings Disabled.");
     }
 
-    private static void addNewFile(String pathname) {
-        File filename = new File(plugin.getDataFolder(), pathname);
-        if (!filename.exists()) plugin.saveResource(pathname, true);
-        YamlConfiguration.loadConfiguration(filename);
-    }
 }
 

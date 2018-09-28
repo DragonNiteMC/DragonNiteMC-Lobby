@@ -1,14 +1,9 @@
 package addon.ericlam;
 
-import MySQL.HyperNite.SQLDataSourceManager;
+import mysql.hypernite.mc.SQLDataSourceManager;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import static addon.ericlam.Variable.MYsql;
 
 public class MySQL {
         private Connection connection;
