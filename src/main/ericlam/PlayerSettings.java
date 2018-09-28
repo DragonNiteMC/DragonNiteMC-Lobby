@@ -34,8 +34,8 @@ public class PlayerSettings extends JavaPlugin {
         for (Listener listen : listeners) {
             getServer().getPluginManager().registerEvents(listen, this);
         }
-        addNewFile("Resources/Messages.yml");
-        addNewFile("Resources/config.yml");
+        addNewFile("Messages.yml");
+        addNewFile("config.yml");
         if (yaml) {
             console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
         }

@@ -14,8 +14,8 @@ import java.util.UUID;
 
 public class Variable {
     public static Variable var;
-    public static FileConfiguration messagefile = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "Resources/Messages.yml"));
-    public static FileConfiguration config = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "Resources/config.yml"));
+    public static FileConfiguration messagefile = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "Messages.yml"));
+    public static FileConfiguration config = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
     public static String prefix = returnColoredMessage("General.Prefix");
     public static String title = returnColoredMessage("Commands.GUI.title");
     public static String noperm = returnColoredMessage("General.No-Perm");
