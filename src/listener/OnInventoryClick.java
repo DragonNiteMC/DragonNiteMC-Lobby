@@ -1,6 +1,5 @@
 package listener;
 
-
 import command.ericlam.*;
 import main.ericlam.PlayerSettings;
 import org.bukkit.entity.Player;
