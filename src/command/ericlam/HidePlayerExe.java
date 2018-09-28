@@ -2,7 +2,6 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
-import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,13 +11,13 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.*;
+import static addon.ericlam.Variable.messagefile;
+import static addon.ericlam.Variable.yaml;
 
 public class HidePlayerExe implements CommandExecutor {
     private final PlayerSettings plugin;
@@ -77,12 +76,5 @@ public class HidePlayerExe implements CommandExecutor {
             }
         }
         if (yaml) Variable.setYml("HidePlayer",puuid,nohide);
-        if (MYsql){
-            SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
-            PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET HidePlayer=? WHERE PlayerUUID = ?");
-            ps.setInt(1,(nohide ? 1 : 0));
-            ps.setString(2, puuid.toString());
-            ps.execute();
-        }
     }
 }

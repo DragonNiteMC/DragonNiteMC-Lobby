@@ -3,7 +3,6 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
-import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,7 +12,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -66,13 +64,6 @@ public class FlyExe implements CommandExecutor {
         name.setFlying(fly);
         if (yaml) {
             Variable.setYml("Flight",puuid,fly);
-        }
-        if (Variable.MYsql){
-            SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
-            PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Fly=? WHERE PlayerUUID = ?");
-            ps.setInt(1, (fly ? 1 : 0));
-            ps.setString(2, puuid.toString());
-            ps.execute();
         }
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {

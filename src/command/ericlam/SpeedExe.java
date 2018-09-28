@@ -3,7 +3,6 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
-import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,7 +14,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -67,12 +65,5 @@ public class SpeedExe implements CommandExecutor {
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
         if (yaml) Variable.setYml("Speed",puuid,speed);
-        if (MYsql){
-            SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
-            PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Speed=? WHERE PlayerUUID = ?");
-            ps.setInt(1,(speed ? 1 : 0));
-            ps.setString(2, puuid.toString());
-            ps.execute();
-        }
     }
 }

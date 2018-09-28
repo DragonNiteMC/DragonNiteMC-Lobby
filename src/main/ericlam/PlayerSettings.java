@@ -47,6 +47,7 @@ public class PlayerSettings extends JavaPlugin {
             try {
                 SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
                 mysql.getFuckingConnection().createStatement().execute("CREATE TABLE IF NOT EXISTS `PS_stats` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit, `HideChat` bit, `Stacker` bit, `Speed` bit, `HidePlayer` bit)");
+                mysql.getFuckingConnection().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -40,14 +40,6 @@ public class OnPlayerJoin implements Listener {
         if (MYsql){
             SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
             Connection connection = mysql.getFuckingConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT IGNORE PS_stats VALUES (?, ?, ?, ?, ?, ?);");
-            ps.setString(1, puuid.toString());
-            ps.setInt(2, 0);
-            ps.setInt(3, 0);
-            ps.setInt(4, 0);
-            ps.setInt(5, 0);
-            ps.setInt(6, 0);
-            ps.execute();
             PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM PS_stats WHERE PlayerUUID=?");
             ps2.setString(1, puuid.toString());
             ResultSet result = ps2.executeQuery();

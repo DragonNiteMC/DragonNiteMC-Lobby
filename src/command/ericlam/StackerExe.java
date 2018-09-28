@@ -2,7 +2,6 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
-import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,7 +11,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -72,13 +70,6 @@ public class StackerExe implements CommandExecutor{
             else stackerenabled.remove(puuid);
             if (Variable.yaml) {
                 Variable.setYml("Stacker", puuid, nostack);
-            }
-            if (Variable.MYsql) {
-                SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
-                PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Stacker=? WHERE PlayerUUID = ?");
-                ps.setInt(1, (nostack ? 1 : 0));
-                ps.setString(2, puuid.toString());
-                ps.execute();
             }
         } else sender.sendMessage(var.prefix() + ChatColor.RED + "此功能已被管理員禁用。");
     }
