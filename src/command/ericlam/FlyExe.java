@@ -73,6 +73,8 @@ public class FlyExe implements CommandExecutor {
             ps.setInt(1, (fly ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();
+            mysql.getFuckingConnection().close();
+            ps.close();
         }
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {

@@ -74,6 +74,8 @@ public class HideChatExe implements CommandExecutor{
             ps.setInt(1,(hide ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();
+            mysql.getFuckingConnection().close();
+            ps.close();
         }
     }
 }

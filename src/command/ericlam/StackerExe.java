@@ -79,6 +79,8 @@ public class StackerExe implements CommandExecutor{
                 ps.setInt(1, (nostack ? 1 : 0));
                 ps.setString(2, puuid.toString());
                 ps.execute();
+                mysql.getFuckingConnection().close();
+                ps.close();
             }
         } else sender.sendMessage(var.prefix() + ChatColor.RED + "此功能已被管理員禁用。");
     }

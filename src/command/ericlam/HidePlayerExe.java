@@ -83,6 +83,8 @@ public class HidePlayerExe implements CommandExecutor {
             ps.setInt(1,(nohide ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();
+            mysql.getFuckingConnection().close();
+            ps.close();
         }
     }
 }

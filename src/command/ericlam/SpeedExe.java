@@ -73,6 +73,8 @@ public class SpeedExe implements CommandExecutor {
             ps.setInt(1,(speed ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();
+            mysql.getFuckingConnection().close();
+            ps.close();
         }
     }
 }
