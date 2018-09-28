@@ -2,6 +2,7 @@ package CmdExecute.ericlam;
 
 import addon.ericlam.Variable;
 import com.oracle.deploy.update.UpdateInfo;
+import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import jdk.nashorn.internal.ir.ReturnNode;
 import main.ericlam.PlayerSettings;
 import net.minecraft.server.v1_13_R2.DataWatcher;
@@ -27,8 +28,11 @@ import static addon.ericlam.Variable.*;
 
 public class SettingsExe implements CommandExecutor {
     private static SettingsExe setting;
+    private static Inventory PlayerSettingGUI;
     private final PlayerSettings plugin;
-    public SettingsExe(PlayerSettings plugin){ this.plugin = plugin;}
+    public SettingsExe(PlayerSettings plugin){
+        this.plugin = plugin;
+    }
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -52,8 +56,8 @@ public class SettingsExe implements CommandExecutor {
         }
         return true;
     }
-    public static Inventory getInventoryGUI(){
-        Inventory PlayerSettingGUI = Bukkit.createInventory(null, 54, title);
+    public void getInventoryGUI(){
+        Inventory gui = Bukkit.createInventory(null, 54, title);
         ItemStack[] representItem = {new ItemStack(Material.IRON_BOOTS), new ItemStack(Material.ELYTRA), new ItemStack(Material.PAPER), new ItemStack(Material.PLAYER_HEAD), new ItemStack(Material.STICKY_PISTON)};
         String[] ItemName = {"Speed", "Fly", "HideChat", "HidePlayer", "Stacker"};
         Integer[] ItemSlot = {10, 13, 16, 29, 33};
@@ -61,17 +65,23 @@ public class SettingsExe implements CommandExecutor {
             ItemStack IS = representItem[i];
             String IN = ItemName[i];
             int slot = ItemSlot[i];
-            PlayerSettingGUI.setItem(slot, AddedMetaItem(IS, IN));
+            gui.setItem(slot, AddedMetaItem(IS, IN));
         }
+        PlayerSettingGUI = gui;
+    }
+    public Inventory getGUI(){
         return PlayerSettingGUI;
+    }
+    public static SettingsExe getInstance() {
+        if (setting == null) setting = new SettingsExe((PlayerSettings) PlayerSettings.plugin);
+        return setting;
     }
     public static void OpenGUI(Player name, CommandSender sender) {
         Player p = name.getPlayer();
-        Inventory gui = getInventoryGUI();
-        p.openInventory(gui);
+        p.openInventory(PlayerSettingGUI);
         if (sender != name) sender.sendMessage(prefix + returnColoredMessage("Commands.GUI.be-show").replace("<player>", name.getDisplayName()));
         if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(prefix + returnColoredMessage("Commands.GUI.show"));
-        changeStatus(p, gui);
+        changeStatus(p, PlayerSettingGUI);
     }
     private static ItemStack AddedMetaItem(ItemStack Material, String ItemName){
         List<String> list = returnColoredStringList("Commands.GUI.Lore");

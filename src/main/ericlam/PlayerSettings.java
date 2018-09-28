@@ -55,6 +55,9 @@ public class PlayerSettings extends JavaPlugin {
                 console.sendMessage(ChatColor.RED + "Cannot connect to MySQL !");
             }
         }
+        SettingsExe start = SettingsExe.getInstance();
+        start.getInventoryGUI();
+
         console.sendMessage(ChatColor.YELLOW + "===========================================");
     }
 

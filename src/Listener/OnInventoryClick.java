@@ -27,28 +27,33 @@ public class OnInventoryClick implements Listener {
         ItemStack clicked = event.getCurrentItem();
         if(inventory == null) return;
         if(event.getSlotType() == InventoryType.SlotType.OUTSIDE) return;
-            if (inventory.getName().equals(getInventoryGUI().getName())) {
+            SettingsExe gui = SettingsExe.getInstance();
+            if (inventory.getName().equals(gui.getGUI().getName())) {
                 switch (clicked.getType()) {
                     case IRON_BOOTS:
                         SpeedExe.SetSpeed(player, player);
+                        changeStatus(player, gui.getGUI());
                         break;
                     case ELYTRA:
                         FlyExe.flyExecutor(player, player);
+                        changeStatus(player, gui.getGUI());
                         break;
                     case PAPER:
                         HideChatExe.HideChat(player, player);
+                        changeStatus(player, gui.getGUI());
                         break;
                     case PLAYER_HEAD:
                         HidePlayerExe.HidePlayer(player, player);
+                        changeStatus(player, gui.getGUI());
                         break;
                     case STICKY_PISTON:
                         StackerExe.StackerOn(player, player);
+                        changeStatus(player, gui.getGUI());
                         break;
                     default:
                         event.setCancelled(true);
                         break;
                 }
-                changeStatus(player, inventory);
             }
         event.setCancelled(true);
     }
