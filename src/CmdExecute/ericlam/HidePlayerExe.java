@@ -1,5 +1,6 @@
 package CmdExecute.ericlam;
 
+import MySQL.HyperNite.SQLDataSourceManager;
 import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
@@ -76,8 +77,8 @@ public class HidePlayerExe implements CommandExecutor {
         }
         if (yaml) Variable.setYml("HidePlayer",puuid,nohide);
         if (MYsql){
-            MySQL mysql = MySQL.getinstance();
-            PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET HidePlayer=? WHERE PlayerUUID = ?");
+            SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
+            PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET HidePlayer=? WHERE PlayerUUID = ?");
             ps.setInt(1,(nohide ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();

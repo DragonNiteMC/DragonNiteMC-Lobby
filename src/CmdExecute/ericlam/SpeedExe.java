@@ -1,5 +1,6 @@
 package CmdExecute.ericlam;
 
+import MySQL.HyperNite.SQLDataSourceManager;
 import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
@@ -68,8 +69,8 @@ public class SpeedExe implements CommandExecutor {
         else p.removePotionEffect(PotionEffectType.SPEED);
         if (yaml) Variable.setYml("Speed",puuid,speed);
         if (MYsql){
-            MySQL mysql = MySQL.getinstance();
-            PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Speed=? WHERE PlayerUUID = ?");
+            SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
+            PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Speed=? WHERE PlayerUUID = ?");
             ps.setInt(1,(speed ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();

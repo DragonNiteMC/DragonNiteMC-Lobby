@@ -1,13 +1,6 @@
 General:
   #Saveing-Type 可以是 SQL 或 YAML。
   Saving-Type: yaml
-  MySQL:
-    host: node2.hypernite.com
-    port: 3306
-    username: lcw
-    password: "password"
-    database: test
-    table: Status
 ChatFilter:
   Enable: true
   List:

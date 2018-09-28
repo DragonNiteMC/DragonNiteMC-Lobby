@@ -1,6 +1,7 @@
 package main.ericlam;
 import CmdExecute.ericlam.*;
 import Listener.*;
+import MySQL.HyperNite.SQLDataSourceManager;
 import addon.ericlam.MySQL;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -12,6 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
@@ -44,15 +46,12 @@ public class PlayerSettings extends JavaPlugin {
             console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
         }
         if(MYsql) {
-            MySQL mysql = MySQL.getinstance();
             console.sendMessage(ChatColor.AQUA + "Using MYSQL as saving Type.");
             try {
-                mysql.openConnection();
-                Statement statment = mysql.connection.createStatement();
-                statment.execute("CREATE TABLE IF NOT EXISTS `"+table+ "` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit, `HideChat` bit, `Stacker` bit, `Speed` bit, `HidePlayer` bit)");
-            } catch (SQLException | ClassNotFoundException e) {
+                SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
+                mysql.getFuckingConnection().createStatement().execute("CREATE TABLE IF NOT EXISTS `PS_stats` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit, `HideChat` bit, `Stacker` bit, `Speed` bit, `HidePlayer` bit)");
+            } catch (SQLException e) {
                 e.printStackTrace();
-                console.sendMessage(ChatColor.RED + "Cannot connect to MySQL !");
             }
         }
         SettingsExe start = SettingsExe.getInstance();

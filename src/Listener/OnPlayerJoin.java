@@ -1,6 +1,7 @@
 package Listener;
 
 import CmdExecute.ericlam.*;
+import MySQL.HyperNite.SQLDataSourceManager;
 import addon.ericlam.MySQL;
 import main.ericlam.PlayerSettings;
 import org.bukkit.ChatColor;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,8 +32,9 @@ public class OnPlayerJoin implements Listener {
         boolean speed = !player.hasPotionEffect(PotionEffectType.SPEED);
         boolean nohide = !HidePlayerExe.vanished.contains(player);
         if (MYsql){
-            MySQL mysql = MySQL.getinstance();
-            PreparedStatement ps = mysql.connection.prepareStatement("INSERT IGNORE " + table + " VALUES (?, ?, ?, ?, ?, ?);");
+            SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
+            Connection connection = mysql.getFuckingConnection();
+            PreparedStatement ps = connection.prepareStatement("INSERT IGNORE PS_stats VALUES (?, ?, ?, ?, ?, ?);");
             ps.setString(1, puuid.toString());
             ps.setInt(2, 0);
             ps.setInt(3, 0);
@@ -39,7 +42,7 @@ public class OnPlayerJoin implements Listener {
             ps.setInt(5, 0);
             ps.setInt(6, 0);
             ps.execute();
-            PreparedStatement ps2 = mysql.connection.prepareStatement("SELECT * FROM " + table + " WHERE PlayerUUID=?");
+            PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM PS_stats WHERE PlayerUUID=?");
             ps2.setString(1, puuid.toString());
             ResultSet result = ps2.executeQuery();
             if (result.next()) {

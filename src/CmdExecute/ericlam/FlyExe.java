@@ -1,6 +1,7 @@
 package CmdExecute.ericlam;
 
 
+import MySQL.HyperNite.SQLDataSourceManager;
 import addon.ericlam.MySQL;
 import addon.ericlam.Variable;
 import main.ericlam.PlayerSettings;
@@ -70,8 +71,8 @@ public class FlyExe implements CommandExecutor {
             Variable.setYml("Flight",puuid,fly);
         }
         if (Variable.MYsql){
-            MySQL mysql = MySQL.getinstance();
-            PreparedStatement ps = mysql.connection.prepareStatement("UPDATE "+table+" SET Fly=? WHERE PlayerUUID = ?");
+            SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
+            PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Fly=? WHERE PlayerUUID = ?");
             ps.setInt(1, (fly ? 1 : 0));
             ps.setString(2, puuid.toString());
             ps.execute();
