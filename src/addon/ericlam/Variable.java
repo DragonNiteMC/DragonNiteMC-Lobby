@@ -4,13 +4,10 @@ import functions.hypernite.mc.Functions;
 import main.ericlam.PlayerSettings;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
-
-import static main.ericlam.PlayerSettings.plugin;
 
 public class Variable {
     private static Variable plugin;
@@ -36,7 +33,7 @@ public class Variable {
     }
     private static String savingtype = config.getString("General.Saving-Type");
     public static boolean yaml = savingtype.equalsIgnoreCase("YAML");
-    public static boolean MYsql = savingtype.equalsIgnoreCase("SQL");
+    public static boolean mysql = savingtype.equalsIgnoreCase("SQL");
 
     synchronized public static void setYml(String YmlName, UUID puuid,boolean status) throws IOException {
         File data = new File(PlayerSettings.plugin.getDataFolder(), "PlayerData/"+puuid.toString()+".yml");

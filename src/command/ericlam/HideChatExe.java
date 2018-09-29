@@ -1,6 +1,7 @@
 package command.ericlam;
 
 import addon.ericlam.Variable;
+import com.caxerx.mc.PlayerSettingManager;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,14 +13,11 @@ import org.bukkit.entity.Player;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.messagefile;
 
 public class HideChatExe implements CommandExecutor{
-    public static Set<UUID> chatdisabled = new HashSet<>();
     private final PlayerSettings plugin;
     private Variable var = Variable.getInstance();
     public HideChatExe(PlayerSettings plugin) {
@@ -55,17 +53,17 @@ public class HideChatExe implements CommandExecutor{
         }else{commandSender.sendMessage(var.prefix() + var.noperm());}
         return true;
     }
+
     public void HideChat(Player name, CommandSender sender) throws IOException, SQLException {
         Player player = name.getPlayer();
         UUID puuid = player.getUniqueId();
-        boolean hide = !chatdisabled.contains(puuid);
+        PlayerSettingManager psm = PlayerSettingManager.getInstance();
+        boolean hide = !psm.getPlayerSetting(puuid).isHideChat();
         if (sender != name)  sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getDisplayName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat." + (hide ? "hide" : "show")));
-        if (hide) chatdisabled.add(puuid);
-        else chatdisabled.remove(puuid);
-        if (Variable.yaml) {
-            Variable.setYml("HideChat",puuid,hide);
-        }
+        psm.getPlayerSetting(puuid).setHideChat(hide);
+        if (Variable.yaml) Variable.setYml("HideChat",puuid,hide);
+        if (Variable.mysql) PlayerSettingManager.getInstance().getPlayerSetting(puuid).setHideChat(hide);
     }
 }
 

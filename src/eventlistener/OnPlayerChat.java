@@ -1,7 +1,7 @@
 package eventlistener;
 
 import addon.ericlam.Variable;
-import command.ericlam.HideChatExe;
+import com.caxerx.mc.PlayerSettingManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,16 +54,17 @@ public class OnPlayerChat implements Listener {
         }
     }
     @EventHandler
-    public void onHideChat(AsyncPlayerChatEvent event) {
+    public void onHideChat(AsyncPlayerChatEvent event) throws SQLException {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        if (HideChatExe.chatdisabled.contains(puuid)) {
+        PlayerSettingManager psm = PlayerSettingManager.getInstance();
+        if (psm.getPlayerSetting(puuid).isHideChat()) {
             event.setCancelled(true);
             event.getRecipients().remove(player);
             player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.hidden"));
         }
         for (Player pl : event.getRecipients()) {
-            if (HideChatExe.chatdisabled.contains(pl.getUniqueId())) event.getRecipients().remove(pl);
+            if (psm.getPlayerSetting(pl.getUniqueId()).isHideChat()) event.getRecipients().remove(pl);
         }
     }
 

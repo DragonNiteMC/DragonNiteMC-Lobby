@@ -1,6 +1,7 @@
 package command.ericlam;
 
 import addon.ericlam.Variable;
+import com.caxerx.mc.PlayerSettingManager;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,8 +13,6 @@ import org.bukkit.entity.Player;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.messagefile;
@@ -23,7 +22,6 @@ public class HidePlayerExe implements CommandExecutor {
     private final PlayerSettings plugin;
     public HidePlayerExe(PlayerSettings plugin){ this.plugin = plugin;}
     private Variable var = Variable.getInstance();
-    public static HashSet<Player> vanished = new HashSet<>();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -59,22 +57,18 @@ public class HidePlayerExe implements CommandExecutor {
     public void HidePlayer(Player name, CommandSender sender) throws IOException, SQLException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
-        boolean nohide = !vanished.contains(p);
+        PlayerSettingManager psm = PlayerSettingManager.getInstance();
+        boolean nohide = !psm.getPlayerSetting(puuid).isHidePlayer();
         if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getDisplayName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer." + (nohide ? "hide":"show")));
-        Collection<? extends Player> online = Bukkit.getServer().getOnlinePlayers();
-        if (nohide) {
-            vanished.add(p);
-            for (Player onlinep : online) {
-                p.hidePlayer(PlayerSettings.plugin, onlinep);
-            }
-        }
-        else {
-            vanished.remove(p);
-            for (Player onlinep : online) {
-                p.showPlayer(PlayerSettings.plugin, onlinep);
-            }
-        }
+        psm.getPlayerSetting(puuid).setHidePlayer(nohide);
+           for (Player onlinep : Bukkit.getServer().getOnlinePlayers()) {
+               if (nohide) {
+                   p.showPlayer(PlayerSettings.plugin, onlinep);
+               } else {
+                   p.hidePlayer(PlayerSettings.plugin, onlinep);
+               }
+           }
         if (yaml) Variable.setYml("HidePlayer",puuid,nohide);
     }
 }

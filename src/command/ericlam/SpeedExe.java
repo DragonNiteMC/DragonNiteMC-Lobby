@@ -2,6 +2,7 @@ package command.ericlam;
 
 
 import addon.ericlam.Variable;
+import com.caxerx.mc.PlayerSettingManager;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,12 +59,14 @@ public class SpeedExe implements CommandExecutor {
     public void SetSpeed(Player name, CommandSender sender) throws IOException, SQLException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
-        boolean speed = !p.hasPotionEffect(PotionEffectType.SPEED);
+        PlayerSettingManager psm = PlayerSettingManager.getInstance();
+        boolean speed = !psm.getPlayerSetting(puuid).isSpeed();
         int amplifier = config.getInt("Speed.Level") - 1;
         if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getDisplayName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Turn-" + (speed ? "On":"Off")));
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
+        psm.getPlayerSetting(puuid).setSpeed(speed);
         if (yaml) Variable.setYml("Speed",puuid,speed);
     }
 }

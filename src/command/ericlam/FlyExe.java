@@ -2,6 +2,7 @@ package command.ericlam;
 
 
 import addon.ericlam.Variable;
+import com.caxerx.mc.PlayerSettingManager;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -59,12 +60,13 @@ public class FlyExe implements CommandExecutor {
     public void flyExecutor(Player name,CommandSender sender) throws IOException, SQLException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
-        boolean fly = !p.getAllowFlight();
+        PlayerSettingManager psm = PlayerSettingManager.getInstance();
+        boolean fly = !psm.getPlayerSetting(puuid).isFly();
         name.setAllowFlight(fly);
         name.setFlying(fly);
-        if (yaml) {
-            Variable.setYml("Flight",puuid,fly);
-        }
+        if (yaml) Variable.setYml("Flight",puuid,fly);
+        psm.getPlayerSetting(puuid).setFly(fly);
+        if (Variable.mysql) PlayerSettingManager.getInstance().getPlayerSetting(puuid).setFly(fly);
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {
             sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getDisplayName()));

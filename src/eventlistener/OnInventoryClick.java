@@ -1,5 +1,7 @@
 package eventlistener;
 
+import addon.ericlam.GUIBuilder;
+import com.caxerx.mc.PlayerSettingManager;
 import command.ericlam.*;
 import main.ericlam.PlayerSettings;
 import org.bukkit.entity.Player;
@@ -12,8 +14,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
-import static command.ericlam.SettingsExe.changeStatus;
 
 public class OnInventoryClick implements Listener {
     private SpeedExe speedExe;
@@ -36,30 +36,31 @@ public class OnInventoryClick implements Listener {
         Player player = (Player) event.getWhoClicked();
         Inventory inventory = event.getClickedInventory();
         ItemStack clicked = event.getCurrentItem();
+        PlayerSettingManager psm = PlayerSettingManager.getInstance();
+        GUIBuilder gui = GUIBuilder.getInstance();
         if (inventory == null) return;
         if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) return;
-        SettingsExe gui = SettingsExe.getInstance();
         if (inventory.getName().equals(gui.getGUI().getName())) {
             switch (clicked.getType()) {
                 case IRON_BOOTS:
                     speedExe.SetSpeed(player, player);
-                    changeStatus(player, gui.getGUI());
+                    gui.changeStatus(player);
                     break;
                 case ELYTRA:
                     flyExe.flyExecutor(player, player);
-                    changeStatus(player, gui.getGUI());
+                    gui.changeStatus(player);
                     break;
                 case PAPER:
                     hideChatExe.HideChat(player, player);
-                    changeStatus(player, gui.getGUI());
+                    gui.changeStatus(player);
                     break;
                 case PLAYER_HEAD:
                     hidePlayerExe.HidePlayer(player, player);
-                    changeStatus(player, gui.getGUI());
+                    gui.changeStatus(player);
                     break;
                 case STICKY_PISTON:
                     stackerExe.StackerOn(player, player);
-                    changeStatus(player, gui.getGUI());
+                    gui.changeStatus(player);
                     break;
                 default:
                     event.setCancelled(true);

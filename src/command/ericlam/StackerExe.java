@@ -1,6 +1,7 @@
 package command.ericlam;
 
 import addon.ericlam.Variable;
+import com.caxerx.mc.PlayerSettingManager;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,15 +13,12 @@ import org.bukkit.entity.Player;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.config;
 import static addon.ericlam.Variable.messagefile;
 
 public class StackerExe implements CommandExecutor{
-    public static Set<UUID> stackerenabled = new HashSet<>();
     private final PlayerSettings plugin;
     private Variable var = Variable.getInstance();
     public StackerExe(PlayerSettings plugin) {
@@ -62,12 +60,12 @@ public class StackerExe implements CommandExecutor{
         if (config.getBoolean("Stacker.Enable")) {
             Player player = name.getPlayer();
             UUID puuid = player.getUniqueId();
-            boolean nostack = !stackerenabled.contains(puuid);
+            PlayerSettingManager psm = PlayerSettingManager.getInstance();
+            boolean nostack = !psm.getPlayerSetting(puuid).isStacker();
             if (sender != name)
                 sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getDisplayName()));
             name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker." + (nostack ? "enable" : "disable")));
-            if (nostack) stackerenabled.add(puuid);
-            else stackerenabled.remove(puuid);
+            psm.getPlayerSetting(puuid).setStacker(nostack);
             if (Variable.yaml) {
                 Variable.setYml("Stacker", puuid, nostack);
             }
