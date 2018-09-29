@@ -67,8 +67,8 @@ public class OnPlayerJoin implements Listener {
     public void HidePlayerOnJoin(PlayerJoinEvent e) throws SQLException {
         Player target = e.getPlayer();
         Collection<? extends Player> players = Bukkit.getServer().getOnlinePlayers();
-        players.remove(target);
         for (Player player : players){
+            if (player == target) continue;
             if (psm.getPlayerSetting(player.getUniqueId()).isHidePlayer()) player.hidePlayer(PlayerSettings.plugin, target);
         }
     }
