@@ -2,6 +2,7 @@ package main.ericlam;
 
 import addon.ericlam.GUIBuilder;
 import addon.ericlam.Variable;
+import com.caxerx.mc.PlayerSettingManager;
 import command.ericlam.*;
 import eventlistener.*;
 import functions.hypernite.mc.Functions;
@@ -60,6 +61,12 @@ public class PlayerSettings extends JavaPlugin {
     }
 
     public void onDisable() {
+        try {
+            PlayerSettingManager.getInstance().saveAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Can't save all player's data, a data loss can be cause.");
+        }
         getLogger().info("PlayerSettings Disabled.");
     }
 

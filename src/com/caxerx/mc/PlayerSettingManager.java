@@ -62,10 +62,10 @@ public class PlayerSettingManager {
         return setting;
     }
 
-    public PlayerConfigStatus getPlayerSettingFromYaml(UUID player){
+    public PlayerConfigStatus getPlayerSettingFromYaml(UUID player) {
         if (playerSettingMap.containsKey(player)) return playerSettingMap.get(player);
         PlayerConfigStatus setting;
-        if (new File(PlayerSettings.plugin.getDataFolder(), "PlayerData/"+player.toString()+".yml").exists()) {
+        if (new File(PlayerSettings.plugin.getDataFolder(), "PlayerData/" + player.toString() + ".yml").exists()) {
             boolean fly = Variable.uuidYml(player).getBoolean("Flight");
             boolean hideChat = Variable.uuidYml(player).getBoolean("HideChat");
             boolean stacker = Variable.uuidYml(player).getBoolean("Stacker");
@@ -106,6 +106,12 @@ public class PlayerSettingManager {
             if (retry > 5) throw e;
             connection = dsm.getFuckingConnection();
             savePlayerSetting(player, retry + 1);
+        }
+    }
+
+    public void saveAll() throws SQLException {
+        for (UUID player : playerSettingMap.keySet()) {
+            savePlayerSetting(player, 0);
         }
     }
 }
