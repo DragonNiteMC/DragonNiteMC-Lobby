@@ -1,4 +1,4 @@
-package listener;
+package eventlistener;
 
 import command.ericlam.*;
 import main.ericlam.PlayerSettings;

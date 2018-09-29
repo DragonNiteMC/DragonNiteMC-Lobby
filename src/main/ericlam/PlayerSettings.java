@@ -1,8 +1,8 @@
 package main.ericlam;
 
 import command.ericlam.*;
+import eventlistener.*;
 import functions.hypernite.mc.Functions;
-import listener.*;
 import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -32,7 +32,7 @@ public class PlayerSettings extends JavaPlugin {
             CommandExecutor cmdexe = cmdexecutor[i];
             this.getCommand(cmd).setExecutor(cmdexe);
         }
-        Listener[] listeners = {new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak(), new OnInventoryClick()};
+        Listener[] listeners = {new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak(), new OnInventoryClick(), new OnPlayerLeave()};
         for (Listener listen : listeners) {
             getServer().getPluginManager().registerEvents(listen, this);
         }

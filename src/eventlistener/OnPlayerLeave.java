@@ -1,4 +1,4 @@
-package listener;
+package eventlistener;
 
 import addon.ericlam.Variable;
 import command.ericlam.HideChatExe;
@@ -56,7 +56,7 @@ public class OnPlayerLeave implements Listener {
                 public void run() {
                     try {
                         SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
-                        PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Fly=?, Spped=?, HidePlayer=?, HideChat=?, Stacker=? WHERE PlayerUUID = ?");
+                        PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Fly=?, Speed=?, HidePlayer=?, HideChat=?, Stacker=? WHERE PlayerUUID = ?");
                         ps.setInt(1, (Fly ? 1 : 0));
                         ps.setInt(2, (Speed ? 1 : 0));
                         ps.setInt(3, (HidePlayer ? 1 : 0));

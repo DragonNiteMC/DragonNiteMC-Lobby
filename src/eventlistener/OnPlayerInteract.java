@@ -1,4 +1,4 @@
-package listener;
+package eventlistener;
 
 import addon.ericlam.Variable;
 import org.bukkit.entity.Entity;
@@ -12,7 +12,8 @@ import org.bukkit.util.Vector;
 
 import java.util.List;
 
-import static addon.ericlam.Variable.*;
+import static addon.ericlam.Variable.config;
+import static addon.ericlam.Variable.messagefile;
 
 public class OnPlayerInteract implements Listener {
     private Variable var = Variable.getInstance();

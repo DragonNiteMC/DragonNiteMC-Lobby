@@ -1,6 +1,5 @@
-package listener;
+package eventlistener;
 
-import addon.ericlam.Variable;
 import functions.hypernite.mc.Functions;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Location;
