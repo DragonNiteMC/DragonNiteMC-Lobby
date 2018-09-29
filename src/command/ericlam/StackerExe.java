@@ -66,9 +66,7 @@ public class StackerExe implements CommandExecutor{
                 sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getDisplayName()));
             name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker." + (nostack ? "enable" : "disable")));
             psm.getPlayerSetting(puuid).setStacker(nostack);
-            if (Variable.yaml) {
-                Variable.setYml("Stacker", puuid, nostack);
-            }
+            if (Variable.yaml) Variable.setYml("Stacker", puuid, nostack);
         } else sender.sendMessage(var.prefix() + ChatColor.RED + "此功能已被管理員禁用。");
     }
 }

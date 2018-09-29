@@ -66,7 +66,6 @@ public class FlyExe implements CommandExecutor {
         name.setFlying(fly);
         if (yaml) Variable.setYml("Flight",puuid,fly);
         psm.getPlayerSetting(puuid).setFly(fly);
-        if (Variable.mysql) PlayerSettingManager.getInstance().getPlayerSetting(puuid).setFly(fly);
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {
             sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getDisplayName()));

@@ -63,7 +63,6 @@ public class HideChatExe implements CommandExecutor{
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat." + (hide ? "hide" : "show")));
         psm.getPlayerSetting(puuid).setHideChat(hide);
         if (Variable.yaml) Variable.setYml("HideChat",puuid,hide);
-        if (Variable.mysql) PlayerSettingManager.getInstance().getPlayerSetting(puuid).setHideChat(hide);
     }
 }
 
