@@ -104,7 +104,6 @@ public class PlayerSettings extends JavaPlugin {
                     e.printStackTrace();
                 }
             }
-            player.kickPlayer(ChatColor.GREEN + "伺服器正在重啟中。");
         }
         getLogger().info("PlayerSettings Disabled.");
         }
