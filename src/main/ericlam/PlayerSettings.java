@@ -1,17 +1,23 @@
 package main.ericlam;
 
+import addon.ericlam.Variable;
 import command.ericlam.*;
 import eventlistener.*;
 import functions.hypernite.mc.Functions;
 import mysql.hypernite.mc.SQLDataSourceManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffectType;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import static addon.ericlam.Variable.MYsql;
 import static addon.ericlam.Variable.yaml;
@@ -58,8 +64,50 @@ public class PlayerSettings extends JavaPlugin {
     }
 
     public void onDisable() {
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            UUID puuid = player.getUniqueId();
+            boolean Fly = player.getAllowFlight();
+            boolean Speed = player.hasPotionEffect(PotionEffectType.SPEED);
+            boolean HidePlayer = HidePlayerExe.vanished.contains(player);
+            boolean HideChat = HideChatExe.chatdisabled.contains(puuid);
+            boolean Stacker = StackerExe.stackerenabled.contains(puuid);
+            if (Variable.MYsql) {
+                try {
+                    SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
+                    PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("INSERT IGNORE PS_stats VALUES (?, ?, ?, ?, ?, ?);");
+                    ps.setString(1, puuid.toString());
+                    ps.setInt(2, 0);
+                    ps.setInt(3, 0);
+                    ps.setInt(4, 0);
+                    ps.setInt(5, 0);
+                    ps.setInt(6, 0);
+                    ps.execute();
+                    ps.close();
+                    mysql.getFuckingConnection().close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();
+                    PreparedStatement ps = mysql.getFuckingConnection().prepareStatement("UPDATE PS_stats SET Fly=?, Speed=?, HidePlayer=?, HideChat=?, Stacker=? WHERE PlayerUUID = ?");
+                    ps.setInt(1, (Fly ? 1 : 0));
+                    ps.setInt(2, (Speed ? 1 : 0));
+                    ps.setInt(3, (HidePlayer ? 1 : 0));
+                    ps.setInt(4, (HideChat ? 1 : 0));
+                    ps.setInt(5, (Stacker ? 1 : 0));
+                    ps.setString(6, puuid.toString());
+                    ps.execute();
+                    ps.close();
+                    mysql.getFuckingConnection().close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         getLogger().info("PlayerSettings Disabled.");
+        }
+
     }
 
-}
 
