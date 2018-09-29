@@ -2,7 +2,6 @@ package eventlistener;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import command.ericlam.*;
 import functions.hypernite.mc.Functions;
 import main.ericlam.PlayerSettings;
 import org.bukkit.Bukkit;
@@ -23,12 +22,6 @@ import static addon.ericlam.Variable.*;
 public class OnPlayerJoin implements Listener {
     private Variable var = Variable.getInstance();
     private Functions fs = new Functions(PlayerSettings.plugin);
-    private PlayerSettings ps = (PlayerSettings) PlayerSettings.plugin;
-    private FlyExe FlyExe = new FlyExe(ps);
-    private SpeedExe SpeedExe = new SpeedExe(ps);
-    private HidePlayerExe hidePlayerExe = new HidePlayerExe(ps);
-    private HideChatExe hideChatExe = new HideChatExe(ps);
-    private StackerExe stackerExe = new StackerExe(ps);
     private PlayerSettingManager psm = PlayerSettingManager.getInstance();
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) throws IOException, SQLException {
