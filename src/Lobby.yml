@@ -1,4 +1,5 @@
 tablist:
-  header: "&6&lHyperNiteMC"
+  header: "HyperNiteMC"
+  color: "gold"
 join:
   donor-msg: "&b加入// &e<player>"

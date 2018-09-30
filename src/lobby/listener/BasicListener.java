@@ -49,13 +49,14 @@ public class BasicListener implements Listener {
     private TablistBuilder tb = TablistBuilder.getInstance();
     private Functions fs = new Functions(HyperNiteMC.plugin);
 
-    @EventHandler
+    /*@EventHandler
     public void changeTablistTitle(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        String header = fs.returnColoredMessage(Variable.lobbyfile, "tablist.header");
-        tb.setPlayerTablist(player, header);
+        String header = Variable.lobbyfile.getString("tablist.header");
+        String color = Variable.lobbyfile.getString("tablist.color");
+        tb.setTablistHeader(player, header, color);
 
-    }
+    }*/
 
     @EventHandler
     public void CustomJoinMSG(PlayerJoinEvent e){
