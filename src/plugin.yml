@@ -32,3 +32,6 @@ commands:
   setlobby:
     aliases: [lobbyset, setspawn]
     description: set the lobby spawn location
+  spawn:
+    aliases: respawn
+    description: teleport to spawn

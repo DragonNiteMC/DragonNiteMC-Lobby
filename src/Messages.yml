@@ -43,6 +43,9 @@ Commands:
     disactive: "&c你沒有開啟層層疊!"
     be-disactive: "&c對方沒有開啟層層疊!"
     Max: "&7你已達到可疊加的玩家數量上限。"
+  spawn:
+    send: "&a正傳送你回大廳重生點..."
+    be-send: "&a你傳送了 &e<player> &a回大廳重生點。"
   GUI:
     show: "&a已為你打開設定選單。"
     be-show: "&a已為 &e<player> &a打開設定選單。"

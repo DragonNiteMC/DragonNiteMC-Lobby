@@ -4,7 +4,8 @@ tablist:
 join:
   donor-msg: "&b加入// &e<player>"
 spawntp:
-  world: lobby
-  x: 0.0
-  y: 85.0
-  z: 0.58
+  # 你需要使用 /setlobby 來設置重生點
+  world: spawnTpWorld
+  x:
+  y:
+  z:

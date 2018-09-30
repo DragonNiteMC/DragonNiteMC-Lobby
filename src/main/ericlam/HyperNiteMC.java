@@ -25,11 +25,11 @@ public class HyperNiteMC extends JavaPlugin {
         ConsoleCommandSender console = getServer().getConsoleSender();
         console.sendMessage(ChatColor.YELLOW + "===========================================");
         console.sendMessage(ChatColor.GOLD + "HyperNiteMC Lobby Enabled!");
-        String[] commands = {"fly", "heal", "ping", "hidechat", "stacker", "speed", "hideplayer", "Settings", "setlobby"};
+        String[] commands = {"fly", "heal", "ping", "hidechat", "stacker", "speed", "hideplayer", "Settings", "setlobby", "spawn"};
 
         CommandExecutor[] cmdexecutor = {
                 new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this),
-                new SpeedExe(this), new HidePlayerExe(this), new SettingsExe(this), new SetLobbyExe(this)};
+                new SpeedExe(this), new HidePlayerExe(this), new SettingsExe(this), new SetLobbyExe(this), new SpawnExe(this)};
 
         for (int i = 0; i < commands.length; i++) {
             String cmd = commands[i];
