@@ -3,3 +3,8 @@ tablist:
   color: "gold"
 join:
   donor-msg: "&b加入// &e<player>"
+spawntp:
+  world: lobby
+  x: 0.0
+  y: 85.0
+  z: 0.58

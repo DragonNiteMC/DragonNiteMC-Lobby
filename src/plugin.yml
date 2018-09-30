@@ -29,3 +29,6 @@ commands:
   settings:
     aliases: [elsettings, playersettings, elmenu]
     description: open GUI menu
+  setlobby:
+    aliases: [lobbyset, setspawn]
+    description: set the lobby spawn location
