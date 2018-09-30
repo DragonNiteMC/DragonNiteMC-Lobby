@@ -1,7 +1,7 @@
 package command.ericlam;
 
 import addon.ericlam.Variable;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 import static addon.ericlam.Variable.messagefile;
 
 public class HealExe implements CommandExecutor{
-    private final PlayerSettings plugin;
-    private Variable var = Variable.getInstance();
-    public HealExe(PlayerSettings plugin){
+    private final HyperNiteMC plugin;
+    private Variable var = new Variable();
+    public HealExe(HyperNiteMC plugin){
         this.plugin = plugin;
     }
         @Override
@@ -45,10 +45,10 @@ public class HealExe implements CommandExecutor{
             name.setFoodLevel(20);
             name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Heal.active"));
             if (name != sender){
-                sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Heal.Be-active").replace("<player>", name.getDisplayName()));
+                sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Heal.Be-active").replace("<player>", name.getName()));
             }
         } else {
-            sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,( name == sender ? "Commands.Heal.no-need" : "Commands.Heal.Be-no-need")).replace("<player>",name.getDisplayName()));
+            sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,( name == sender ? "Commands.Heal.no-need" : "Commands.Heal.Be-no-need")).replace("<player>",name.getName()));
         }
     }
 }

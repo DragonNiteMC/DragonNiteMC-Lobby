@@ -1,10 +1,9 @@
 package com.caxerx.mc;
 
 import addon.ericlam.Variable;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 import java.sql.Connection;
@@ -22,10 +21,10 @@ public class PlayerSettingManager {
     private static PlayerSettingManager playerSettingManager;
 
     private PlayerSettingManager() throws SQLException {
-        this.dsm = SQLDataSourceManager.getInstance();
-        plugin = PlayerSettings.plugin;
-        BukkitScheduler scheduler = plugin.getServer().getScheduler();
-        connection = dsm.getFuckingConnection();
+        Variable var = new Variable();
+        if (var.isMySQL()) this.dsm = SQLDataSourceManager.getInstance();
+        plugin = HyperNiteMC.plugin;
+        if (var.isMySQL()) connection = dsm.getFuckingConnection();
         playerSettingMap = new HashMap<>();
     }
 
@@ -65,7 +64,7 @@ public class PlayerSettingManager {
     public PlayerConfigStatus getPlayerSettingFromYaml(UUID player) {
         if (playerSettingMap.containsKey(player)) return playerSettingMap.get(player);
         PlayerConfigStatus setting;
-        if (new File(PlayerSettings.plugin.getDataFolder(), "PlayerData/" + player.toString() + ".yml").exists()) {
+        if (new File(HyperNiteMC.plugin.getDataFolder(), "PlayerData/" + player.toString() + ".yml").exists()) {
             boolean fly = Variable.uuidYml(player).getBoolean("Flight");
             boolean hideChat = Variable.uuidYml(player).getBoolean("HideChat");
             boolean stacker = Variable.uuidYml(player).getBoolean("Stacker");

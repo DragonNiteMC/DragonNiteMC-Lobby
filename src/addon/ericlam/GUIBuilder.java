@@ -17,7 +17,6 @@ public class GUIBuilder {
     private Inventory PlayerSettingGUI;
     private static GUIBuilder setting;
     private PlayerSettingManager psm = PlayerSettingManager.getInstance();
-    private Variable var = Variable.getInstance();
 
     public Inventory getGUI(){
         return PlayerSettingGUI;
@@ -29,6 +28,7 @@ public class GUIBuilder {
     }
 
     public void getInventoryGUI(){
+        Variable var = new Variable();
         InventoryBuilder inv = new InventoryBuilder(54, var.title());
         Material[] representItem = {Material.IRON_BOOTS, Material.ELYTRA, Material.PAPER, Material.PLAYER_HEAD, Material.STICKY_PISTON};
         String[] ItemName = {"Speed", "Fly", "HideChat", "HidePlayer", "Stacker"};

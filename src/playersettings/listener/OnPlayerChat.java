@@ -1,9 +1,8 @@
-package eventlistener;
+package playersettings.listener;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,11 +15,10 @@ import java.util.UUID;
 
 import static addon.ericlam.Variable.config;
 import static addon.ericlam.Variable.messagefile;
-import static main.ericlam.PlayerSettings.plugin;
 
 
 public class OnPlayerChat implements Listener {
-    private Variable var = Variable.getInstance();
+    private Variable var = new Variable();
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         if (config.getBoolean("ChatFilter.Enable")) {
@@ -35,21 +33,6 @@ public class OnPlayerChat implements Listener {
                     player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Functions.ChatResponse.block-message"));
                     break;
                 }
-            }
-            if (msg.contains("fuck you") && !chatbypass) {
-                event.setCancelled(true);
-                player.sendMessage(var.prefix() + ChatColor.RED + "Fuck you too!");
-            }
-            if ((msg.contains("i want to die")) && !chatbypass) {
-                scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        player.setHealth(0);
-                        player.sendMessage(var.prefix() + ChatColor.RED + "Here you go!");
-                        event.setCancelled(true);
-                    }
-                });
-
             }
         }
     }

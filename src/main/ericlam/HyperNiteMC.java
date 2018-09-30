@@ -4,8 +4,9 @@ import addon.ericlam.GUIBuilder;
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
 import command.ericlam.*;
-import eventlistener.*;
 import functions.hypernite.mc.Functions;
+import lobby.listener.BasicListener;
+import lobby.listener.LobbyJoinItem;
 import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -13,39 +14,45 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import playersettings.listener.*;
 
 import java.sql.SQLException;
 
-import static addon.ericlam.Variable.yaml;
-
-public class PlayerSettings extends JavaPlugin {
+public class HyperNiteMC extends JavaPlugin {
     public static Plugin plugin;
 
     public void onEnable() {
         plugin = this;
         ConsoleCommandSender console = getServer().getConsoleSender();
         console.sendMessage(ChatColor.YELLOW + "===========================================");
-        console.sendMessage(ChatColor.GOLD + "PlayerSettings Enabled!");
-        console.sendMessage(ChatColor.LIGHT_PURPLE + "Plugin Created by EricLam");
-        console.sendMessage(ChatColor.GREEN + "Remember use /help for help!");
+        console.sendMessage(ChatColor.GOLD + "HyperNiteMC Lobby Enabled!");
         String[] commands = {"fly", "heal", "ping", "hidechat", "stacker", "speed", "hideplayer", "Settings"};
-        CommandExecutor[] cmdexecutor = {new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this), new SpeedExe(this), new HidePlayerExe(this), new SettingsExe(this)};
+
+        CommandExecutor[] cmdexecutor = {new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this),
+                new SpeedExe(this), new HidePlayerExe(this), new SettingsExe(this)};
+
         for (int i = 0; i < commands.length; i++) {
             String cmd = commands[i];
             CommandExecutor cmdexe = cmdexecutor[i];
             this.getCommand(cmd).setExecutor(cmdexe);
         }
-        Listener[] listeners = {new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak(), new OnInventoryClick(), new OnPlayerLeave()};
+
+        Listener[] listeners = {
+                new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak(), new OnInventoryClick(), new OnPlayerLeave(),
+                new BasicListener(), new LobbyJoinItem()};
+
         for (Listener listen : listeners) {
             getServer().getPluginManager().registerEvents(listen, this);
         }
         Functions f = new Functions(this);
         f.addNewFile("Messages.yml");
         f.addNewFile("config.yml");
-        if (yaml) {
+        f.addNewFile("Lobby.yml");
+        Variable var = new Variable();
+        if (var.isYaml()) {
             console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
         }
-        if (Variable.mysql) {
+        if (var.isMySQL()) {
             console.sendMessage(ChatColor.AQUA + "Using MYSQL as saving Type.");
             try {
                 SQLDataSourceManager mysql = SQLDataSourceManager.getInstance();

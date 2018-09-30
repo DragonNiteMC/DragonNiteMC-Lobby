@@ -3,7 +3,7 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,15 +17,14 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.messagefile;
-import static addon.ericlam.Variable.yaml;
 
 
 public class FlyExe implements CommandExecutor {
-    private Variable var = Variable.getInstance();
-    private final PlayerSettings plugin;
-    public FlyExe(PlayerSettings plugin){
+    private final HyperNiteMC plugin;
+    public FlyExe(HyperNiteMC plugin){
         this.plugin = plugin;
     }
+    private Variable var = new Variable();
         @Override
         public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
             Player target;
@@ -64,11 +63,11 @@ public class FlyExe implements CommandExecutor {
         boolean fly = !psm.getPlayerSetting(puuid).isFly();
         name.setAllowFlight(fly);
         name.setFlying(fly);
-        if (yaml) Variable.setYml("Flight",puuid,fly);
+        if (var.isYaml()) Variable.setYml("Flight",puuid,fly);
         psm.getPlayerSetting(puuid).setFly(fly);
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {
-            sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getDisplayName()));
+            sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getName()));
         }
     }
 }

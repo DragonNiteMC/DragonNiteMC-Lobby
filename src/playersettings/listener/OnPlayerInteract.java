@@ -1,4 +1,4 @@
-package eventlistener;
+package playersettings.listener;
 
 import addon.ericlam.Variable;
 import org.bukkit.entity.Entity;
@@ -16,7 +16,7 @@ import static addon.ericlam.Variable.config;
 import static addon.ericlam.Variable.messagefile;
 
 public class OnPlayerInteract implements Listener {
-    private Variable var = Variable.getInstance();
+    private Variable var = new Variable();
     @EventHandler
     public  void onPlayerPush(PlayerInteractEvent event){
         if (event.getAction().equals(Action.LEFT_CLICK_AIR) && event.getPlayer().getPassengers().equals(EntityType.PLAYER)){

@@ -3,7 +3,7 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,12 +18,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.*;
+import static addon.ericlam.Variable.config;
+import static addon.ericlam.Variable.messagefile;
 
 public class SpeedExe implements CommandExecutor {
-    private final PlayerSettings plugin;
-    public SpeedExe(PlayerSettings plugin){ this.plugin = plugin;}
-    private Variable var = Variable.getInstance();
+    private final HyperNiteMC plugin;
+    public SpeedExe(HyperNiteMC plugin){ this.plugin = plugin;}
+    private Variable var = new Variable();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -62,11 +63,11 @@ public class SpeedExe implements CommandExecutor {
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean speed = !psm.getPlayerSetting(puuid).isSpeed();
         int amplifier = config.getInt("Speed.Level") - 1;
-        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getDisplayName()));
+        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Turn-" + (speed ? "On":"Off")));
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
         psm.getPlayerSetting(puuid).setSpeed(speed);
-        if (yaml) Variable.setYml("Speed",puuid,speed);
+        if (var.isYaml()) Variable.setYml("Speed",puuid,speed);
     }
 }

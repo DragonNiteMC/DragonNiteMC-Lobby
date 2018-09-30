@@ -2,7 +2,7 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -16,12 +16,11 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.messagefile;
-import static addon.ericlam.Variable.yaml;
 
 public class HidePlayerExe implements CommandExecutor {
-    private final PlayerSettings plugin;
-    public HidePlayerExe(PlayerSettings plugin){ this.plugin = plugin;}
-    private Variable var = Variable.getInstance();
+    private final HyperNiteMC plugin;
+    public HidePlayerExe(HyperNiteMC plugin){ this.plugin = plugin;}
+    private Variable var = new Variable();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -59,16 +58,16 @@ public class HidePlayerExe implements CommandExecutor {
         UUID puuid = p.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean nohide = !psm.getPlayerSetting(puuid).isHidePlayer();
-        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getDisplayName()));
+        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer." + (nohide ? "hide":"show")));
         psm.getPlayerSetting(puuid).setHidePlayer(nohide);
            for (Player onlinep : Bukkit.getServer().getOnlinePlayers()) {
                if (nohide) {
-                   p.showPlayer(PlayerSettings.plugin, onlinep);
+                   p.showPlayer(HyperNiteMC.plugin, onlinep);
                } else {
-                   p.hidePlayer(PlayerSettings.plugin, onlinep);
+                   p.hidePlayer(HyperNiteMC.plugin, onlinep);
                }
            }
-        if (yaml) Variable.setYml("HidePlayer",puuid,nohide);
+        if (var.isYaml()) Variable.setYml("HidePlayer",puuid,nohide);
     }
 }

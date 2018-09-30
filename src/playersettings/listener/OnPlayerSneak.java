@@ -1,7 +1,8 @@
-package eventlistener;
+package playersettings.listener;
 
+import addon.ericlam.Variable;
 import functions.hypernite.mc.Functions;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,7 +15,8 @@ import static addon.ericlam.Variable.messagefile;
 public class OnPlayerSneak implements Listener {
     @EventHandler
     public void onPlayerSneak(PlayerToggleSneakEvent event) {
-        Functions fs = new Functions(PlayerSettings.plugin);
+        Functions fs = new Functions(HyperNiteMC.plugin);
+        Variable var = new Variable();
         if (config.getBoolean("SneakShowLocation.Enable")) {
             Player player = event.getPlayer();
             Location loc = player.getLocation();

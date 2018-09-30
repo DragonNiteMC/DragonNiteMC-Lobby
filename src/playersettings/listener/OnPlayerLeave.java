@@ -1,7 +1,7 @@
-package eventlistener;
+package playersettings.listener;
 
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ public class OnPlayerLeave implements Listener {
     public void PlayerLeaveMySQL(PlayerQuitEvent event) throws SQLException {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        Bukkit.getScheduler().runTaskAsynchronously(PlayerSettings.plugin, () ->{
+        Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () ->{
             try {
                 PlayerSettingManager.getInstance().savePlayerSetting(puuid, 0 );
             } catch (SQLException e) {

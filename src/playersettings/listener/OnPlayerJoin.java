@@ -1,9 +1,9 @@
-package eventlistener;
+package playersettings.listener;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
 import functions.hypernite.mc.Functions;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,19 +17,20 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.*;
+import static addon.ericlam.Variable.config;
+import static addon.ericlam.Variable.messagefile;
 
 public class OnPlayerJoin implements Listener {
-    private Variable var = Variable.getInstance();
-    private Functions fs = new Functions(PlayerSettings.plugin);
+    private Variable var = new Variable();
+    private Functions fs = new Functions(HyperNiteMC.plugin);
     private PlayerSettingManager psm = PlayerSettingManager.getInstance();
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) throws IOException, SQLException {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        int amplifier = config.getInt("Speed.Level") - 1;
-        if (mysql){
-            Bukkit.getScheduler().runTaskAsynchronously(PlayerSettings.plugin, () -> {
+        int amplifier = var.config.getInt("Speed.Level") - 1;
+        if (var.isMySQL()){
+            Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () -> {
                 try {
                     psm.getPlayerSetting(puuid);
                 } catch (SQLException e1) {
@@ -43,7 +44,7 @@ public class OnPlayerJoin implements Listener {
             if (speed) player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
             else player.removePotionEffect(PotionEffectType.SPEED);
         }
-        if (yaml) {
+        if (var.isYaml()) {
             //Flight Stats
             fs.renametoUUID(puuid, player);
             boolean speed = psm.getPlayerSettingFromYaml(puuid).isSpeed();
@@ -62,7 +63,7 @@ public class OnPlayerJoin implements Listener {
         Collection<? extends Player> players = Bukkit.getServer().getOnlinePlayers();
         for (Player player : players){
             if (player == target) continue;
-            if (psm.getPlayerSetting(player.getUniqueId()).isHidePlayer()) player.hidePlayer(PlayerSettings.plugin, target);
+            if (psm.getPlayerSetting(player.getUniqueId()).isHidePlayer()) player.hidePlayer(HyperNiteMC.plugin, target);
         }
     }
 }

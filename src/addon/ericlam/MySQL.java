@@ -8,15 +8,18 @@ import java.sql.SQLException;
 public class MySQL {
         private Connection connection;
         public void openConnection () throws SQLException {
-        SQLDataSourceManager dataSourceManager = SQLDataSourceManager.getInstance();
-        if (connection != null && !connection.isClosed()) {
-            return;
-        }
-        synchronized (this) {
+        Variable var = new Variable();
+        if (var.isMySQL()) {
+            SQLDataSourceManager dataSourceManager = SQLDataSourceManager.getInstance();
             if (connection != null && !connection.isClosed()) {
                 return;
             }
-            connection = dataSourceManager.getFuckingConnection();
+            synchronized (this) {
+                if (connection != null && !connection.isClosed()) {
+                    return;
+                }
+                connection = dataSourceManager.getFuckingConnection();
+            }
         }
     }
 

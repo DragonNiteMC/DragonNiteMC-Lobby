@@ -2,7 +2,7 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -19,9 +19,9 @@ import static addon.ericlam.Variable.config;
 import static addon.ericlam.Variable.messagefile;
 
 public class StackerExe implements CommandExecutor{
-    private final PlayerSettings plugin;
-    private Variable var = Variable.getInstance();
-    public StackerExe(PlayerSettings plugin) {
+    private final HyperNiteMC plugin;
+    private Variable var = new Variable();
+    public StackerExe(HyperNiteMC plugin) {
         this.plugin = plugin;
     }
 
@@ -63,10 +63,10 @@ public class StackerExe implements CommandExecutor{
             PlayerSettingManager psm = PlayerSettingManager.getInstance();
             boolean nostack = !psm.getPlayerSetting(puuid).isStacker();
             if (sender != name)
-                sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getDisplayName()));
+                sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getName()));
             name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker." + (nostack ? "enable" : "disable")));
             psm.getPlayerSetting(puuid).setStacker(nostack);
-            if (Variable.yaml) Variable.setYml("Stacker", puuid, nostack);
+            if (var.isYaml()) Variable.setYml("Stacker", puuid, nostack);
         } else sender.sendMessage(var.prefix() + ChatColor.RED + "此功能已被管理員禁用。");
     }
 }

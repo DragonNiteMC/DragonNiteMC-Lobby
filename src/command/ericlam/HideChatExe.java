@@ -2,7 +2,7 @@ package command.ericlam;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,9 +18,9 @@ import java.util.UUID;
 import static addon.ericlam.Variable.messagefile;
 
 public class HideChatExe implements CommandExecutor{
-    private final PlayerSettings plugin;
-    private Variable var = Variable.getInstance();
-    public HideChatExe(PlayerSettings plugin) {
+    private final HyperNiteMC plugin;
+    private Variable var = new Variable();
+    public HideChatExe(HyperNiteMC plugin) {
         this.plugin = plugin;
     }
 
@@ -59,10 +59,10 @@ public class HideChatExe implements CommandExecutor{
         UUID puuid = player.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean hide = !psm.getPlayerSetting(puuid).isHideChat();
-        if (sender != name)  sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getDisplayName()));
+        if (sender != name)  sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat." + (hide ? "hide" : "show")));
         psm.getPlayerSetting(puuid).setHideChat(hide);
-        if (Variable.yaml) Variable.setYml("HideChat",puuid,hide);
+        if (var.isYaml()) Variable.setYml("HideChat",puuid,hide);
     }
 }
 

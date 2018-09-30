@@ -2,7 +2,7 @@ package command.ericlam;
 
 import addon.ericlam.GUIBuilder;
 import addon.ericlam.Variable;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,10 +17,10 @@ import static addon.ericlam.Variable.config;
 import static addon.ericlam.Variable.messagefile;
 
 public class SettingsExe implements CommandExecutor {
-    private Variable var = Variable.getInstance();
+    private Variable var = new Variable();
     private GUIBuilder gui = GUIBuilder.getInstance();
-    private final PlayerSettings plugin;
-    public SettingsExe(PlayerSettings plugin){
+    private final HyperNiteMC plugin;
+    public SettingsExe(HyperNiteMC plugin){
         this.plugin = plugin;
     }
     @Override
@@ -58,7 +58,7 @@ public class SettingsExe implements CommandExecutor {
     public void OpenGUI(Player name, CommandSender sender) throws SQLException {
         Player p = name.getPlayer();
         p.openInventory(gui.getGUI());
-        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.be-show").replace("<player>", name.getDisplayName()));
+        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.be-show").replace("<player>", name.getName()));
         if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.show"));
         gui.changeStatus(p);
     }

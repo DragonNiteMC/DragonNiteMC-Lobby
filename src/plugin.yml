@@ -1,8 +1,8 @@
-name: PlayerSettings
-main: main.ericlam.PlayerSettings
+name: HyperNiteMC-Lobby
+main: main.ericlam.HyperNiteMC
 version: 1.0
 api-version: 1.13
-authors: [ericlam, hydranapse_]
+authors: [ericlam]
 depend: [HyperNiteMC-Core]
 commands:
   fly:

@@ -8,7 +8,7 @@ public class PlayerConfigStatus {
     private boolean speed;
     private boolean changed;
 
-    public PlayerConfigStatus(boolean fly, boolean hideChat, boolean hidePlayer, boolean stacker, boolean speed) {
+    PlayerConfigStatus(boolean fly, boolean hideChat, boolean hidePlayer, boolean stacker, boolean speed) {
         this.fly = fly;
         this.hideChat = hideChat;
         this.hidePlayer = hidePlayer;

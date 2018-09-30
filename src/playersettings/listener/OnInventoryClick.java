@@ -1,9 +1,9 @@
-package eventlistener;
+package playersettings.listener;
 
 import addon.ericlam.GUIBuilder;
 import com.caxerx.mc.PlayerSettingManager;
 import command.ericlam.*;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,7 +23,7 @@ public class OnInventoryClick implements Listener {
     private StackerExe stackerExe;
 
     public OnInventoryClick() {
-        PlayerSettings ps = (PlayerSettings) PlayerSettings.plugin;
+        HyperNiteMC ps = (HyperNiteMC) HyperNiteMC.plugin;
         speedExe = new SpeedExe(ps);
         flyExe = new FlyExe(ps);
         hideChatExe = new HideChatExe(ps);

@@ -2,7 +2,7 @@ package command.ericlam;
 
 
 import addon.ericlam.Variable;
-import main.ericlam.PlayerSettings;
+import main.ericlam.HyperNiteMC;
 import net.minecraft.server.v1_13_R2.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,9 +16,9 @@ import org.bukkit.entity.Player;
 import static addon.ericlam.Variable.messagefile;
 
 public class PingExe implements CommandExecutor {
-    private final PlayerSettings plugin;
-    private Variable var = Variable.getInstance();
-    public PingExe(PlayerSettings plugin) {
+    private final HyperNiteMC plugin;
+    private Variable var = new Variable();
+    public PingExe(HyperNiteMC plugin) {
         this.plugin = plugin;
     }
 
@@ -38,7 +38,7 @@ public class PingExe implements CommandExecutor {
             if (target == null) {
                 commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
             } else {
-                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Ping.other").replace("<ping>", "" + getPing(target)).replace("<player>", target.getDisplayName()));
+                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Ping.other").replace("<ping>", "" + getPing(target)).replace("<player>", target.getName()));
             }
         } else {
             commandSender.sendMessage(var.prefix() + var.noperm());
