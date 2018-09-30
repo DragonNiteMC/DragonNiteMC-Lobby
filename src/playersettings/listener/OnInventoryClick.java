@@ -62,11 +62,8 @@ public class OnInventoryClick implements Listener {
                     stackerExe.StackerOn(player, player);
                     gui.changeStatus(player);
                     break;
-                default:
-                    event.setCancelled(true);
-                    break;
             }
+            event.setCancelled(true);
         }
-        event.setCancelled(true);
     }
 }

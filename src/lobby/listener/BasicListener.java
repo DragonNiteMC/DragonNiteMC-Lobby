@@ -1,7 +1,6 @@
 package lobby.listener;
 
 import addon.ericlam.Variable;
-import ericlam.builders.TablistBuilder;
 import functions.hypernite.mc.Functions;
 import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
@@ -46,7 +45,7 @@ public class BasicListener implements Listener {
     }
 
 
-    private TablistBuilder tb = TablistBuilder.getInstance();
+    //private TablistBuilder tb = TablistBuilder.getInstance();
     private Functions fs = new Functions(HyperNiteMC.plugin);
 
     /*@EventHandler

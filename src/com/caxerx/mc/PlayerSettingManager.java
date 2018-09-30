@@ -86,6 +86,9 @@ public class PlayerSettingManager {
             playerSettingMap.remove(player);
             return;
         }
+        Variable var = new Variable();
+        if(var.isYaml()) return;
+        System.out.println("Connecting to MySQL and Changing Status...");
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO `PS_stats` VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Fly = ?, HideChat = ?, Stacker = ?, Speed = ?, HidePlayer = ?")) {
             statement.setString(1, player + "");
             statement.setBoolean(2, setting.isFly());
@@ -99,7 +102,6 @@ public class PlayerSettingManager {
             statement.setBoolean(6, setting.isHidePlayer());
             statement.setBoolean(11, setting.isHidePlayer());
             statement.execute();
-            playerSettingMap.remove(player);
         } catch (SQLException e) {
             System.out.println("Error, retry " + retry);
             if (retry > 5) throw e;

@@ -1,12 +1,12 @@
 package lobby.listener;
 
 import addon.ericlam.JoinItemBuilder;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -23,28 +23,24 @@ public class LobbyJoinItem implements Listener {
     }
 
     @EventHandler
-    public void NoJoinItemMovement(InventoryMoveItemEvent event){
-        ItemStack item = event.getItem();
-        if (item == joinitem.getPlayItem() || item == joinitem.getAchieveItem() || item == joinitem.getSettingsItem()){
-            event.setCancelled(true);
-        }
+    public void NoItemMovementOnNotCreative(InventoryClickEvent e){
+        if (!e.getWhoClicked().getGameMode().equals(GameMode.CREATIVE)) e.setCancelled(true);
     }
-    @EventHandler
-    public void NoItemDrag(InventoryDragEvent e){
-            e.setCancelled(true);
-    }
+
     @EventHandler
     public void NoItemPick(InventoryPickupItemEvent e){
         ItemStack item = e.getItem().getItemStack();
-        if (item == joinitem.getPlayItem() || item == joinitem.getAchieveItem() || item == joinitem.getSettingsItem()){
-            e.setCancelled(true);
+        Player player = (Player) e.getInventory().getHolder();
+        if (item.isSimilar(joinitem.getPlayItem()) || item.isSimilar(joinitem.getAchieveItem()) || item.isSimilar(joinitem.getSettingsItem())){
+            if (!player.getGameMode().equals(GameMode.CREATIVE)) e.setCancelled(true);
         }
     }
     @EventHandler
     public void NoItemDrop(PlayerDropItemEvent e){
         ItemStack item = e.getItemDrop().getItemStack();
-        if (item == joinitem.getPlayItem() || item == joinitem.getAchieveItem() || item == joinitem.getSettingsItem()){
-            e.setCancelled(true);
+        Player player = e.getPlayer();
+        if (item.isSimilar(joinitem.getPlayItem()) || item.isSimilar(joinitem.getAchieveItem()) || item.isSimilar(joinitem.getSettingsItem())){
+            if (!player.getGameMode().equals(GameMode.CREATIVE)) e.setCancelled(true);
         }
     }
 
@@ -52,17 +48,14 @@ public class LobbyJoinItem implements Listener {
     public void InteractWithItem(PlayerInteractEvent event){
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
-        boolean isrightclick = event.getAction().equals(Action.LEFT_CLICK_AIR);
+        boolean isrightclick = event.getAction().equals(Action.RIGHT_CLICK_AIR);
         if (isrightclick) {
-            if (item == joinitem.getPlayItem()) {
+            if (item.isSimilar(joinitem.getPlayItem())) {
                 player.performCommand("play");
-                player.sendMessage("you used /play");
-            } else if (item == joinitem.getSettingsItem()) {
-                player.performCommand("pref");
-                player.sendMessage("you used /pref");
-            } else if (item == joinitem.getAchieveItem()) {
+            } else if (item.isSimilar(joinitem.getSettingsItem())) {
+                player.performCommand("settings");
+            } else if (item.isSimilar(joinitem.getAchieveItem())) {
                 player.performCommand("achieve");
-                player.sendMessage("you use /achieve");
             }
         }
     }

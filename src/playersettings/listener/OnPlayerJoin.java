@@ -46,6 +46,7 @@ public class OnPlayerJoin implements Listener {
         }
         if (var.isYaml()) {
             //Flight Stats
+            psm.getPlayerSettingFromYaml(puuid);
             fs.renametoUUID(puuid, player);
             boolean speed = psm.getPlayerSettingFromYaml(puuid).isSpeed();
             boolean fly = psm.getPlayerSettingFromYaml(puuid).isFly();

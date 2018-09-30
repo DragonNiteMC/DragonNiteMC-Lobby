@@ -20,7 +20,6 @@ import java.sql.SQLException;
 
 public class HyperNiteMC extends JavaPlugin {
     public static Plugin plugin;
-
     public void onEnable() {
         plugin = this;
         ConsoleCommandSender console = getServer().getConsoleSender();
@@ -68,13 +67,16 @@ public class HyperNiteMC extends JavaPlugin {
     }
 
     public void onDisable() {
-        try {
-            PlayerSettingManager.getInstance().saveAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Can't save all player's data, a data loss can be cause.");
+        Variable var = new Variable();
+        if (var.isMySQL()) {
+            try {
+                PlayerSettingManager.getInstance().saveAll();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Can't save all player's data, a data loss can be cause.");
+            }
         }
-        getLogger().info("PlayerSettings Disabled.");
+        getLogger().info("HyperNiteMC-Lobby Disabled.");
     }
 
 }
