@@ -12,12 +12,5 @@ Functions:
 - HidePlayer
 - Speed
 - InventoryGUI
+- hooking into mysql library
 
-
-Remaining:
-
-- Stacker Test
-- Hooking to MySQL Library
-
-
-# completion:  90%
