@@ -43,23 +43,23 @@ public class OnInventoryClick implements Listener {
         if (inventory.getName().equals(gui.getGUI().getName())) {
             switch (clicked.getType()) {
                 case IRON_BOOTS:
-                    speedExe.SetSpeed(player, player);
+                    player.performCommand("speed");
                     gui.changeStatus(player);
                     break;
                 case ELYTRA:
-                    flyExe.flyExecutor(player, player);
+                    player.performCommand("fly");
                     gui.changeStatus(player);
                     break;
                 case PAPER:
-                    hideChatExe.HideChat(player, player);
+                    player.performCommand("hidechat");
                     gui.changeStatus(player);
                     break;
                 case PLAYER_HEAD:
-                    hidePlayerExe.HidePlayer(player, player);
+                    player.performCommand("hideplayer");
                     gui.changeStatus(player);
                     break;
                 case STICKY_PISTON:
-                    stackerExe.StackerOn(player, player);
+                    player.performCommand("stacker");
                     gui.changeStatus(player);
                     break;
             }

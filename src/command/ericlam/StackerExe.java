@@ -40,7 +40,7 @@ public class StackerExe implements CommandExecutor{
                         e.printStackTrace();
                     }
                 } else commandSender.sendMessage(ChatColor.RED + "Console can only use /stacker <player>");
-            } else if (permother || terminal) {
+            } else if (perm && permother || terminal) {
                 target = Bukkit.getPlayer(strings[0]);
                 if (target == null)
                     commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));

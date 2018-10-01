@@ -29,7 +29,7 @@ public class HealExe implements CommandExecutor{
                                 Player player = (Player) commandSender;
                                 healExector(player, player);
                             } else {commandSender.sendMessage(ChatColor.RED + "Console can only use /heal <player>");}
-                        }else if(permother || terminal){
+                        }else if(perm && permother || terminal){
                             target = Bukkit.getServer().getPlayer(strings[0]);
                             if (target == null){
                                 commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));

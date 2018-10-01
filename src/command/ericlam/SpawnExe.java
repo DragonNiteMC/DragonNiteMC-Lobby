@@ -24,9 +24,8 @@ public class SpawnExe implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
-        boolean perm = commandSender.hasPermission("settings.gui");
-        boolean permother = commandSender.hasPermission("settings.gui.other");
-        if (strings.length <= 0 && perm) {
+        boolean permother = commandSender.hasPermission("hypernite.spawn.other");
+        if (strings.length <= 0) {
             if (!terminal) {
                 Player player = (Player) commandSender;
                 if (lobby.TeleportToLobby(player)) player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.send"));
