@@ -28,7 +28,7 @@ public class OnPlayerJoin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) throws IOException, SQLException {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        int amplifier = var.config.getInt("Speed.Level") - 1;
+        int amplifier = config.getInt("Speed.Level") - 1;
         if (var.isMySQL()){
             Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () -> {
                 try {
