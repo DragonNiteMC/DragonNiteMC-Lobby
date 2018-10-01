@@ -21,11 +21,16 @@ public class PlayerSettingManager {
     private static PlayerSettingManager playerSettingManager;
 
     private PlayerSettingManager() throws SQLException {
-        Variable var = new Variable();
-        if (var.isMySQL()) this.dsm = SQLDataSourceManager.getInstance();
         plugin = HyperNiteMC.plugin;
-        if (var.isMySQL()) connection = dsm.getFuckingConnection();
         playerSettingMap = new HashMap<>();
+    }
+
+    public void needMySQL() throws SQLException {
+        Variable var = new Variable();
+        if (var.isMySQL()){
+            this.dsm = SQLDataSourceManager.getInstance();
+            connection = dsm.getFuckingConnection();
+        }
     }
 
     public static PlayerSettingManager getInstance() {

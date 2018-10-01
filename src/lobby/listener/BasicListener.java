@@ -5,6 +5,7 @@ import addon.ericlam.Variable;
 import functions.hypernite.mc.Functions;
 import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,9 +31,13 @@ public class BasicListener implements Listener {
     }
 
     @EventHandler
-    public void NoFallDamage(EntityDamageEvent e){
+    public void NoDamageAndVoidTp(EntityDamageEvent e){
         if (e.getEntity() instanceof Player){
-            e.setCancelled(true);
+            Player player = (Player) e.getEntity();
+            if(e.getCause() == EntityDamageEvent.DamageCause.VOID) {
+                spawn.TeleportToLobby(player);
+            }
+                e.setCancelled(true);
         }
     }
 
@@ -76,27 +81,20 @@ public class BasicListener implements Listener {
         });
     }
 
-    @EventHandler(ignoreCancelled = true)
-    public void onVoidTeleport(EntityDamageEvent e){
-       if (e.getEntity() instanceof Player){
-           Player player = (Player) e.getEntity();
-           if(e.getCause() == EntityDamageEvent.DamageCause.VOID){
-               spawn.TeleportToLobby(player);
-           }
-       }
-    }
 
 
     @EventHandler
     public void antiBlockBreak(BlockBreakEvent e){
         Player player = e.getPlayer();
-        if (!player.hasPermission("hypernite.build")) e.setCancelled(true);
+        if (player.hasPermission("hypernite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
+        e.setCancelled(true);
     }
 
     @EventHandler
     public void antiBlockPlace(BlockPlaceEvent e){
         Player player = e.getPlayer();
-        if (!player.hasPermission("hypernite.build")) e.setCancelled(true);
+        if (player.hasPermission("hypernite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
+        e.setCancelled(true);
     }
 
 

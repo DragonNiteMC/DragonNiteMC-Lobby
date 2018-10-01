@@ -29,12 +29,16 @@ public class SetLobbyExe implements CommandExecutor {
             Double X = set.getX();
             Double Z = set.getZ();
             World setworld = set.getWorld();
+            Double Yaw = (double) set.getYaw();
+            Double Pitch = (double) set.getPitch();
             Variable.lobbyfile.set("spawntp.y",Y);
             Variable.lobbyfile.set("spawntp.x",X);
             Variable.lobbyfile.set("spawntp.z",Z);
+            Variable.lobbyfile.set("spawntp.yaw",Yaw);
+            Variable.lobbyfile.set("spawntp.pitch",Pitch);
             Variable.lobbyfile.set("spawntp.world",setworld.getName());
             try {
-                File lobbyfile = new File(HyperNiteMC.plugin.getDataFolder(), "Lobby.yml");
+                File lobbyfile = new File(plugin.getDataFolder(), "Lobby.yml");
                 Variable.lobbyfile.save(lobbyfile);
                 YamlConfiguration.loadConfiguration(lobbyfile);
             } catch (IOException e) {

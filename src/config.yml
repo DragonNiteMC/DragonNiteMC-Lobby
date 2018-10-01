@@ -1,22 +1,6 @@
 General:
   #Saveing-Type 可以是 SQL 或 YAML。
   Saving-Type: yaml
-ChatFilter:
-  Enable: true
-  List:
-    - "fuck"
-    - "屌"
-    - "on9"
-    - "弱智"
-    - "shit"
-    - "bitch"
-    - "damn"
-    - "gay"
-    - "nigger"
-    - "pussy"
-    - "diu"
-SneakShowLocation:
-  Enable: true
 Join-Show-UUID:
   Enable: true
 Stacker:

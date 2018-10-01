@@ -11,9 +11,6 @@ commands:
   heal:
     aliases: [blood, elheal]
     description: heal command
-  ping:
-    aliases: elping
-    description: ping command
   hidechat:
     aliases: [chathide, ignoreall, elhidechat]
     description: hide the chat

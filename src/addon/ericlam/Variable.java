@@ -46,7 +46,7 @@ public class Variable {
     }
 
 
-    synchronized public static void setYml(String YmlName, UUID puuid,boolean status) throws IOException {
+    public static void setYml(String YmlName, UUID puuid,boolean status) throws IOException {
         File data = new File(HyperNiteMC.plugin.getDataFolder(), "PlayerData/"+puuid.toString()+".yml");
         FileConfiguration yml = YamlConfiguration.loadConfiguration(data);
         yml.set(YmlName,status);

@@ -5,7 +5,3 @@ join:
   donor-msg: "&b加入// &e<player>"
 spawntp:
   # 你需要使用 /setlobby 來設置重生點
-  world: spawnTpWorld
-  x:
-  y:
-  z:

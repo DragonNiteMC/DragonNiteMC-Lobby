@@ -25,11 +25,11 @@ public class HyperNiteMC extends JavaPlugin {
         ConsoleCommandSender console = getServer().getConsoleSender();
         console.sendMessage(ChatColor.YELLOW + "===========================================");
         console.sendMessage(ChatColor.GOLD + "HyperNiteMC Lobby Enabled!");
-        String[] commands = {"fly", "heal", "ping", "hidechat", "stacker", "speed", "hideplayer", "Settings", "setlobby", "spawn"};
+        String[] commands = {"fly", "heal", "hidechat", "stacker", "speed", "hideplayer", "Settings", "setlobby", "spawn"};
 
         CommandExecutor[] cmdexecutor = {
-                new FlyExe(this), new HealExe(this), new PingExe(this), new HideChatExe(this), new StackerExe(this),
-                new SpeedExe(this), new HidePlayerExe(this), new SettingsExe(this), new SetLobbyExe(this), new SpawnExe(this)};
+                new FlyExe(this), new HealExe(this), new HideChatExe(this), new StackerExe(this), new SpeedExe(this),
+                new HidePlayerExe(this), new SettingsExe(this), new SetLobbyExe(this), new SpawnExe(this)};
 
         for (int i = 0; i < commands.length; i++) {
             String cmd = commands[i];
@@ -38,7 +38,7 @@ public class HyperNiteMC extends JavaPlugin {
         }
 
         Listener[] listeners = {
-                new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnPlayerSneak(), new OnInventoryClick(), new OnPlayerLeave(),
+                new OnPlayerChat(), new OnPlayerInteract(), new OnPlayerInteractEntity(), new OnPlayerJoin(), new OnInventoryClick(), new OnPlayerLeave(),
                 new BasicListener(), new LobbyJoinItem()};
 
         for (Listener listen : listeners) {
@@ -49,6 +49,12 @@ public class HyperNiteMC extends JavaPlugin {
         f.addNewFile("config.yml");
         f.addNewFile("Lobby.yml");
         Variable var = new Variable();
+        PlayerSettingManager psm = PlayerSettingManager.getInstance();
+        try {
+            psm.needMySQL();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         if (var.isYaml()) {
             console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
         }
