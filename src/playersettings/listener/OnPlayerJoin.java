@@ -37,8 +37,8 @@ public class OnPlayerJoin implements Listener {
                     e1.printStackTrace();
                 }
             });
-            boolean speed = psm.getPlayerSetting(puuid).isSpeed();
-            boolean fly = psm.getPlayerSetting(puuid).isFly();
+            boolean speed = psm.getPlayerSetting(puuid).isSpeed() && player.hasPermission("settings.speed");
+            boolean fly = psm.getPlayerSetting(puuid).isFly() && player.hasPermission("settings.fly");
             player.setAllowFlight(fly);
             player.setFlying(fly);
             if (speed) player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
@@ -48,8 +48,8 @@ public class OnPlayerJoin implements Listener {
             //Flight Stats
             psm.getPlayerSettingFromYaml(puuid);
             fs.renametoUUID(puuid, player);
-            boolean speed = psm.getPlayerSettingFromYaml(puuid).isSpeed();
-            boolean fly = psm.getPlayerSettingFromYaml(puuid).isFly();
+            boolean speed = psm.getPlayerSettingFromYaml(puuid).isSpeed() && player.hasPermission("settings.speed");
+            boolean fly = psm.getPlayerSettingFromYaml(puuid).isFly() && player.hasPermission("settings.fly");
             player.setAllowFlight(fly);
             player.setFlying(fly);
             if (speed) player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
