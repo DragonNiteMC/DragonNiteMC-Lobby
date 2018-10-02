@@ -19,6 +19,7 @@ public class TeleportLobby {
     private World lobby;
     private double Pitch;
     private double Yaw;
+    private Location spawn;
 
 
     public static TeleportLobby getInstance() {
@@ -33,6 +34,7 @@ public class TeleportLobby {
             Z = Variable.lobbyfile.getDouble("spawntp.z");
             Pitch = Variable.lobbyfile.getDouble("spawntp.pitch");
             Yaw = Variable.lobbyfile.getDouble("spawntp.yaw");
+            spawn = new Location(lobby, X, Y, Z, (float) Yaw, (float) Pitch);
         }
     }
 
@@ -56,7 +58,6 @@ public class TeleportLobby {
             player.sendMessage(var.prefix() + ChatColor.RED+ "伺服器尚未設置重生點，因此無法傳送");
             return false;
         }
-        Location spawn = new Location(lobby, X, Y, Z, (float) Yaw, (float) Pitch);
         player.teleport(spawn);
         return true;
     }
@@ -66,7 +67,6 @@ public class TeleportLobby {
             sender.sendMessage(var.prefix() + ChatColor.RED + "由於重生點尚未設置，因此無法傳送 " + ChatColor.YELLOW + player.getName() + ChatColor.RED + " 。");
             return;
         }
-        Location spawn = new Location(lobby, X, Y, Z, (float) Yaw, (float) Pitch);
         player.teleport(spawn);
         sender.sendMessage(var.getFs().returnColoredMessage(messagefile, "Commands.spawn.be-send").replace("<player>",player.getName()));
     }
