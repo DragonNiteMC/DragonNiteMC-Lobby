@@ -68,6 +68,7 @@ public class TeleportLobby {
             return;
         }
         player.teleport(spawn);
-        sender.sendMessage(var.getFs().returnColoredMessage(messagefile, "Commands.spawn.be-send").replace("<player>",player.getName()));
+        sender.sendMessage(var.getPrefix + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.be-send").replace("<player>",player.getName()));
+        player.sendMessage(var.getPrefix + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.send"));
     }
 }
