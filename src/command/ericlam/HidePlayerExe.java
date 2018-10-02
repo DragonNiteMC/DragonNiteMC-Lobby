@@ -68,6 +68,6 @@ public class HidePlayerExe implements CommandExecutor {
                    p.hidePlayer(HyperNiteMC.plugin, onlinep);
                }
            }
-        if (var.isYaml()) Variable.setYml("HidePlayer",puuid,nohide);
+        if (!var.isMySQL()) Variable.setYml("HidePlayer",puuid,nohide);
     }
 }

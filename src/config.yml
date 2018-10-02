@@ -1,6 +1,5 @@
 General:
-  #Saveing-Type 可以是 SQL 或 YAML。
-  Saving-Type: yaml
+  Use-MySQL: true
 Join-Show-UUID:
   Enable: true
 Stacker:

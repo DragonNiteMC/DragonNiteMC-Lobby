@@ -9,26 +9,13 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.*;
-import org.bukkit.event.entity.EntityCombustEvent;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-import org.bukkit.event.weather.WeatherChangeEvent;
 
 public class BasicListener implements Listener {
-    @EventHandler
-    public void OnLeftHandDisable(PlayerSwapHandItemsEvent e){
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void NoHunger(FoodLevelChangeEvent e){
-        e.setCancelled(true);
-    }
 
     @EventHandler
     public void NoDamageAndVoidTp(EntityDamageEvent e){
@@ -39,48 +26,6 @@ public class BasicListener implements Listener {
             }
                 e.setCancelled(true);
         }
-    }
-
-    @EventHandler
-    public void noWeather(WeatherChangeEvent e){
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void noExplodeBlockDamage(EntityExplodeEvent e){
-        e.setYield(0);
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void noSpread(BlockSpreadEvent e){
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void noFire(BlockBurnEvent e){
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void noForm(BlockFormEvent e){
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void noBurn(EntityCombustEvent e){
-        e.setCancelled(true);
-    }
-
-
-    @EventHandler
-    public void noblockForm(EntityBlockFormEvent e){
-        e.setCancelled(true);
-    }
-
-    @EventHandler
-    public void noBlockFade(BlockFadeEvent e){
-        e.setCancelled(true);
     }
 
 

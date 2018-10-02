@@ -55,9 +55,6 @@ public class HyperNiteMC extends JavaPlugin {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (var.isYaml()) {
-            console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
-        }
         if (var.isMySQL()) {
             console.sendMessage(ChatColor.AQUA + "Using MYSQL as saving Type.");
             try {
@@ -67,7 +64,7 @@ public class HyperNiteMC extends JavaPlugin {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        }else console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
         GUIBuilder start = GUIBuilder.getInstance();
         start.getInventoryGUI();
         console.sendMessage(ChatColor.YELLOW + "===========================================");

@@ -43,9 +43,7 @@ public class OnPlayerJoin implements Listener {
             player.setFlying(fly);
             if (speed) player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
             else player.removePotionEffect(PotionEffectType.SPEED);
-        }
-        if (var.isYaml()) {
-            //Flight Stats
+        }else{
             psm.getPlayerSettingFromYaml(puuid);
             fs.renametoUUID(puuid, player);
             boolean speed = psm.getPlayerSettingFromYaml(puuid).isSpeed() && player.hasPermission("settings.speed");

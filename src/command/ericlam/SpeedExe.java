@@ -68,6 +68,6 @@ public class SpeedExe implements CommandExecutor {
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
         psm.getPlayerSetting(puuid).setSpeed(speed);
-        if (var.isYaml()) Variable.setYml("Speed",puuid,speed);
+        if (!var.isMySQL()) Variable.setYml("Speed",puuid,speed);
     }
 }

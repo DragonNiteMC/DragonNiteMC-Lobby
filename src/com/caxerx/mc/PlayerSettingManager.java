@@ -92,7 +92,7 @@ public class PlayerSettingManager {
             return;
         }
         Variable var = new Variable();
-        if(var.isYaml()) return;
+        if(!var.isMySQL()) return;
         System.out.println("Connecting to MySQL and Changing Status...");
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO `PS_stats` VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Fly = ?, HideChat = ?, Stacker = ?, Speed = ?, HidePlayer = ?")) {
             statement.setString(1, player + "");

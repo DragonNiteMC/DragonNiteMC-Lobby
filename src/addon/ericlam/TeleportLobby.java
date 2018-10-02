@@ -38,8 +38,8 @@ public class TeleportLobby {
         }
     }
 
-    private boolean isNull(){
-        return !lobbyfile.contains("spawntp.world");
+    private boolean isNotNull(){
+        return lobbyfile.contains("spawntp.world");
     }
 
     private boolean needchangeSpawn(){
@@ -53,7 +53,7 @@ public class TeleportLobby {
     }
 
     public boolean TeleportToLobby(Player player){
-        if (!isNull()) getNewSpawn();
+        if (isNotNull()) getNewSpawn();
         if (lobby == null || Y == 0) {
             player.sendMessage(var.prefix() + ChatColor.RED+ "伺服器尚未設置重生點，因此無法傳送");
             return false;
@@ -62,13 +62,13 @@ public class TeleportLobby {
         return true;
     }
     public void TeleportToLobby(Player player, CommandSender sender){
-        if (!isNull()) getNewSpawn();
+        if (isNotNull()) getNewSpawn();
         if (lobby == null || Y == 0){
             sender.sendMessage(var.prefix() + ChatColor.RED + "由於重生點尚未設置，因此無法傳送 " + ChatColor.YELLOW + player.getName() + ChatColor.RED + " 。");
             return;
         }
         player.teleport(spawn);
-        sender.sendMessage(var.getPrefix + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.be-send").replace("<player>",player.getName()));
-        player.sendMessage(var.getPrefix + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.send"));
+        sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.be-send").replace("<player>",player.getName()));
+        player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.send"));
     }
 }

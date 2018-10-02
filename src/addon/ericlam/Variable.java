@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class Variable {
-    private static Variable plugin;
     private Functions fs = new Functions(HyperNiteMC.plugin);
     private static Variable var;
     public static FileConfiguration messagefile;
@@ -23,12 +22,8 @@ public class Variable {
         lobbyfile = YamlConfiguration.loadConfiguration(new File(HyperNiteMC.plugin.getDataFolder(), "Lobby.yml"));
     }
 
-    public boolean isYaml(){
-        return config.getString("General.Saving-Type").equalsIgnoreCase("yaml");
-    }
-
     public boolean isMySQL(){
-        return config.getString("General.Saving-Type").equalsIgnoreCase("sql");
+        return config.getBoolean("General.Use-MySQL");
     }
 
 
