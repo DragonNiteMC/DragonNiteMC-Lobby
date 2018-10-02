@@ -16,20 +16,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class OnInventoryClick implements Listener {
-    private SpeedExe speedExe;
-    private FlyExe flyExe;
-    private HideChatExe hideChatExe;
-    private HidePlayerExe hidePlayerExe;
-    private StackerExe stackerExe;
-
-    public OnInventoryClick() {
-        HyperNiteMC ps = (HyperNiteMC) HyperNiteMC.plugin;
-        speedExe = new SpeedExe(ps);
-        flyExe = new FlyExe(ps);
-        hideChatExe = new HideChatExe(ps);
-        hidePlayerExe = new HidePlayerExe(ps);
-        stackerExe = new StackerExe(ps);
-    }
 
     @EventHandler
     public void OnPlayerClickInventory(InventoryClickEvent event) throws IOException, SQLException {
