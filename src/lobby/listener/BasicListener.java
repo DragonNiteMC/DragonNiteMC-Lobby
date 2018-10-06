@@ -47,6 +47,7 @@ public class BasicListener implements Listener {
         if (player.hasPermission("donor.join")){
             Bukkit.broadcastMessage(fs.returnColoredMessage(Variable.lobbyfile,"join.donor-msg").replace("<player>",player.getDisplayName()));
         }
+
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
     }

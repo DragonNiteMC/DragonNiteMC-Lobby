@@ -1,9 +1,6 @@
 package playersettings.listener;
 
 import addon.ericlam.GUIBuilder;
-import com.caxerx.mc.PlayerSettingManager;
-import command.ericlam.*;
-import main.ericlam.HyperNiteMC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,11 +19,10 @@ public class OnInventoryClick implements Listener {
         Player player = (Player) event.getWhoClicked();
         Inventory inventory = event.getClickedInventory();
         ItemStack clicked = event.getCurrentItem();
-        PlayerSettingManager psm = PlayerSettingManager.getInstance();
         GUIBuilder gui = GUIBuilder.getInstance();
         if (inventory == null) return;
         if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) return;
-        if (inventory.getName().equals(gui.getGUI().getName())) {
+        if (inventory.getName().equals(gui.getGUIFromPlayerMap(player).getName())) {
             switch (clicked.getType()) {
                 case IRON_BOOTS:
                     player.performCommand("speed");

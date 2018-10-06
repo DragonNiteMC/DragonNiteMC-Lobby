@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.sql.SQLException;
 
@@ -57,10 +58,15 @@ public class SettingsExe implements CommandExecutor {
 
     public void OpenGUI(Player name, CommandSender sender) throws SQLException {
         Player p = name.getPlayer();
-        p.openInventory(gui.getGUI());
+        if (gui.getGUIFromPlayerMap(name) == null) {
+            name.sendMessage("DEBUG: Your Inventory is null");
+            return;
+        }
+        Inventory owngui = gui.getGUIFromPlayerMap(name);
+        p.openInventory(owngui);
         if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.be-show").replace("<player>", name.getName()));
         if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.show"));
-        gui.changeStatus(p);
+        gui.changeStatus(name);
     }
 
 

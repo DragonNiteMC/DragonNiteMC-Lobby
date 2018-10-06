@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,6 +23,7 @@ public class OnPlayerInteractEntity implements Listener {
     private Variable var = new Variable();
     @EventHandler
     public void onPlayerStacker(PlayerInteractEntityEvent event) throws SQLException {
+        if (event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
         if (config.getBoolean("Stacker.Enable")) {
             Player player = event.getPlayer();
             Entity entity = event.getRightClicked();
@@ -33,24 +35,25 @@ public class OnPlayerInteractEntity implements Listener {
                 Player rideentity = (Player) entity;
                 UUID rideruuid = rideentity.getUniqueId();
                 if (psm.getPlayerSetting(puuid).isStacker()) {
-                    if (rider == null && psm.getPlayerSetting(rideruuid).isStacker()) {
+                    if (rider.isEmpty() && psm.getPlayerSetting(rideruuid).isStacker()) {
                         player.addPassenger(entity);
-                        fs.sendActionBarMessage(player, fs.returnColoredMessage(messagefile,"Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
+                        player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
                     } else if (psm.getPlayerSetting(rideruuid).isStacker()) {
                         for (Entity ride : rider) {
-                            if (rider.size() >= (config.getInt("Stacker.Max-Stack"))) {
-                                fs.sendActionBarMessage(player, fs.returnColoredMessage(messagefile,"Commands.Stacker.Max"));
-                                break;
+                            if (player.getPassengers().contains(ride)) return;
+                            if (rider.size() >= (config.getInt("Stacker.Max-Stack")) ) {
+                                player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.Max"));
+                                return;
                             }
                             Player ridep = (Player) ride;
-                            if (ridep.getPassengers() == null) ridep.addPassenger(entity);
+                            if (ridep.getPassengers().isEmpty()) ridep.addPassenger(entity); HyperNiteMC.plugin.getLogger().info("condition 1.5 reached");
                         }
-                        fs.sendActionBarMessage(player, fs.returnColoredMessage(messagefile,"Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
+                        player.sendMessage(var.prefix() +  fs.returnColoredMessage(messagefile,"Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
                     } else {
-                        fs.sendActionBarMessage(player, fs.returnColoredMessage(messagefile,"Commands.Stacker.be-disactive"));
+                        player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.be-disactive"));
                     }
                 } else {
-                    fs.sendActionBarMessage(player, fs.returnColoredMessage(messagefile,"Commands.Stacker.disactive"));
+                    player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.disactive"));
                 }
             }
         }

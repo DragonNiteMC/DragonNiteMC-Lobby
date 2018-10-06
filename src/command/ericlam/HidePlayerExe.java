@@ -63,9 +63,9 @@ public class HidePlayerExe implements CommandExecutor {
         psm.getPlayerSetting(puuid).setHidePlayer(nohide);
            for (Player onlinep : Bukkit.getServer().getOnlinePlayers()) {
                if (nohide) {
-                   p.showPlayer(HyperNiteMC.plugin, onlinep);
-               } else {
                    p.hidePlayer(HyperNiteMC.plugin, onlinep);
+               } else {
+                   p.showPlayer(HyperNiteMC.plugin, onlinep);
                }
            }
         if (!var.isMySQL()) Variable.setYml("HidePlayer",puuid,nohide);

@@ -1,5 +1,6 @@
 package playersettings.listener;
 
+import addon.ericlam.GUIBuilder;
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
 import functions.hypernite.mc.Functions;
@@ -14,7 +15,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.config;
@@ -53,16 +53,29 @@ public class OnPlayerJoin implements Listener {
             if (speed) player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
             else player.removePotionEffect(PotionEffectType.SPEED);
         }
-        if (config.getBoolean("Join-Show-UUID.Enable"))
-            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Functions.ShowUUID.JoinMessage").replace("<UUID>", puuid.toString()));
-    }
-    @EventHandler
-    public void HidePlayerOnJoin(PlayerJoinEvent e) throws SQLException {
-        Player target = e.getPlayer();
-        Collection<? extends Player> players = Bukkit.getServer().getOnlinePlayers();
-        for (Player player : players){
-            if (player == target) continue;
-            if (psm.getPlayerSetting(player.getUniqueId()).isHidePlayer()) player.hidePlayer(HyperNiteMC.plugin, target);
+        if (config.getBoolean("Join-Show-UUID.Enable")) {
+            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Functions.ShowUUID.JoinMessage").replace("<UUID>", puuid.toString()));
+        }
+        GUIBuilder gui = GUIBuilder.getInstance();
+        if (!gui.OwnGUIHavePlayer(player)) gui.setOwnGUI(player, gui.getInventoryGUI());
+        for (Player online : Bukkit.getServer().getOnlinePlayers()){
+            if (online == player) continue;
+
+            if (psm.getPlayerSettingMap().get(online.getUniqueId()).isHidePlayer()) {
+                online.hidePlayer(HyperNiteMC.plugin, player);
+                HyperNiteMC.plugin.getLogger().info("DEBUG: Someone Enabled HidePlayer, Hided onJoin player.");
+            }else {
+                online.showPlayer(HyperNiteMC.plugin, player);
+                HyperNiteMC.plugin.getLogger().info("DEBUG: Someone Disabled HidePlayer, Showed onJoin player.");
+            }
+
+            if (psm.getPlayerSetting(player.getUniqueId()).isHidePlayer()) {
+                player.hidePlayer(HyperNiteMC.plugin, online);
+                HyperNiteMC.plugin.getLogger().info("DEBUG: onJoinPlayer Enabled HidePlayer, Hided online players.");
+            }else {
+                player.showPlayer(HyperNiteMC.plugin, online);
+                HyperNiteMC.plugin.getLogger().info("DEBUG: onJoinPlayer Disabled HidePlayer, Showed online players.");
+            }
         }
     }
 }

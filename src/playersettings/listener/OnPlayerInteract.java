@@ -2,7 +2,6 @@ package playersettings.listener;
 
 import addon.ericlam.Variable;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,17 +18,18 @@ public class OnPlayerInteract implements Listener {
     private Variable var = new Variable();
     @EventHandler
     public  void onPlayerPush(PlayerInteractEvent event){
-        if (event.getAction().equals(Action.LEFT_CLICK_AIR) && event.getPlayer().getPassengers().equals(EntityType.PLAYER)){
+        if (event.getAction().equals(Action.LEFT_CLICK_AIR) && !event.getPlayer().getPassengers().isEmpty()){
             Player thrower = event.getPlayer();
             List<Entity> toThrow = thrower.getPassengers();
             thrower.eject();
-            for (Entity push : toThrow){
-                Player toPush = (Player) push;
+            for (Entity pushes : toThrow){
+                Player toPush = (Player) pushes;
                 toPush.eject();
-                toPush.setVelocity(toPush.getLocation().getDirection().multiply(config.getInt("Stacker.Throw-Power")));
+                toPush.setVelocity(thrower.getLocation().getDirection().multiply(config.getInt("Stacker.Throw-Power")));
                 toPush.setVelocity(new Vector(toPush.getVelocity().getX(), config.getDouble("Stacker.Throw-Y"), toPush.getVelocity().getZ()));
-                thrower.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.pushed" + (toThrow.size() > 1 ? "-all" : "")).replace("<player>", toPush.getDisplayName()));
+                if (toThrow.size() == 1) thrower.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.Stacker.pushed").replace("<player>", toPush.getName()));
             }
+            if (toThrow.size() > 1)thrower.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.pushed-all"));
         }
     }
 }

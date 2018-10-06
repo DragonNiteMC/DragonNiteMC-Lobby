@@ -25,6 +25,10 @@ public class PlayerSettingManager {
         playerSettingMap = new HashMap<>();
     }
 
+    public HashMap<UUID, PlayerConfigStatus> getPlayerSettingMap() {
+        return playerSettingMap;
+    }
+
     public void needMySQL() throws SQLException {
         Variable var = new Variable();
         if (var.isMySQL()){
@@ -70,14 +74,16 @@ public class PlayerSettingManager {
         if (playerSettingMap.containsKey(player)) return playerSettingMap.get(player);
         PlayerConfigStatus setting;
         if (new File(HyperNiteMC.plugin.getDataFolder(), "PlayerData/" + player.toString() + ".yml").exists()) {
-            boolean fly = Variable.uuidYml(player).getBoolean("Flight");
-            boolean hideChat = Variable.uuidYml(player).getBoolean("HideChat");
-            boolean stacker = Variable.uuidYml(player).getBoolean("Stacker");
-            boolean speed = Variable.uuidYml(player).getBoolean("Speed");
-            boolean hidePlayer = Variable.uuidYml(player).getBoolean("HidePlayer");
+            boolean fly = Variable.uuidYml(player).getBoolean("Flight") && Variable.uuidYml(player).contains("Flight");
+            boolean hideChat = Variable.uuidYml(player).getBoolean("HideChat") && Variable.uuidYml(player).contains("HideChat");
+            boolean stacker = Variable.uuidYml(player).getBoolean("Stacker") && Variable.uuidYml(player).contains("Stacker");
+            boolean speed = Variable.uuidYml(player).getBoolean("Speed") && Variable.uuidYml(player).contains("Speed");
+            boolean hidePlayer = Variable.uuidYml(player).getBoolean("HidePlayer") && Variable.uuidYml(player).contains("HidePlayer");
             setting = new PlayerConfigStatus(fly, hideChat, hidePlayer, stacker, speed);
+            plugin.getLogger().info("DEBUG: found player's data folder");
         } else {
             setting = new PlayerConfigStatus(false, false, false, false, false);
+            plugin.getLogger().info("DEBUG: no player's data folder found, changed all to false");
         }
         playerSettingMap.put(player, setting);
         return setting;

@@ -1,6 +1,5 @@
 package main.ericlam;
 
-import addon.ericlam.GUIBuilder;
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
 import command.ericlam.*;
@@ -65,8 +64,6 @@ public class HyperNiteMC extends JavaPlugin {
                 e.printStackTrace();
             }
         }else console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
-        GUIBuilder start = GUIBuilder.getInstance();
-        start.getInventoryGUI();
         console.sendMessage(ChatColor.YELLOW + "===========================================");
     }
 
