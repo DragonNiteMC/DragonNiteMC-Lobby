@@ -21,41 +21,53 @@ import static addon.ericlam.Variable.messagefile;
 
 public class OnPlayerInteractEntity implements Listener {
     private Variable var = new Variable();
+    private PlayerSettingManager psm = PlayerSettingManager.getInstance();
+    private Functions fs = new Functions(HyperNiteMC.plugin);
+
     @EventHandler
     public void onPlayerStacker(PlayerInteractEntityEvent event) throws SQLException {
         if (event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
-        if (config.getBoolean("Stacker.Enable")) {
-            Player player = event.getPlayer();
-            Entity entity = event.getRightClicked();
-            UUID puuid = player.getUniqueId();
-            Functions fs = new Functions(HyperNiteMC.plugin);
-            PlayerSettingManager psm = PlayerSettingManager.getInstance();
-            if (entity instanceof Player && player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
-                List<Entity> rider = player.getPassengers();
-                Player rideentity = (Player) entity;
-                UUID rideruuid = rideentity.getUniqueId();
-                if (psm.getPlayerSetting(puuid).isStacker()) {
-                    if (rider.isEmpty() && psm.getPlayerSetting(rideruuid).isStacker()) {
-                        player.addPassenger(entity);
-                        player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
-                    } else if (psm.getPlayerSetting(rideruuid).isStacker()) {
-                        for (Entity ride : rider) {
-                            if (player.getPassengers().contains(ride)) return;
-                            if (rider.size() >= (config.getInt("Stacker.Max-Stack")) ) {
-                                player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.Max"));
-                                return;
-                            }
-                            Player ridep = (Player) ride;
-                            if (ridep.getPassengers().isEmpty()) ridep.addPassenger(entity); HyperNiteMC.plugin.getLogger().info("condition 1.5 reached");
-                        }
-                        player.sendMessage(var.prefix() +  fs.returnColoredMessage(messagefile,"Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
-                    } else {
-                        player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.be-disactive"));
-                    }
-                } else {
-                    player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile,"Commands.Stacker.disactive"));
-                }
+        if (!config.getBoolean("Stacker.Enable")) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        UUID puuid = player.getUniqueId();
+        Entity entity = event.getRightClicked();
+
+        if (!(entity instanceof Player) || !player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
+            return;
+        }
+
+        Player target = (Player) entity;
+
+        if (psm.getPlayerSetting(puuid).isStacker() && psm.getPlayerSetting(target.getUniqueId()).isStacker()) {
+            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.disactive"));
+            return;
+        }
+
+        int maxStack = config.getInt("Stacker.Max-Stack");
+        int stack = 0;
+        Player top = player;
+
+        while (top.getPassengers().size() > 0) {
+            if (top.getPassengers().size() != 1) {
+                return;
+            }
+            Entity topEntity = top.getPassengers().get(0);
+            if (!(topEntity instanceof Player)) {
+                return;
+            }
+            top = (Player) topEntity;
+            stack++;
+            if (stack >= maxStack) {
+                player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.Max"));
+                return;
             }
         }
+
+        top.addPassenger(target);
+        player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
     }
 }
+
