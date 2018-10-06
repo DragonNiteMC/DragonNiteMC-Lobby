@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.config;
@@ -41,10 +40,15 @@ public class OnPlayerInteractEntity implements Listener {
 
         Player target = (Player) entity;
 
-        if (psm.getPlayerSetting(puuid).isStacker() && psm.getPlayerSetting(target.getUniqueId()).isStacker()) {
+        if (!psm.getPlayerSetting(puuid).isStacker()) {
             player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.disactive"));
             return;
         }
+        if (!psm.getPlayerSetting(target.getUniqueId()).isStacker()){
+            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.be-disactive"));
+            return;
+        }
+
 
         int maxStack = config.getInt("Stacker.Max-Stack");
         int stack = 0;
