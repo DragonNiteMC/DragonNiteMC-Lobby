@@ -40,6 +40,7 @@ public class BasicListener implements Listener {
         tb.setTablistHeader(player, header, color);
 
     }*/
+
     private TeleportLobby spawn = TeleportLobby.getInstance();
     @EventHandler
     public void onLobbyJoin(PlayerJoinEvent e){

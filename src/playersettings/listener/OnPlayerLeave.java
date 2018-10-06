@@ -15,19 +15,16 @@ import java.util.UUID;
 
 public class OnPlayerLeave implements Listener {
     private BukkitScheduler scheduler = Bukkit.getScheduler();
+
     @EventHandler
     public void PlayerLeaveMySQL(PlayerQuitEvent event) throws SQLException {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
         if (new Variable().isMySQL())
-        Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () ->{
-            try {
-                PlayerSettingManager.getInstance().savePlayerSetting(puuid, 0 );
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
-        }
+            Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () -> {
+                PlayerSettingManager.getInstance().savePlayerSetting(puuid);
+            });
     }
+}
 
 
