@@ -15,6 +15,8 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.config;
@@ -59,6 +61,8 @@ public class OnPlayerInteractEntity implements Listener {
         Bukkit.broadcastMessage("Click Player: " + event.getPlayer().getName());
         Bukkit.broadcastMessage("Clicked Player: " + event.getRightClicked().getName());
         Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
+        Set<Player> stacks = new HashSet<>();
+        stacks.add(top);
         while (top.getPassengers().size() > 0) {
             if (top.getPassengers().size() != 1) {
                 return;
@@ -68,6 +72,7 @@ public class OnPlayerInteractEntity implements Listener {
                 return;
             }
             top = (Player) topEntity;
+            stacks.add(top);
             stack++;
             Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
             if (stack >= maxStack) {
@@ -75,7 +80,9 @@ public class OnPlayerInteractEntity implements Listener {
                 return;
             }
         }
-        top.addPassenger(target);
+        if (!stacks.contains(target)) {
+            top.addPassenger(target);
+        }
         Bukkit.broadcastMessage(ChatColor.RED + "=================");
         player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
     }
