@@ -4,6 +4,8 @@ import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
 import functions.hypernite.mc.Functions;
 import main.ericlam.HyperNiteMC;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -44,7 +46,7 @@ public class OnPlayerInteractEntity implements Listener {
             player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.disactive"));
             return;
         }
-        if (!psm.getPlayerSetting(target.getUniqueId()).isStacker()){
+        if (!psm.getPlayerSetting(target.getUniqueId()).isStacker()) {
             player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.be-disactive"));
             return;
         }
@@ -53,7 +55,10 @@ public class OnPlayerInteractEntity implements Listener {
         int maxStack = config.getInt("Stacker.Max-Stack");
         int stack = 0;
         Player top = player;
-
+        Bukkit.broadcastMessage(ChatColor.RED + "======DEBUG======");
+        Bukkit.broadcastMessage("Click Player: " + event.getPlayer().getName());
+        Bukkit.broadcastMessage("Clicked Player: " + event.getRightClicked().getName());
+        Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
         while (top.getPassengers().size() > 0) {
             if (top.getPassengers().size() != 1) {
                 return;
@@ -64,13 +69,14 @@ public class OnPlayerInteractEntity implements Listener {
             }
             top = (Player) topEntity;
             stack++;
+            Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
             if (stack >= maxStack) {
                 player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.Max"));
                 return;
             }
         }
-
         top.addPassenger(target);
+        Bukkit.broadcastMessage(ChatColor.RED + "=================");
         player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
     }
 }
