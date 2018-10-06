@@ -5,7 +5,6 @@ import com.caxerx.mc.storage.PlayerStatusStorage;
 import com.caxerx.mc.storage.SQLDatabaseStorage;
 import com.caxerx.mc.storage.YamlStorage;
 import main.ericlam.HyperNiteMC;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -24,10 +23,6 @@ public class PlayerSettingManager {
         } else {
             storage = new YamlStorage(HyperNiteMC.plugin);
         }
-    }
-
-    public HashMap<UUID, PlayerConfigStatus> getPlayerSettingMap() {
-        return playerSettingMap;
     }
 
     public static PlayerSettingManager getInstance() {

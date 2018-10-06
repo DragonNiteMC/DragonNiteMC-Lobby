@@ -25,7 +25,7 @@ public class OnPlayerChat implements Listener {
             event.getRecipients().remove(player);
             player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.hidden"));
         }
-        event.getRecipients().removeIf(pl -> psm.getPlayerSettingMap().get(pl.getUniqueId()).isHideChat());
+        event.getRecipients().removeIf(pl -> psm.getPlayerSetting(pl.getUniqueId()).isHideChat());
     }
 
 

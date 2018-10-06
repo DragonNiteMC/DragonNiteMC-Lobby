@@ -14,8 +14,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.UUID;
 
 import static addon.ericlam.Variable.config;
@@ -65,7 +63,7 @@ public class OnPlayerJoin implements Listener {
         for (Player online : Bukkit.getServer().getOnlinePlayers()) {
             if (online == player) continue;
 
-            if (psm.getPlayerSettingMap().get(online.getUniqueId()).isHidePlayer()) {
+            if (psm.getPlayerSetting(online.getUniqueId()).isHidePlayer()) {
                 online.hidePlayer(HyperNiteMC.plugin, player);
                 HyperNiteMC.plugin.getLogger().info("DEBUG: Someone Enabled HidePlayer, Hided onJoin player.");
             } else {
