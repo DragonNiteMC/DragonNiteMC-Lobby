@@ -5,7 +5,6 @@ import com.caxerx.mc.PlayerSettingManager;
 import functions.hypernite.mc.Functions;
 import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -57,34 +56,38 @@ public class OnPlayerInteractEntity implements Listener {
         int maxStack = config.getInt("Stacker.Max-Stack");
         int stack = 0;
         Player top = player;
-        Bukkit.broadcastMessage(ChatColor.RED + "======DEBUG======");
+        /*Bukkit.broadcastMessage(ChatColor.RED + "======DEBUG======");
         Bukkit.broadcastMessage("Click Player: " + event.getPlayer().getName());
         Bukkit.broadcastMessage("Clicked Player: " + event.getRightClicked().getName());
-        Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
+        Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());*/
         Set<Player> stacks = new HashSet<>();
         stacks.add(top);
         while (top.getPassengers().size() > 0) {
             if (top.getPassengers().size() != 1) {
+                Bukkit.broadcastMessage("returned");
                 return;
             }
             Entity topEntity = top.getPassengers().get(0);
             if (!(topEntity instanceof Player)) {
+                Bukkit.broadcastMessage("returned");
                 return;
             }
             top = (Player) topEntity;
             stacks.add(top);
             stack++;
-            Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
+            //Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
+        }
+        //Bukkit.broadcastMessage(ChatColor.RED + "=================");
+
+        if (!stacks.contains(target)) {
             if (stack >= maxStack) {
                 player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.Max"));
                 return;
             }
-        }
-        if (!stacks.contains(target)) {
             top.addPassenger(target);
+            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
         }
-        Bukkit.broadcastMessage(ChatColor.RED + "=================");
-        player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
+
     }
 }
 

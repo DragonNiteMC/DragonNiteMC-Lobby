@@ -9,7 +9,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static addon.ericlam.Variable.config;
 import static addon.ericlam.Variable.messagefile;
@@ -20,10 +21,21 @@ public class OnPlayerInteract implements Listener {
     public  void onPlayerPush(PlayerInteractEvent event){
         if (event.getAction().equals(Action.LEFT_CLICK_AIR) && !event.getPlayer().getPassengers().isEmpty()){
             Player thrower = event.getPlayer();
-            List<Entity> toThrow = thrower.getPassengers();
+            Set<Player> toThrow = new HashSet<>();
+            Player top = thrower;
+            while (top.getPassengers().size() > 0){
+                if (top.getPassengers().size() != 1){
+                    return;
+                }
+                Entity topentity = top.getPassengers().get(0);
+                if (!(topentity instanceof Player)){
+                    return;
+                }
+                top = (Player) topentity;
+                toThrow.add(top);
+            }
             thrower.eject();
-            for (Entity pushes : toThrow){
-                Player toPush = (Player) pushes;
+            for (Player toPush : toThrow){
                 toPush.eject();
                 toPush.setVelocity(thrower.getLocation().getDirection().multiply(config.getInt("Stacker.Throw-Power")));
                 toPush.setVelocity(new Vector(toPush.getVelocity().getX(), config.getDouble("Stacker.Throw-Y"), toPush.getVelocity().getZ()));
