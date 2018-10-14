@@ -65,7 +65,7 @@ public class SpeedExe implements CommandExecutor {
         int amplifier = config.getInt("Speed.Level") - 1;
         if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Turn-" + (speed ? "On":"Off")));
-        if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, amplifier));
+        if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999*20, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
         psm.getPlayerSetting(puuid).setSpeed(speed);
         if (!var.isMySQL()) Variable.setYml("Speed",puuid,speed);
