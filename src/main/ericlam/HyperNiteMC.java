@@ -2,11 +2,10 @@ package main.ericlam;
 
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
+import com.hypernite.functions.Functions;
 import command.ericlam.*;
-import functions.hypernite.mc.Functions;
 import lobby.listener.BasicListener;
 import lobby.listener.LobbyJoinItem;
-import mysql.hypernite.mc.SQLDataSourceManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -14,8 +13,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import playersettings.listener.*;
-
-import java.sql.SQLException;
 
 public class HyperNiteMC extends JavaPlugin {
     public static Plugin plugin;

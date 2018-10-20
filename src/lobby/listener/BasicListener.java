@@ -2,7 +2,7 @@ package lobby.listener;
 
 import addon.ericlam.TeleportLobby;
 import addon.ericlam.Variable;
-import functions.hypernite.mc.Functions;
+import com.hypernite.functions.Functions;
 import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

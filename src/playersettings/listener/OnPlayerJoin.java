@@ -3,7 +3,7 @@ package playersettings.listener;
 import addon.ericlam.GUIBuilder;
 import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import functions.hypernite.mc.Functions;
+import com.hypernite.functions.Functions;
 import main.ericlam.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

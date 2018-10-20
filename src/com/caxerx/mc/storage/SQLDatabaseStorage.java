@@ -1,7 +1,7 @@
 package com.caxerx.mc.storage;
 
 import com.caxerx.mc.PlayerConfigStatus;
-import mysql.hypernite.mc.SQLDataSourceManager;
+import com.hypernite.mysql.SQLDataSourceManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
