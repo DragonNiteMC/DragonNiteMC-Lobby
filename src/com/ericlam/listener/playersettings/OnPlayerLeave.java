@@ -1,8 +1,8 @@
-package playersettings.listener;
+package com.ericlam.listener.playersettings;
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

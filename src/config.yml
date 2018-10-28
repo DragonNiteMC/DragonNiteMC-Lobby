@@ -11,3 +11,17 @@ Speed:
   Level: 2
 GUI:
   Enable-Notify-On-OpenGUI: true
+Restart:
+  # 24 hours format
+  Time: "03:30"
+  Custom-Time-Zone: false
+  Time-Zone: "UTC+8"
+  Spigot-Restart: true
+  #how many players in server will delay the restart
+  Delay-Online: 1
+  #delay timer in sec
+  Delay-Sec: 60
+  #check interval before countdown (in min)
+  Check-Interval: 5
+  # in minute
+  Notify-Before: 3

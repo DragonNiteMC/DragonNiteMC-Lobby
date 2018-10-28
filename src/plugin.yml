@@ -1,5 +1,5 @@
 name: HyperNiteMC-Lobby
-main: main.ericlam.HyperNiteMC
+main: main.HyperNiteMC
 version: 1.0
 api-version: 1.13
 authors: [ericlam]

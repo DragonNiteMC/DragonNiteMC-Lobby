@@ -1,7 +1,7 @@
-package command.ericlam;
+package com.ericlam.command;
 
-import addon.ericlam.Variable;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;

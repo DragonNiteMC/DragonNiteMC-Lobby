@@ -1,6 +1,6 @@
-package playersettings.listener;
+package com.ericlam.listener.playersettings;
 
-import addon.ericlam.GUIBuilder;
+import com.ericlam.addon.GUIBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

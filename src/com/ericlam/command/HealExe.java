@@ -1,7 +1,7 @@
-package command.ericlam;
+package com.ericlam.command;
 
-import addon.ericlam.Variable;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class HealExe implements CommandExecutor{
     private final HyperNiteMC plugin;
@@ -37,7 +37,7 @@ public class HealExe implements CommandExecutor{
                         }else{commandSender.sendMessage(var.prefix() + var.noperm());}
                     return true;
     }
-    public void healExector(Player name, CommandSender sender){
+    private void healExector(Player name, CommandSender sender){
         int hp = (int) name.getHealth();
         int hg = name.getFoodLevel();
         if (hp < 20 || hg < 20){

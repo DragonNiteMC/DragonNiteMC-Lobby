@@ -1,8 +1,8 @@
-package command.ericlam;
+package com.ericlam.command;
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,10 +12,9 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class HideChatExe implements CommandExecutor{
     private final HyperNiteMC plugin;
@@ -35,7 +34,7 @@ public class HideChatExe implements CommandExecutor{
                 Player player = (Player) commandSender;
                 try {
                     HideChat(player, player);
-                } catch (IOException | SQLException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -46,7 +45,7 @@ public class HideChatExe implements CommandExecutor{
             else {
                 try {
                     HideChat(target,commandSender);
-                } catch (IOException | SQLException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -54,7 +53,7 @@ public class HideChatExe implements CommandExecutor{
         return true;
     }
 
-    public void HideChat(Player name, CommandSender sender) throws IOException, SQLException {
+    private void HideChat(Player name, CommandSender sender) throws IOException {
         Player player = name.getPlayer();
         UUID puuid = player.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();

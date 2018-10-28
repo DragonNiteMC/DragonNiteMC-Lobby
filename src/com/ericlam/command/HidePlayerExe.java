@@ -1,8 +1,8 @@
-package command.ericlam;
+package com.ericlam.command;
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class HidePlayerExe implements CommandExecutor {
     private final HyperNiteMC plugin;
@@ -53,7 +53,7 @@ public class HidePlayerExe implements CommandExecutor {
         return true;
     }
 
-    public void HidePlayer(Player name, CommandSender sender) throws IOException, SQLException {
+    private void HidePlayer(Player name, CommandSender sender) throws IOException, SQLException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();

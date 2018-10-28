@@ -1,9 +1,9 @@
-package command.ericlam;
+package com.ericlam.command;
 
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,11 +15,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.config;
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.config;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class SpeedExe implements CommandExecutor {
     private final HyperNiteMC plugin;
@@ -36,7 +35,7 @@ public class SpeedExe implements CommandExecutor {
                 Player player = (Player) commandSender;
                 try {
                     SetSpeed(player, player);
-                } catch (IOException | SQLException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }else{commandSender.sendMessage(ChatColor.RED + "Console can only use /speed <player>");}
@@ -47,7 +46,7 @@ public class SpeedExe implements CommandExecutor {
             }else {
                 try {
                     SetSpeed(target, commandSender);
-                } catch (IOException | SQLException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -57,7 +56,7 @@ public class SpeedExe implements CommandExecutor {
         return true;
     }
 
-    public void SetSpeed(Player name, CommandSender sender) throws IOException, SQLException {
+    private void SetSpeed(Player name, CommandSender sender) throws IOException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();

@@ -1,8 +1,8 @@
-package command.ericlam;
+package com.ericlam.command;
 
-import addon.ericlam.TeleportLobby;
-import addon.ericlam.Variable;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.TeleportLobby;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class SpawnExe implements CommandExecutor {
     public final HyperNiteMC plugin;

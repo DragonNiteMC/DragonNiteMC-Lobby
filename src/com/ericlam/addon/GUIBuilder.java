@@ -1,4 +1,4 @@
-package addon.ericlam;
+package com.ericlam.addon;
 
 import com.caxerx.builders.InventoryBuilder;
 import com.caxerx.builders.ItemStackBuilder;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class GUIBuilder {
     private static GUIBuilder setting;
@@ -44,10 +44,6 @@ public class GUIBuilder {
 
     public void setOwnGUI(Player player, Inventory inventory){
         ownGUI.put(player, inventory);
-    }
-
-    public void removeOwnGUI(Player player){
-        ownGUI.remove(player);
     }
 
     public Inventory getGUIFromPlayerMap(Player player){

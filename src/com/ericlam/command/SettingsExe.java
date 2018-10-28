@@ -1,8 +1,8 @@
-package command.ericlam;
+package com.ericlam.command;
 
-import addon.ericlam.GUIBuilder;
-import addon.ericlam.Variable;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.GUIBuilder;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,8 +14,8 @@ import org.bukkit.inventory.Inventory;
 
 import java.sql.SQLException;
 
-import static addon.ericlam.Variable.config;
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.config;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class SettingsExe implements CommandExecutor {
     private Variable var = new Variable();
@@ -56,7 +56,7 @@ public class SettingsExe implements CommandExecutor {
         return true;
     }
 
-    public void OpenGUI(Player name, CommandSender sender) throws SQLException {
+    private void OpenGUI(Player name, CommandSender sender) throws SQLException {
         Player p = name.getPlayer();
         if (gui.getGUIFromPlayerMap(name) == null) {
             name.sendMessage("DEBUG: Your Inventory is null");

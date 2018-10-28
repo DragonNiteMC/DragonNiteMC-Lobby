@@ -1,4 +1,4 @@
-package addon.ericlam;
+package com.ericlam.addon;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -7,8 +7,8 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static addon.ericlam.Variable.lobbyfile;
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.lobbyfile;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class TeleportLobby {
     private static TeleportLobby tplobby;

@@ -1,9 +1,9 @@
-package command.ericlam;
+package com.ericlam.command;
 
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,10 +13,9 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.messagefile;
 
 
 public class FlyExe implements CommandExecutor {
@@ -36,7 +35,7 @@ public class FlyExe implements CommandExecutor {
                     Player player = (Player) commandSender;
                     try {
                         flyExecutor(player, player);
-                    } catch (IOException | SQLException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }else{commandSender.sendMessage(ChatColor.RED + "Console can only use /fly <player>");}
@@ -47,7 +46,7 @@ public class FlyExe implements CommandExecutor {
                 }else {
                     try {
                         flyExecutor(target, commandSender);
-                    } catch (IOException | SQLException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -56,7 +55,7 @@ public class FlyExe implements CommandExecutor {
             }
             return true;
     }
-    public void flyExecutor(Player name,CommandSender sender) throws IOException, SQLException {
+    private void flyExecutor(Player name, CommandSender sender) throws IOException {
         Player p = name.getPlayer();
         UUID puuid = p.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();

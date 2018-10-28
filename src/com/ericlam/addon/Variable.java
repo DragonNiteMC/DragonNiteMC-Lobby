@@ -1,7 +1,7 @@
-package addon.ericlam;
+package com.ericlam.addon;
 
 import com.hypernite.functions.Functions;
-import main.ericlam.HyperNiteMC;
+import main.HyperNiteMC;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

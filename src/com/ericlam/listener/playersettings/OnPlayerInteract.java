@@ -1,6 +1,6 @@
-package playersettings.listener;
+package com.ericlam.listener.playersettings;
 
-import addon.ericlam.Variable;
+import com.ericlam.addon.Variable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,8 +12,8 @@ import org.bukkit.util.Vector;
 import java.util.HashSet;
 import java.util.Set;
 
-import static addon.ericlam.Variable.config;
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.config;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class OnPlayerInteract implements Listener {
     private Variable var = new Variable();

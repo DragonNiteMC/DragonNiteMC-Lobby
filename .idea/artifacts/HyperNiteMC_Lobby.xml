@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="HyperNiteMC-Lobby">
-    <output-path>$PROJECT_DIR$/../../Studio Production/2017-2018/fast test server/plugins</output-path>
+    <output-path>$PROJECT_DIR$/../../../Studio Production/2017-2018/fast test server/plugins</output-path>
     <root id="archive" name="HyperNiteMC-Lobby.jar">
       <element id="file-copy" path="$PROJECT_DIR$/src/config.yml" />
       <element id="file-copy" path="$PROJECT_DIR$/src/plugin.yml" />

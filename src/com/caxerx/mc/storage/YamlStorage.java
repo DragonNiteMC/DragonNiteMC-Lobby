@@ -1,8 +1,7 @@
 package com.caxerx.mc.storage;
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerConfigStatus;
-import main.ericlam.HyperNiteMC;
+import main.HyperNiteMC;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 

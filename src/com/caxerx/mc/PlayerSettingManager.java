@@ -1,10 +1,10 @@
 package com.caxerx.mc;
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.storage.PlayerStatusStorage;
 import com.caxerx.mc.storage.SQLDatabaseStorage;
 import com.caxerx.mc.storage.YamlStorage;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.Variable;
+import main.HyperNiteMC;
 
 import java.util.HashMap;
 import java.util.UUID;

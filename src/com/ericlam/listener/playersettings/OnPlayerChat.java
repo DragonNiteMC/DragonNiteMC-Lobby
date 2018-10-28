@@ -1,7 +1,7 @@
-package playersettings.listener;
+package com.ericlam.listener.playersettings;
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
+import com.ericlam.addon.Variable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,7 +10,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.messagefile;
 
 
 public class OnPlayerChat implements Listener {

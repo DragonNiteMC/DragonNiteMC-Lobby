@@ -1,9 +1,9 @@
-package playersettings.listener;
+package com.ericlam.listener.playersettings;
 
-import addon.ericlam.Variable;
 import com.caxerx.mc.PlayerSettingManager;
+import com.ericlam.addon.Variable;
 import com.hypernite.functions.Functions;
-import main.ericlam.HyperNiteMC;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -18,8 +18,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static addon.ericlam.Variable.config;
-import static addon.ericlam.Variable.messagefile;
+import static com.ericlam.addon.Variable.config;
+import static com.ericlam.addon.Variable.messagefile;
 
 public class OnPlayerInteractEntity implements Listener {
     private Variable var = new Variable();

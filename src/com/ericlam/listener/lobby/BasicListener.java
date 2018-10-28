@@ -1,9 +1,9 @@
-package lobby.listener;
+package com.ericlam.listener.lobby;
 
-import addon.ericlam.TeleportLobby;
-import addon.ericlam.Variable;
+import com.ericlam.addon.TeleportLobby;
+import com.ericlam.addon.Variable;
 import com.hypernite.functions.Functions;
-import main.ericlam.HyperNiteMC;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

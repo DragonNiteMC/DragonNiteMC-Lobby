@@ -1,7 +1,7 @@
-package lobby.listener;
+package com.ericlam.listener.lobby;
 
-import addon.ericlam.JoinItemBuilder;
-import main.ericlam.HyperNiteMC;
+import com.ericlam.addon.JoinItemBuilder;
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package addon.ericlam;
+package com.ericlam.addon;
 
 import com.caxerx.builders.ItemStackBuilder;
 import org.bukkit.Material;
