@@ -50,7 +50,7 @@ public class ScheduleRestart {
 
                     LocalDateTime now = LocalDateTime.now(zone);
 
-                    if (firstCheck == null) firstCheck = now;
+                    if (firstCheck == null) firstCheck = now.plusMinutes(1);
 
                     else {
                         long first = Timestamp.valueOf(firstCheck).getTime();
