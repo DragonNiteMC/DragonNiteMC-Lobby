@@ -86,7 +86,7 @@ public class ScheduleRestart {
                 Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("§a伺服器正在重啟...","",0,100,20));
                 if (Bukkit.getOnlinePlayers().size() >= delayPlayers) {
                     Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("","§e人數過多，加時§b "+delayTime+" §e秒。",20,60,20));
-                    Bukkit.broadcastMessage("§4系統// §c由於伺服器內的玩家人數超過了"+delayPlayers+"個，本系統將延時至"+delayTime+"秒後再重啟。");
+                    Bukkit.broadcastMessage("§4系統// §c由於伺服器內的玩家人數超過了"+delayPlayers+"個，本系統將延時"+delayTime+"秒後再重啟。");
                     time += delayTime+1;
                 }else{
                     if (spigotRestart) Bukkit.getServer().spigot().restart();
