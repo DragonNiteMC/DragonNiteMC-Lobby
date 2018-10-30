@@ -2,6 +2,7 @@ package com.ericlam.listener.lobby;
 
 import com.ericlam.addon.TeleportLobby;
 import com.ericlam.addon.Variable;
+import com.ericlam.builders.TablistBuilder;
 import com.hypernite.functions.Functions;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
@@ -51,6 +52,7 @@ public class BasicListener implements Listener {
 
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
+        TablistBuilder.getInstance().setHeader(Variable.header,player);
     }
 
     @EventHandler

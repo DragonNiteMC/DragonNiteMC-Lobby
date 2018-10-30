@@ -15,11 +15,13 @@ public class Variable {
     public static FileConfiguration messagefile;
     public static FileConfiguration config;
     public static FileConfiguration lobbyfile;
+    public static String header;
 
     public Variable(){
         messagefile = YamlConfiguration.loadConfiguration(new File(HyperNiteMC.plugin.getDataFolder(), "Messages.yml"));
         config = YamlConfiguration.loadConfiguration(new File(HyperNiteMC.plugin.getDataFolder(), "config.yml"));
         lobbyfile = YamlConfiguration.loadConfiguration(new File(HyperNiteMC.plugin.getDataFolder(), "Lobby.yml"));
+        header = lobbyfile.getString("tablist-header");
     }
 
     public boolean isMySQL(){
