@@ -33,15 +33,6 @@ public class BasicListener implements Listener {
     //private TablistBuilder tb = TablistBuilder.getInstance();
     private Functions fs = new Functions(HyperNiteMC.plugin);
 
-    /*@EventHandler
-    public void changeTablistTitle(PlayerJoinEvent e){
-        Player player = e.getPlayer();
-        String header = Variable.lobbyfile.getString("tablist.header");
-        String color = Variable.lobbyfile.getString("tablist.color");
-        tb.setTablistHeader(player, header, color);
-
-    }*/
-
     private TeleportLobby spawn = TeleportLobby.getInstance();
     @EventHandler
     public void onLobbyJoin(PlayerJoinEvent e){
