@@ -1,6 +1,6 @@
 package com.ericlam.listener.playersettings;
 
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,11 +12,11 @@ import org.bukkit.util.Vector;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.ericlam.addon.Variable.config;
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.config;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class OnPlayerInteract implements Listener {
-    private Variable var = new Variable();
+    private ConfigManager var = ConfigManager.getInstance();
     @EventHandler
     public  void onPlayerPush(PlayerInteractEvent event){
         if (event.getAction().equals(Action.LEFT_CLICK_AIR) && !event.getPlayer().getPassengers().isEmpty()){

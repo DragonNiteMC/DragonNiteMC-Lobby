@@ -2,7 +2,7 @@ package com.ericlam.command;
 
 
 import com.caxerx.mc.PlayerSettingManager;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,13 +17,14 @@ import org.bukkit.potion.PotionEffectType;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.ericlam.addon.Variable.config;
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.config;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class SpeedExe implements CommandExecutor {
     private final HyperNiteMC plugin;
     public SpeedExe(HyperNiteMC plugin){ this.plugin = plugin;}
-    private Variable var = new Variable();
+
+    private ConfigManager var = ConfigManager.getInstance();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -67,6 +68,6 @@ public class SpeedExe implements CommandExecutor {
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999*20, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
         psm.getPlayerSetting(puuid).setSpeed(speed);
-        if (!var.isMySQL()) Variable.setYml("Speed",puuid,speed);
+        if (!var.isMySQL()) ConfigManager.setYml("Speed", puuid, speed);
     }
 }

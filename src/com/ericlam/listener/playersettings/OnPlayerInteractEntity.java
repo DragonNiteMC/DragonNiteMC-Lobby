@@ -1,7 +1,7 @@
 package com.ericlam.listener.playersettings;
 
 import com.caxerx.mc.PlayerSettingManager;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import com.hypernite.functions.Functions;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
@@ -18,11 +18,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.ericlam.addon.Variable.config;
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.config;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class OnPlayerInteractEntity implements Listener {
-    private Variable var = new Variable();
+    private ConfigManager var = ConfigManager.getInstance();
     private PlayerSettingManager psm = PlayerSettingManager.getInstance();
     private Functions fs = new Functions(HyperNiteMC.plugin);
 

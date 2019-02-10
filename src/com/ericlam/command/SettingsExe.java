@@ -1,7 +1,7 @@
 package com.ericlam.command;
 
+import com.ericlam.addon.ConfigManager;
 import com.ericlam.addon.GUIBuilder;
-import com.ericlam.addon.Variable;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,11 +14,11 @@ import org.bukkit.inventory.Inventory;
 
 import java.sql.SQLException;
 
-import static com.ericlam.addon.Variable.config;
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.config;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class SettingsExe implements CommandExecutor {
-    private Variable var = new Variable();
+    private ConfigManager var = ConfigManager.getInstance();
     private GUIBuilder gui = GUIBuilder.getInstance();
     private final HyperNiteMC plugin;
     public SettingsExe(HyperNiteMC plugin){

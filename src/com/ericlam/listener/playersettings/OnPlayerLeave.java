@@ -1,7 +1,7 @@
 package com.ericlam.listener.playersettings;
 
 import com.caxerx.mc.PlayerSettingManager;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class OnPlayerLeave implements Listener {
     public void PlayerLeaveMySQL(PlayerQuitEvent event) throws SQLException {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        if (new Variable().isMySQL())
+        if (ConfigManager.getInstance().isMySQL())
             Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () -> {
                 PlayerSettingManager.getInstance().savePlayerSetting(puuid);
             });

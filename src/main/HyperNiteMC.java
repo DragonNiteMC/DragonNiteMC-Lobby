@@ -1,7 +1,7 @@
 package main;
 
 import com.caxerx.mc.PlayerSettingManager;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import com.ericlam.command.*;
 import com.ericlam.listener.lobby.BasicListener;
 import com.ericlam.listener.lobby.LobbyJoinItem;
@@ -52,7 +52,7 @@ public class HyperNiteMC extends JavaPlugin {
         }
 
         /*
-         * Load Config File and Initial
+         * Load ConfigManager File and Initial
          */
 
         Functions f = new Functions(this);
@@ -60,7 +60,7 @@ public class HyperNiteMC extends JavaPlugin {
         f.addNewFile("config.yml");
         f.addNewFile("Lobby.yml");
 
-        Variable var = new Variable();
+        ConfigManager var = ConfigManager.getInstance();
 
         if (var.isMySQL()) console.sendMessage(ChatColor.AQUA + "Using MYSQL as saving Type.");
         else console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");

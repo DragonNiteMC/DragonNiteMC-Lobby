@@ -1,6 +1,6 @@
 package com.ericlam.command;
 
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,11 +10,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class HealExe implements CommandExecutor{
     private final HyperNiteMC plugin;
-    private Variable var = new Variable();
+    private ConfigManager var = ConfigManager.getInstance();
     public HealExe(HyperNiteMC plugin){
         this.plugin = plugin;
     }

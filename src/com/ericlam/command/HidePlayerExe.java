@@ -1,7 +1,7 @@
 package com.ericlam.command;
 
 import com.caxerx.mc.PlayerSettingManager;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,12 +15,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class HidePlayerExe implements CommandExecutor {
     private final HyperNiteMC plugin;
     public HidePlayerExe(HyperNiteMC plugin){ this.plugin = plugin;}
-    private Variable var = new Variable();
+
+    private ConfigManager var = ConfigManager.getInstance();
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -68,6 +69,6 @@ public class HidePlayerExe implements CommandExecutor {
                    p.showPlayer(HyperNiteMC.plugin, onlinep);
                }
            }
-        if (!var.isMySQL()) Variable.setYml("HidePlayer",puuid,nohide);
+        if (!var.isMySQL()) ConfigManager.setYml("HidePlayer", puuid, nohide);
     }
 }

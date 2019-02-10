@@ -1,6 +1,6 @@
 package com.ericlam.command;
 
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -22,7 +22,7 @@ public class SetLobbyExe implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player){
-            Variable var = new Variable();
+            ConfigManager var = ConfigManager.getInstance();
             if (commandSender.hasPermission("hypernite.setlobby")) {
                 Player player = (Player) commandSender;
                 Location set = player.getLocation();
@@ -32,15 +32,15 @@ public class SetLobbyExe implements CommandExecutor {
                 World setworld = set.getWorld();
                 Double Yaw = (double) set.getYaw();
                 Double Pitch = (double) set.getPitch();
-                Variable.lobbyfile.set("spawntp.y", Y);
-                Variable.lobbyfile.set("spawntp.x", X);
-                Variable.lobbyfile.set("spawntp.z", Z);
-                Variable.lobbyfile.set("spawntp.yaw", Yaw);
-                Variable.lobbyfile.set("spawntp.pitch", Pitch);
-                Variable.lobbyfile.set("spawntp.world", setworld.getName());
+                ConfigManager.lobbyfile.set("spawntp.y", Y);
+                ConfigManager.lobbyfile.set("spawntp.x", X);
+                ConfigManager.lobbyfile.set("spawntp.z", Z);
+                ConfigManager.lobbyfile.set("spawntp.yaw", Yaw);
+                ConfigManager.lobbyfile.set("spawntp.pitch", Pitch);
+                ConfigManager.lobbyfile.set("spawntp.world", setworld.getName());
                 try {
                     File lobbyfile = new File(plugin.getDataFolder(), "Lobby.yml");
-                    Variable.lobbyfile.save(lobbyfile);
+                    ConfigManager.lobbyfile.save(lobbyfile);
                     YamlConfiguration.loadConfiguration(lobbyfile);
                 } catch (IOException e) {
                     e.printStackTrace();

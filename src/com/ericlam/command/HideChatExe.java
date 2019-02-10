@@ -1,7 +1,7 @@
 package com.ericlam.command;
 
 import com.caxerx.mc.PlayerSettingManager;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,11 +14,11 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class HideChatExe implements CommandExecutor{
     private final HyperNiteMC plugin;
-    private Variable var = new Variable();
+    private ConfigManager var = ConfigManager.getInstance();
     public HideChatExe(HyperNiteMC plugin) {
         this.plugin = plugin;
     }
@@ -61,7 +61,7 @@ public class HideChatExe implements CommandExecutor{
         if (sender != name)  sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getName()));
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat." + (hide ? "hide" : "show")));
         psm.getPlayerSetting(puuid).setHideChat(hide);
-        if (!var.isMySQL()) Variable.setYml("HideChat",puuid,hide);
+        if (!var.isMySQL()) ConfigManager.setYml("HideChat", puuid, hide);
     }
 }
 

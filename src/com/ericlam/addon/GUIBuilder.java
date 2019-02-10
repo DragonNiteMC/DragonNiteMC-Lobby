@@ -8,11 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class GUIBuilder {
     private static GUIBuilder setting;
@@ -25,7 +24,7 @@ public class GUIBuilder {
     }
 
     public Inventory getInventoryGUI(){
-        Variable var = new Variable();
+        ConfigManager var = ConfigManager.getInstance();
         InventoryBuilder inv = new InventoryBuilder(54, var.title());
         Material[] representItem = {Material.IRON_BOOTS, Material.ELYTRA, Material.PAPER, Material.PLAYER_HEAD, Material.STICKY_PISTON};
         String[] ItemName = {"Speed", "Fly", "HideChat", "HidePlayer", "Stacker"};
@@ -54,7 +53,7 @@ public class GUIBuilder {
         return ownGUI.containsKey(player);
     }
 
-    public void changeStatus(Player player) throws SQLException {
+    public void changeStatus(Player player) {
         UUID puuid = player.getUniqueId();
         boolean Fly = psm.getPlayerSetting(puuid).isFly();
         boolean Speed = psm.getPlayerSetting(puuid).isSpeed();

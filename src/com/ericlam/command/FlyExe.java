@@ -2,7 +2,7 @@ package com.ericlam.command;
 
 
 import com.caxerx.mc.PlayerSettingManager;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 
 public class FlyExe implements CommandExecutor {
@@ -23,7 +23,8 @@ public class FlyExe implements CommandExecutor {
     public FlyExe(HyperNiteMC plugin){
         this.plugin = plugin;
     }
-    private Variable var = new Variable();
+
+    private ConfigManager var = ConfigManager.getInstance();
         @Override
         public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
             Player target;
@@ -62,7 +63,7 @@ public class FlyExe implements CommandExecutor {
         boolean fly = !psm.getPlayerSetting(puuid).isFly();
         name.setAllowFlight(fly);
         name.setFlying(fly);
-        if (!var.isMySQL()) Variable.setYml("Flight",puuid,fly);
+        if (!var.isMySQL()) ConfigManager.setYml("Flight", puuid, fly);
         psm.getPlayerSetting(puuid).setFly(fly);
         name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {

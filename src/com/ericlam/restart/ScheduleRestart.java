@@ -1,7 +1,7 @@
 package com.ericlam.restart;
 
 
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -25,7 +25,7 @@ public class ScheduleRestart {
     private LocalDateTime firstCheck;
 
     public ScheduleRestart() {
-        FileConfiguration config = Variable.config;
+        FileConfiguration config = ConfigManager.config;
         plugin = HyperNiteMC.plugin;
         boolean customZone = config.getBoolean("Restart.Custom-Time-Zone");
         spigotRestart = config.getBoolean("Restart.Spigot-Restart");

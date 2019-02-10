@@ -3,7 +3,7 @@ package com.caxerx.mc;
 import com.caxerx.mc.storage.PlayerStatusStorage;
 import com.caxerx.mc.storage.SQLDatabaseStorage;
 import com.caxerx.mc.storage.YamlStorage;
-import com.ericlam.addon.Variable;
+import com.ericlam.addon.ConfigManager;
 import main.HyperNiteMC;
 
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class PlayerSettingManager {
 
     private PlayerSettingManager() {
         playerSettingMap = new HashMap<>();
-        Variable var = new Variable();
+        ConfigManager var = ConfigManager.getInstance();
         if (var.isMySQL()) {
             storage = new SQLDatabaseStorage();
         } else {

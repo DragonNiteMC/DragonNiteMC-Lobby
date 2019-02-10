@@ -7,12 +7,12 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static com.ericlam.addon.Variable.lobbyfile;
-import static com.ericlam.addon.Variable.messagefile;
+import static com.ericlam.addon.ConfigManager.lobbyfile;
+import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class TeleportLobby {
     private static TeleportLobby tplobby;
-    private Variable var = new Variable();
+    private ConfigManager var = ConfigManager.getInstance();
     private double X;
     private double Y;
     private double Z;
@@ -28,12 +28,12 @@ public class TeleportLobby {
     }
     private void getNewSpawn(){
         if (needchangeSpawn()) {
-            lobby = Bukkit.getWorld(Variable.lobbyfile.getString("spawntp.world"));
-            X = Variable.lobbyfile.getDouble("spawntp.x");
-            Y = Variable.lobbyfile.getDouble("spawntp.y");
-            Z = Variable.lobbyfile.getDouble("spawntp.z");
-            Pitch = Variable.lobbyfile.getDouble("spawntp.pitch");
-            Yaw = Variable.lobbyfile.getDouble("spawntp.yaw");
+            lobby = Bukkit.getWorld(ConfigManager.lobbyfile.getString("spawntp.world"));
+            X = ConfigManager.lobbyfile.getDouble("spawntp.x");
+            Y = ConfigManager.lobbyfile.getDouble("spawntp.y");
+            Z = ConfigManager.lobbyfile.getDouble("spawntp.z");
+            Pitch = ConfigManager.lobbyfile.getDouble("spawntp.pitch");
+            Yaw = ConfigManager.lobbyfile.getDouble("spawntp.yaw");
             spawn = new Location(lobby, X, Y, Z, (float) Yaw, (float) Pitch);
         }
     }
@@ -43,12 +43,12 @@ public class TeleportLobby {
     }
 
     private boolean needchangeSpawn(){
-        boolean changeX = X != Variable.lobbyfile.getDouble("spawntp.x");
-        boolean changeY = Y != Variable.lobbyfile.getDouble("spawntp.y");
-        boolean changeZ = Z != Variable.lobbyfile.getDouble("spawntp.z");
-        boolean changeW = lobby != Bukkit.getWorld(Variable.lobbyfile.getString("spawntp.world"));
-        boolean changeYaw = Yaw != Variable.lobbyfile.getDouble("spawntp.yaw");
-        boolean changePitch = Pitch != Variable.lobbyfile.getDouble("spawntp.pitch");
+        boolean changeX = X != ConfigManager.lobbyfile.getDouble("spawntp.x");
+        boolean changeY = Y != ConfigManager.lobbyfile.getDouble("spawntp.y");
+        boolean changeZ = Z != ConfigManager.lobbyfile.getDouble("spawntp.z");
+        boolean changeW = lobby != Bukkit.getWorld(ConfigManager.lobbyfile.getString("spawntp.world"));
+        boolean changeYaw = Yaw != ConfigManager.lobbyfile.getDouble("spawntp.yaw");
+        boolean changePitch = Pitch != ConfigManager.lobbyfile.getDouble("spawntp.pitch");
         return changeX || changeY || changeZ || changeW || changeYaw || changePitch;
     }
 
