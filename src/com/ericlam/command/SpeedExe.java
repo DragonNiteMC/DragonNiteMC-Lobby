@@ -17,14 +17,14 @@ import org.bukkit.potion.PotionEffectType;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.ericlam.addon.ConfigManager.config;
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class SpeedExe implements CommandExecutor {
     private final HyperNiteMC plugin;
-    public SpeedExe(HyperNiteMC plugin){ this.plugin = plugin;}
+    public SpeedExe(HyperNiteMC plugin){
+        this.plugin = plugin;
+        var = HyperNiteMC.getConfigManager();
+    }
 
-    private ConfigManager var = ConfigManager.getInstance();
+    private ConfigManager var;
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -43,7 +43,7 @@ public class SpeedExe implements CommandExecutor {
         } else if(perm && permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
-                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
+                commandSender.sendMessage(var.getMessage("General.Player-Not-Found"));
             }else {
                 try {
                     SetSpeed(target, commandSender);
@@ -52,7 +52,7 @@ public class SpeedExe implements CommandExecutor {
                 }
             }
         }else{
-            commandSender.sendMessage(var.prefix() + var.noperm());
+            commandSender.sendMessage(var.noperm());
         }
         return true;
     }
@@ -62,9 +62,9 @@ public class SpeedExe implements CommandExecutor {
         UUID puuid = p.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean speed = !psm.getPlayerSetting(puuid).isSpeed();
-        int amplifier = config.getInt("Speed.Level") - 1;
-        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getName()));
-        name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Speed.Turn-" + (speed ? "On":"Off")));
+        int amplifier = var.config.getInt("Speed.Level") - 1;
+        if (sender != name) sender.sendMessage(var.getMessage("Commands.Speed.Be-Turn-" + (speed ? "On":"Off")).replace("<player>",name.getName()));
+        name.sendMessage(var.getMessage("Commands.Speed.Turn-" + (speed ? "On":"Off")));
         if (speed) p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999*20, amplifier));
         else p.removePotionEffect(PotionEffectType.SPEED);
         psm.getPlayerSetting(puuid).setSpeed(speed);

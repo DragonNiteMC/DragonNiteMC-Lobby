@@ -3,6 +3,7 @@ package com.ericlam.addon;
 import com.caxerx.builders.InventoryBuilder;
 import com.caxerx.builders.ItemStackBuilder;
 import com.caxerx.mc.PlayerSettingManager;
+import main.HyperNiteMC;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -10,8 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.UUID;
-
-import static com.ericlam.addon.ConfigManager.messagefile;
 
 public class GUIBuilder {
     private static GUIBuilder setting;
@@ -24,7 +23,7 @@ public class GUIBuilder {
     }
 
     public Inventory getInventoryGUI(){
-        ConfigManager var = ConfigManager.getInstance();
+        ConfigManager var = HyperNiteMC.getConfigManager();
         InventoryBuilder inv = new InventoryBuilder(54, var.title());
         Material[] representItem = {Material.IRON_BOOTS, Material.ELYTRA, Material.PAPER, Material.PLAYER_HEAD, Material.STICKY_PISTON};
         String[] ItemName = {"Speed", "Fly", "HideChat", "HidePlayer", "Stacker"};
@@ -34,8 +33,8 @@ public class GUIBuilder {
             String IN = ItemName[i];
             int slot = ItemSlot[i];
             inv.item(slot, new ItemStackBuilder(IS)
-                    .displayName(messagefile.getString("Commands.GUI."+IN))
-                    .lore(messagefile.getStringList("Commands.GUI.Lore"))
+                    .displayName(var.getPureMessage("Commands.GUI."+IN))
+                    .lore(var.messagefile.getStringList("Commands.GUI.Lore"))
                     .build());
         }
         return inv.build();

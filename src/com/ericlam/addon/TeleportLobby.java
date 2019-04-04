@@ -1,5 +1,6 @@
 package com.ericlam.addon;
 
+import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -7,12 +8,9 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static com.ericlam.addon.ConfigManager.lobbyfile;
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class TeleportLobby {
     private static TeleportLobby tplobby;
-    private ConfigManager var = ConfigManager.getInstance();
+    private ConfigManager var;
     private double X;
     private double Y;
     private double Z;
@@ -26,29 +24,33 @@ public class TeleportLobby {
         if(tplobby == null) tplobby = new TeleportLobby();
         return tplobby;
     }
+    
+    private TeleportLobby(){
+        var = HyperNiteMC.getConfigManager();
+    }
     private void getNewSpawn(){
         if (needchangeSpawn()) {
-            lobby = Bukkit.getWorld(ConfigManager.lobbyfile.getString("spawntp.world"));
-            X = ConfigManager.lobbyfile.getDouble("spawntp.x");
-            Y = ConfigManager.lobbyfile.getDouble("spawntp.y");
-            Z = ConfigManager.lobbyfile.getDouble("spawntp.z");
-            Pitch = ConfigManager.lobbyfile.getDouble("spawntp.pitch");
-            Yaw = ConfigManager.lobbyfile.getDouble("spawntp.yaw");
+            lobby = Bukkit.getWorld(var.lobbyfile.getString("spawntp.world"));
+            X = var.lobbyfile.getDouble("spawntp.x");
+            Y = var.lobbyfile.getDouble("spawntp.y");
+            Z = var.lobbyfile.getDouble("spawntp.z");
+            Pitch = var.lobbyfile.getDouble("spawntp.pitch");
+            Yaw = var.lobbyfile.getDouble("spawntp.yaw");
             spawn = new Location(lobby, X, Y, Z, (float) Yaw, (float) Pitch);
         }
     }
 
     private boolean isNotNull(){
-        return lobbyfile.contains("spawntp.world");
+        return var.lobbyfile.contains("spawntp.world");
     }
 
     private boolean needchangeSpawn(){
-        boolean changeX = X != ConfigManager.lobbyfile.getDouble("spawntp.x");
-        boolean changeY = Y != ConfigManager.lobbyfile.getDouble("spawntp.y");
-        boolean changeZ = Z != ConfigManager.lobbyfile.getDouble("spawntp.z");
-        boolean changeW = lobby != Bukkit.getWorld(ConfigManager.lobbyfile.getString("spawntp.world"));
-        boolean changeYaw = Yaw != ConfigManager.lobbyfile.getDouble("spawntp.yaw");
-        boolean changePitch = Pitch != ConfigManager.lobbyfile.getDouble("spawntp.pitch");
+        boolean changeX = X != var.lobbyfile.getDouble("spawntp.x");
+        boolean changeY = Y != var.lobbyfile.getDouble("spawntp.y");
+        boolean changeZ = Z != var.lobbyfile.getDouble("spawntp.z");
+        boolean changeW = lobby != Bukkit.getWorld(var.lobbyfile.getString("spawntp.world"));
+        boolean changeYaw = Yaw != var.lobbyfile.getDouble("spawntp.yaw");
+        boolean changePitch = Pitch != var.lobbyfile.getDouble("spawntp.pitch");
         return changeX || changeY || changeZ || changeW || changeYaw || changePitch;
     }
 
@@ -68,7 +70,7 @@ public class TeleportLobby {
             return;
         }
         player.teleport(spawn);
-        sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.be-send").replace("<player>",player.getName()));
-        player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.send"));
+        sender.sendMessage(var.getMessage("Commands.spawn.be-send").replace("<player>",player.getName()));
+        player.sendMessage(var.getMessage("Commands.spawn.send"));
     }
 }

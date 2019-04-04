@@ -22,7 +22,7 @@ public class OnInventoryClick implements Listener {
         GUIBuilder gui = GUIBuilder.getInstance();
         if (inventory == null) return;
         if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) return;
-        if (inventory.getName().equals(gui.getGUIFromPlayerMap(player).getName())) {
+        if (inventory.equals(gui.getGUIFromPlayerMap(player))) {
             switch (clicked.getType()) {
                 case IRON_BOOTS:
                     player.performCommand("speed");

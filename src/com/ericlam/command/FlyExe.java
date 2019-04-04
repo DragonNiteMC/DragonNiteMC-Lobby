@@ -15,16 +15,16 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.ericlam.addon.ConfigManager.messagefile;
 
 
 public class FlyExe implements CommandExecutor {
     private final HyperNiteMC plugin;
+    private ConfigManager var;
     public FlyExe(HyperNiteMC plugin){
         this.plugin = plugin;
+        var = HyperNiteMC.getConfigManager();
     }
 
-    private ConfigManager var = ConfigManager.getInstance();
         @Override
         public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
             Player target;
@@ -43,7 +43,7 @@ public class FlyExe implements CommandExecutor {
             } else if(perm && permother || terminal){
                 target = (Bukkit.getServer().getPlayer(strings[0]));
                 if (target == null){
-                    commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "General.Player-Not-Found"));
+                    commandSender.sendMessage(var.getMessage("General.Player-Not-Found"));
                 }else {
                     try {
                         flyExecutor(target, commandSender);
@@ -52,7 +52,7 @@ public class FlyExe implements CommandExecutor {
                     }
                 }
             }else{
-                commandSender.sendMessage(var.prefix() + var.noperm());
+                commandSender.sendMessage(var.noperm());
             }
             return true;
     }
@@ -65,9 +65,9 @@ public class FlyExe implements CommandExecutor {
         name.setFlying(fly);
         if (!var.isMySQL()) ConfigManager.setYml("Flight", puuid, fly);
         psm.getPlayerSetting(puuid).setFly(fly);
-        name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Turn-" + (fly ? "On":"Off")));
+        name.sendMessage(var.getMessage("Commands.Fly.Turn-" + (fly ? "On":"Off")));
         if (name != sender) {
-            sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getName()));
+            sender.sendMessage(var.getMessage("Commands.Fly.Be-Turn-" + (fly ? "On" : "Off")).replace("<player>", name.getName()));
         }
     }
 }

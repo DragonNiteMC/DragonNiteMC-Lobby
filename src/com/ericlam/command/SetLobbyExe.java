@@ -22,7 +22,7 @@ public class SetLobbyExe implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player){
-            ConfigManager var = ConfigManager.getInstance();
+            ConfigManager var = HyperNiteMC.getConfigManager();
             if (commandSender.hasPermission("hypernite.setlobby")) {
                 Player player = (Player) commandSender;
                 Location set = player.getLocation();
@@ -32,22 +32,22 @@ public class SetLobbyExe implements CommandExecutor {
                 World setworld = set.getWorld();
                 Double Yaw = (double) set.getYaw();
                 Double Pitch = (double) set.getPitch();
-                ConfigManager.lobbyfile.set("spawntp.y", Y);
-                ConfigManager.lobbyfile.set("spawntp.x", X);
-                ConfigManager.lobbyfile.set("spawntp.z", Z);
-                ConfigManager.lobbyfile.set("spawntp.yaw", Yaw);
-                ConfigManager.lobbyfile.set("spawntp.pitch", Pitch);
-                ConfigManager.lobbyfile.set("spawntp.world", setworld.getName());
+                var.lobbyfile.set("spawntp.y", Y);
+                var.lobbyfile.set("spawntp.x", X);
+                var.lobbyfile.set("spawntp.z", Z);
+                var.lobbyfile.set("spawntp.yaw", Yaw);
+                var.lobbyfile.set("spawntp.pitch", Pitch);
+                var.lobbyfile.set("spawntp.world", setworld.getName());
                 try {
                     File lobbyfile = new File(plugin.getDataFolder(), "Lobby.yml");
-                    ConfigManager.lobbyfile.save(lobbyfile);
+                    var.lobbyfile.save(lobbyfile);
                     YamlConfiguration.loadConfiguration(lobbyfile);
                 } catch (IOException e) {
                     e.printStackTrace();
                     player.sendMessage(ChatColor.RED + "出現問題, 我們無法保存你的記錄!");
                 }
                 player.sendMessage(var.prefix() + ChatColor.GREEN + "重生點保存成功!");
-            }else commandSender.sendMessage(var.prefix() + var.noperm());
+            }else commandSender.sendMessage(var.noperm());
         } else {commandSender.sendMessage("you are not player!");}
         return true;
     }

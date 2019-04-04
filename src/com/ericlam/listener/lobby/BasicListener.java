@@ -3,7 +3,6 @@ package com.ericlam.listener.lobby;
 import com.ericlam.addon.ConfigManager;
 import com.ericlam.addon.TeleportLobby;
 import com.ericlam.builders.TablistBuilder;
-import com.hypernite.functions.Functions;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -18,6 +17,11 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class BasicListener implements Listener {
 
+    private ConfigManager var;
+    public BasicListener(){
+        var = HyperNiteMC.getConfigManager();
+    }
+
     @EventHandler
     public void NoDamageAndVoidTp(EntityDamageEvent e){
         if (e.getEntity() instanceof Player){
@@ -29,19 +33,17 @@ public class BasicListener implements Listener {
         }
     }
 
-    private Functions fs = new Functions(HyperNiteMC.plugin);
-
     private TeleportLobby spawn = TeleportLobby.getInstance();
     @EventHandler
     public void onLobbyJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
         if (player.hasPermission("donor.join")){
-            Bukkit.broadcastMessage(fs.returnColoredMessage(ConfigManager.lobbyfile, "join.donor-msg").replace("<player>", player.getDisplayName()));
+            Bukkit.broadcastMessage(var.getMessage("join.donor-msg").replace("<player>", player.getDisplayName()));
         }
 
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
-        TablistBuilder.getInstance().setHeader(ConfigManager.header, player);
+        TablistBuilder.getInstance().setHeader(var.header, player);
     }
 
     @EventHandler

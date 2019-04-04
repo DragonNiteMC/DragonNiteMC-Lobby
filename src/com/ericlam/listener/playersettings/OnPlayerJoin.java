@@ -3,7 +3,6 @@ package com.ericlam.listener.playersettings;
 import com.caxerx.mc.PlayerSettingManager;
 import com.ericlam.addon.ConfigManager;
 import com.ericlam.addon.GUIBuilder;
-import com.hypernite.functions.Functions;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,19 +15,19 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.UUID;
 
-import static com.ericlam.addon.ConfigManager.config;
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class OnPlayerJoin implements Listener {
-    private ConfigManager var = ConfigManager.getInstance();
-    private Functions fs = new Functions(HyperNiteMC.plugin);
-    private PlayerSettingManager psm = PlayerSettingManager.getInstance();
+    private ConfigManager var;
+    private PlayerSettingManager psm;
+    public OnPlayerJoin(){
+        var = HyperNiteMC.getConfigManager();
+        psm = PlayerSettingManager.getInstance();
+    }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        int amplifier = config.getInt("Speed.Level") - 1;
+        int amplifier = var.config.getInt("Speed.Level") - 1;
 
         Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () -> {
             psm.getPlayerSetting(puuid);
@@ -41,8 +40,8 @@ public class OnPlayerJoin implements Listener {
                 else player.removePotionEffect(PotionEffectType.SPEED);
 
 
-                if (config.getBoolean("Join-Show-UUID.Enable")) {
-                    player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Functions.ShowUUID.JoinMessage").replace("<UUID>", puuid.toString()));
+                if (var.config.getBoolean("Join-Show-UUID.Enable")) {
+                    player.sendMessage(var.getMessage("Functions.ShowUUID.JoinMessage").replace("<UUID>", puuid.toString()));
                 }
                 GUIBuilder gui = GUIBuilder.getInstance();
                 if (!gui.OwnGUIHavePlayer(player)) gui.setOwnGUI(player, gui.getInventoryGUI());

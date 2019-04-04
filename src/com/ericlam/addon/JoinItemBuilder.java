@@ -1,6 +1,7 @@
 package com.ericlam.addon;
 
 import com.caxerx.builders.ItemStackBuilder;
+import main.HyperNiteMC;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,7 +18,7 @@ public class JoinItemBuilder {
     private HashMap<ItemStack, Integer> joinItems = new HashMap<>();
 
     private JoinItemBuilder(){
-        for (com.ericlam.addon.JoinItem joinItem : ConfigManager.getInstance().getJoinItems()) {
+        for (com.ericlam.addon.JoinItem joinItem : HyperNiteMC.getConfigManager().getJoinItems()) {
             ItemStack stack = new ItemStackBuilder(joinItem.getMaterial()).displayName(joinItem.getName()).lore(joinItem.getLores()).onClick(e -> ((Player) e.getWhoClicked()).performCommand(joinItem.getCommand())).build();
             joinItems.put(stack, joinItem.getSlot());
         }

@@ -25,7 +25,7 @@ public class ScheduleRestart {
     private LocalDateTime firstCheck;
 
     public ScheduleRestart() {
-        FileConfiguration config = ConfigManager.config;
+        FileConfiguration config = HyperNiteMC.getConfigManager().config;
         plugin = HyperNiteMC.plugin;
         boolean customZone = config.getBoolean("Restart.Custom-Time-Zone");
         spigotRestart = config.getBoolean("Restart.Spigot-Restart");

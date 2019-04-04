@@ -14,15 +14,13 @@ import org.bukkit.inventory.Inventory;
 
 import java.sql.SQLException;
 
-import static com.ericlam.addon.ConfigManager.config;
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class SettingsExe implements CommandExecutor {
-    private ConfigManager var = ConfigManager.getInstance();
+    private ConfigManager var;
     private GUIBuilder gui = GUIBuilder.getInstance();
     private final HyperNiteMC plugin;
     public SettingsExe(HyperNiteMC plugin){
         this.plugin = plugin;
+        var = HyperNiteMC.getConfigManager();
     }
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -42,7 +40,7 @@ public class SettingsExe implements CommandExecutor {
         } else if(perm && permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
-                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
+                commandSender.sendMessage(var.getMessage("General.Player-Not-Found"));
             }else {
                 try {
                     OpenGUI(target, commandSender);
@@ -51,7 +49,7 @@ public class SettingsExe implements CommandExecutor {
                 }
             }
         }else{
-            commandSender.sendMessage(var.prefix() + var.noperm());
+            commandSender.sendMessage(var.noperm());
         }
         return true;
     }
@@ -64,8 +62,8 @@ public class SettingsExe implements CommandExecutor {
         }
         Inventory owngui = gui.getGUIFromPlayerMap(name);
         p.openInventory(owngui);
-        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.be-show").replace("<player>", name.getName()));
-        if (config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.GUI.show"));
+        if (sender != name) sender.sendMessage(var.getMessage("Commands.GUI.be-show").replace("<player>", name.getName()));
+        if (var.config.getBoolean("GUI.Enable-Notify-On-OpenGUI")) name.sendMessage(var.getMessage("Commands.GUI.show"));
         gui.changeStatus(name);
     }
 

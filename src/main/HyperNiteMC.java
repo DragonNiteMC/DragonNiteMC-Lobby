@@ -7,7 +7,6 @@ import com.ericlam.listener.lobby.BasicListener;
 import com.ericlam.listener.lobby.LobbyJoinItem;
 import com.ericlam.listener.playersettings.*;
 import com.ericlam.restart.ScheduleRestart;
-import com.hypernite.functions.Functions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -17,12 +16,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class HyperNiteMC extends JavaPlugin {
     public static Plugin plugin;
+    private static ConfigManager configManager;
+
+    public static ConfigManager getConfigManager() {
+        return configManager;
+    }
 
     public void onEnable() {
         plugin = this;
         ConsoleCommandSender console = getServer().getConsoleSender();
         console.sendMessage(ChatColor.YELLOW + "===========================================");
-        console.sendMessage(ChatColor.GOLD + "HyperNiteMC Lobby Enabled!");
+
+        /*
+         * Load ConfigManager File and Initial
+         */
+
+        configManager = new ConfigManager(this);
+        configManager.loadConfig();
 
         /*
          * Register Command
@@ -51,20 +61,11 @@ public class HyperNiteMC extends JavaPlugin {
             getServer().getPluginManager().registerEvents(listen, this);
         }
 
-        /*
-         * Load ConfigManager File and Initial
-         */
-
-        Functions f = new Functions(this);
-        f.addNewFile("Messages.yml");
-        f.addNewFile("config.yml");
-        f.addNewFile("Lobby.yml");
-
-        ConfigManager var = ConfigManager.getInstance();
-
-        if (var.isMySQL()) console.sendMessage(ChatColor.AQUA + "Using MYSQL as saving Type.");
+        if (configManager.isMySQL()) console.sendMessage(ChatColor.AQUA + "Using MYSQL as saving Type.");
         else console.sendMessage(ChatColor.AQUA + "Using YAML as saving Type.");
 
+
+        console.sendMessage(ChatColor.GOLD + "HyperNiteMC Lobby Enabled!");
         console.sendMessage(ChatColor.YELLOW + "===========================================");
         new ScheduleRestart();
     }

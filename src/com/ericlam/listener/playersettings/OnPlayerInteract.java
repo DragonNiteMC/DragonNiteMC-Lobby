@@ -1,6 +1,7 @@
 package com.ericlam.listener.playersettings;
 
 import com.ericlam.addon.ConfigManager;
+import main.HyperNiteMC;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,11 +13,11 @@ import org.bukkit.util.Vector;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.ericlam.addon.ConfigManager.config;
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class OnPlayerInteract implements Listener {
-    private ConfigManager var = ConfigManager.getInstance();
+    private ConfigManager var;
+    public OnPlayerInteract(){
+        var = HyperNiteMC.getConfigManager();
+    }
     @EventHandler
     public  void onPlayerPush(PlayerInteractEvent event){
         if (event.getAction().equals(Action.LEFT_CLICK_AIR) && !event.getPlayer().getPassengers().isEmpty()){
@@ -37,11 +38,11 @@ public class OnPlayerInteract implements Listener {
             thrower.eject();
             for (Player toPush : toThrow){
                 toPush.eject();
-                toPush.setVelocity(thrower.getLocation().getDirection().multiply(config.getInt("Stacker.Throw-Power")));
-                toPush.setVelocity(new Vector(toPush.getVelocity().getX(), config.getDouble("Stacker.Throw-Y"), toPush.getVelocity().getZ()));
-                if (toThrow.size() == 1) thrower.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.Stacker.pushed").replace("<player>", toPush.getName()));
+                toPush.setVelocity(thrower.getLocation().getDirection().multiply(var.config.getInt("Stacker.Throw-Power")));
+                toPush.setVelocity(new Vector(toPush.getVelocity().getX(), var.config.getDouble("Stacker.Throw-Y"), toPush.getVelocity().getZ()));
+                if (toThrow.size() == 1) thrower.sendMessage(var.getMessage("Commands.Stacker.pushed").replace("<player>", toPush.getName()));
             }
-            if (toThrow.size() > 1)thrower.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Stacker.pushed-all"));
+            if (toThrow.size() > 1)thrower.sendMessage(var.getMessage("Commands.Stacker.pushed-all"));
         }
     }
 }

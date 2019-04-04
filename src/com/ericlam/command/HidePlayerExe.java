@@ -15,13 +15,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class HidePlayerExe implements CommandExecutor {
     private final HyperNiteMC plugin;
-    public HidePlayerExe(HyperNiteMC plugin){ this.plugin = plugin;}
+    public HidePlayerExe(HyperNiteMC plugin){
+        this.plugin = plugin;
+        var = HyperNiteMC.getConfigManager();
+    }
 
-    private ConfigManager var = ConfigManager.getInstance();
+    private ConfigManager var;
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -40,7 +41,7 @@ public class HidePlayerExe implements CommandExecutor {
         } else if(perm && permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
-                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
+                commandSender.sendMessage(var.getMessage("General.Player-Not-Found"));
             }else {
                 try {
                     HidePlayer(target, commandSender);
@@ -49,7 +50,7 @@ public class HidePlayerExe implements CommandExecutor {
                 }
             }
         }else{
-            commandSender.sendMessage(var.prefix() + var.noperm());
+            commandSender.sendMessage(var.noperm());
         }
         return true;
     }
@@ -59,8 +60,8 @@ public class HidePlayerExe implements CommandExecutor {
         UUID puuid = p.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean nohide = !psm.getPlayerSetting(puuid).isHidePlayer();
-        if (sender != name) sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getName()));
-        name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HidePlayer." + (nohide ? "hide":"show")));
+        if (sender != name) sender.sendMessage(var.getMessage("Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getName()));
+        name.sendMessage(var.getMessage("Commands.HidePlayer." + (nohide ? "hide":"show")));
         psm.getPlayerSetting(puuid).setHidePlayer(nohide);
            for (Player onlinep : Bukkit.getServer().getOnlinePlayers()) {
                if (nohide) {

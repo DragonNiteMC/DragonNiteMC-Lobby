@@ -2,7 +2,6 @@ package com.ericlam.listener.playersettings;
 
 import com.caxerx.mc.PlayerSettingManager;
 import com.ericlam.addon.ConfigManager;
-import com.hypernite.functions.Functions;
 import main.HyperNiteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,18 +17,19 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.ericlam.addon.ConfigManager.config;
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class OnPlayerInteractEntity implements Listener {
-    private ConfigManager var = ConfigManager.getInstance();
-    private PlayerSettingManager psm = PlayerSettingManager.getInstance();
-    private Functions fs = new Functions(HyperNiteMC.plugin);
+    private ConfigManager var;
+    private PlayerSettingManager psm;
+
+    public OnPlayerInteractEntity(){
+        var = HyperNiteMC.getConfigManager();
+        psm = PlayerSettingManager.getInstance();
+    }
 
     @EventHandler
     public void onPlayerStacker(PlayerInteractEntityEvent event) throws SQLException {
         if (event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
-        if (!config.getBoolean("Stacker.Enable")) {
+        if (!var.config.getBoolean("Stacker.Enable")) {
             return;
         }
 
@@ -44,16 +44,16 @@ public class OnPlayerInteractEntity implements Listener {
         Player target = (Player) entity;
 
         if (!psm.getPlayerSetting(puuid).isStacker()) {
-            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.disactive"));
+            player.sendMessage(var.getMessage("Commands.Stacker.disactive"));
             return;
         }
         if (!psm.getPlayerSetting(target.getUniqueId()).isStacker()) {
-            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.be-disactive"));
+            player.sendMessage(var.getMessage("Commands.Stacker.be-disactive"));
             return;
         }
 
 
-        int maxStack = config.getInt("Stacker.Max-Stack");
+        int maxStack = var.config.getInt("Stacker.Max-Stack");
         int stack = 0;
         Player top = player;
         /*Bukkit.broadcastMessage(ChatColor.RED + "======DEBUG======");
@@ -81,11 +81,11 @@ public class OnPlayerInteractEntity implements Listener {
 
         if (!stacks.contains(target)) {
             if (stack >= maxStack) {
-                player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.Max"));
+                player.sendMessage(var.getMessage("Commands.Stacker.Max"));
                 return;
             }
             top.addPassenger(target);
-            player.sendMessage(var.prefix() + fs.returnColoredMessage(messagefile, "Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
+            player.sendMessage(var.getMessage("Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
         }
 
     }

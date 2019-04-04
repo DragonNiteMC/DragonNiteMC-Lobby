@@ -14,13 +14,12 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class HideChatExe implements CommandExecutor{
     private final HyperNiteMC plugin;
-    private ConfigManager var = ConfigManager.getInstance();
+    private ConfigManager var;
     public HideChatExe(HyperNiteMC plugin) {
         this.plugin = plugin;
+        this.var = HyperNiteMC.getConfigManager();
     }
 
     @Override
@@ -41,7 +40,7 @@ public class HideChatExe implements CommandExecutor{
             else commandSender.sendMessage(ChatColor.RED + "Console can only use /hidechat <player>");
         } else if (perm && permother || terminal) {
             target = Bukkit.getPlayer(strings[0]);
-            if (target == null) commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
+            if (target == null) commandSender.sendMessage(var.getMessage("General.Player-Not-Found"));
             else {
                 try {
                     HideChat(target,commandSender);
@@ -49,7 +48,7 @@ public class HideChatExe implements CommandExecutor{
                     e.printStackTrace();
                 }
             }
-        }else{commandSender.sendMessage(var.prefix() + var.noperm());}
+        }else{commandSender.sendMessage(var.noperm());}
         return true;
     }
 
@@ -58,8 +57,8 @@ public class HideChatExe implements CommandExecutor{
         UUID puuid = player.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean hide = !psm.getPlayerSetting(puuid).isHideChat();
-        if (sender != name)  sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getName()));
-        name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.HideChat." + (hide ? "hide" : "show")));
+        if (sender != name)  sender.sendMessage(var.getMessage("Commands.HideChat.be-" + (hide ? "hide" : "show")).replace("<player>", name.getName()));
+        name.sendMessage(var.getMessage("Commands.HideChat." + (hide ? "hide" : "show")));
         psm.getPlayerSetting(puuid).setHideChat(hide);
         if (!var.isMySQL()) ConfigManager.setYml("HideChat", puuid, hide);
     }

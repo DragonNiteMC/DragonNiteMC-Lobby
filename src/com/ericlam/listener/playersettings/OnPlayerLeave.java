@@ -20,7 +20,7 @@ public class OnPlayerLeave implements Listener {
     public void PlayerLeaveMySQL(PlayerQuitEvent event) throws SQLException {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        if (ConfigManager.getInstance().isMySQL())
+        if (HyperNiteMC.getConfigManager().isMySQL())
             Bukkit.getScheduler().runTaskAsynchronously(HyperNiteMC.plugin, () -> {
                 PlayerSettingManager.getInstance().savePlayerSetting(puuid);
             });

@@ -10,13 +10,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class HealExe implements CommandExecutor{
     private final HyperNiteMC plugin;
-    private ConfigManager var = ConfigManager.getInstance();
+    private ConfigManager var;
     public HealExe(HyperNiteMC plugin){
         this.plugin = plugin;
+        var = HyperNiteMC.getConfigManager();
     }
         @Override
         public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -32,9 +31,9 @@ public class HealExe implements CommandExecutor{
                         }else if(perm && permother || terminal){
                             target = Bukkit.getServer().getPlayer(strings[0]);
                             if (target == null){
-                                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
+                                commandSender.sendMessage(var.getMessage("General.Player-Not-Found"));
                             }else{ healExector(target, commandSender);}
-                        }else{commandSender.sendMessage(var.prefix() + var.noperm());}
+                        }else{commandSender.sendMessage(var.noperm());}
                     return true;
     }
     private void healExector(Player name, CommandSender sender){
@@ -43,12 +42,12 @@ public class HealExe implements CommandExecutor{
         if (hp < 20 || hg < 20){
             name.setHealth(20);
             name.setFoodLevel(20);
-            name.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Heal.active"));
+            name.sendMessage(var.getMessage("Commands.Heal.active"));
             if (name != sender){
-                sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"Commands.Heal.Be-active").replace("<player>", name.getName()));
+                sender.sendMessage(var.getMessage("Commands.Heal.Be-active").replace("<player>", name.getName()));
             }
         } else {
-            sender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,( name == sender ? "Commands.Heal.no-need" : "Commands.Heal.Be-no-need")).replace("<player>",name.getName()));
+            sender.sendMessage(var.getMessage(( name == sender ? "Commands.Heal.no-need" : "Commands.Heal.Be-no-need")).replace("<player>",name.getName()));
         }
     }
 }

@@ -11,16 +11,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import static com.ericlam.addon.ConfigManager.messagefile;
-
 public class SpawnExe implements CommandExecutor {
     public final HyperNiteMC plugin;
     public SpawnExe(HyperNiteMC plugin){
         this.plugin = plugin;
+        var = HyperNiteMC.getConfigManager();
+        lobby = TeleportLobby.getInstance();
     }
 
-    private ConfigManager var = ConfigManager.getInstance();
-    private TeleportLobby lobby = TeleportLobby.getInstance();
+    private ConfigManager var;
+    private TeleportLobby lobby;
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player target;
@@ -29,17 +29,17 @@ public class SpawnExe implements CommandExecutor {
         if (strings.length <= 0) {
             if (!terminal) {
                 Player player = (Player) commandSender;
-                if (lobby.TeleportToLobby(player)) player.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile, "Commands.spawn.send"));
+                if (lobby.TeleportToLobby(player)) player.sendMessage(var.getMessage("Commands.spawn.send"));
             }else{commandSender.sendMessage(ChatColor.RED + "Console can only use /settings <player>");}
         } else if(permother || terminal){
             target = (Bukkit.getServer().getPlayer(strings[0]));
             if (target == null){
-                commandSender.sendMessage(var.prefix() + var.getFs().returnColoredMessage(messagefile,"General.Player-Not-Found"));
+                commandSender.sendMessage(var.getMessage("General.Player-Not-Found"));
             }else {
                 lobby.TeleportToLobby(target,commandSender);
             }
         }else{
-            commandSender.sendMessage(var.prefix() + var.noperm());
+            commandSender.sendMessage(var.noperm());
         }
         return true;
     }
