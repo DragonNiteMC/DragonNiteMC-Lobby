@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public class ConfigManager extends ConfigGenerator {
-    private static ConfigManager var;
     public FileConfiguration messagefile;
     public FileConfiguration config;
     public FileConfiguration lobbyfile;
@@ -58,7 +57,7 @@ public class ConfigManager extends ConfigGenerator {
     }
 
     public String prefix(){
-        return var.getPureMessage("General.Prefix");
+        return getPureMessage("General.Prefix");
     }
 
     public static void setYml(String YmlName, UUID puuid,boolean status) throws IOException {
