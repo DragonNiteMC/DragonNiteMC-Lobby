@@ -1,6 +1,3 @@
-tablist:
-  header: "HyperNiteMC"
-  color: "gold"
 join:
   donor-msg: "&b加入// &e<player>"
 spawntp:
