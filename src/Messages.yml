@@ -1,7 +1,3 @@
-General:
-  Prefix: "&4系統// &r"
-  No-Perm: "&c你沒有此操作的許可權。"
-  Player-Not-Found: "&c找不到此玩家。"
 Commands:
   Fly:
     Turn-On: "&a你的飛行模式已開啟。"

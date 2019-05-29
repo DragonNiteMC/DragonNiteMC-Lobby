@@ -1,30 +1,30 @@
 name: HyperNiteMC-Lobby
-main: main.HyperNiteMC
-version: 1.0
-api-version: 1.13
+main: com.hypernite.mc.hnmc.lobby.main.HNMCLobby
+version: "2.0"
+api-version: "1.13"
 authors: [ericlam]
 depend: [HyperNiteMC-Core]
 commands:
   fly:
-    aliases: [flight, sky, elfly]
+    aliases: [flight, sky]
     description: fly command
   heal:
-    aliases: [blood, elheal]
+    aliases: [blood, medic]
     description: heal command
   hidechat:
-    aliases: [chathide, ignoreall, elhidechat]
+    aliases: [chathide, ignoreall, silent, silence]
     description: hide the chat
   stacker:
-    aliases: [stack, elstacker]
+    aliases: [stack]
     description: open stacker
   speed:
-    aliases: [elspeed, sprint, fast]
+    aliases: [sprint, fast, boost]
     description: speed command
   hideplayer:
-    aliases: [elhideplayer, hidep]
+    aliases: [hidep]
     description: hide all players
-  settings:
-    aliases: [elsettings, playersettings, elmenu]
+  setting:
+    aliases: [playersettings, menu, gui, settings, prefs]
     description: open GUI menu
   setlobby:
     aliases: [lobbyset, setspawn]
