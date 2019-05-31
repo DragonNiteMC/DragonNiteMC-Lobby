@@ -1,6 +1,7 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.command;
 
 import com.hypernite.mc.hnmc.core.managers.ConfigManager;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,7 +16,7 @@ public class HealCommand extends SettingsCommandNode {
         int hp = (int) name.getHealth();
         int hg = name.getFoodLevel();
         if (hp < 20 || hg < 20){
-            name.setHealth(20);
+            name.setHealth(name.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
             name.setFoodLevel(20);
             name.sendMessage(var.getMessage("Commands.Heal.active"));
             if (name != sender){

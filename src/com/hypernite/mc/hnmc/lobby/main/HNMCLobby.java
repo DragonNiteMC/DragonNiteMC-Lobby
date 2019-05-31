@@ -58,7 +58,7 @@ public class HNMCLobby extends JavaPlugin {
         register.registerCommand(this,new HideChatCommand());
         register.registerCommand(this,new SettingsCommand());
         register.registerCommand(this,new SpawnCommand());
-        this.getCommand("spawn").setExecutor(new SetLobbyCommand(this));
+        this.getCommand("setlobby").setExecutor(new SetLobbyCommand(this));
 
         /*
          * Register Event Listener
