@@ -49,9 +49,9 @@ public class GUIBuilder {
                             .lore(HNMCLobby.getLobbyConfig().messagefile.getStringList("Commands.GUI.Lore")
                                     .stream().map(e-> ChatColor.translateAlternateColorCodes('&',e)).collect(Collectors.toList()))
                             .onClick(e->{
-                               Player p = (Player) e.getWhoClicked();
-                               p.performCommand(settingItem.getCommand());
-                               this.changeStatus(p);
+                                Player p = (Player) e.getWhoClicked();
+                                p.performCommand(settingItem.getCommand());
+                                this.changeStatus(p);
                             }
                     ).build());
         }

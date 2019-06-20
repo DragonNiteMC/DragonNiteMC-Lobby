@@ -1,6 +1,7 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.listener.lobby;
 
 import com.hypernite.mc.hnmc.core.main.HyperNiteMC;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.GUIBuilder;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.LobbyConfig;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.TeleportLobby;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
@@ -13,8 +14,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.Inventory;
 
 import java.util.Optional;
 
@@ -69,6 +73,13 @@ public class BasicListener implements Listener {
         Player player = e.getPlayer();
         if (player.hasPermission("hypernite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
         e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void cancelMenuClickable(InventoryClickEvent e){
+        Inventory inventory = e.getInventory();
+        if (e.getSlotType() == InventoryType.SlotType.OUTSIDE) return;
+        if (inventory == GUIBuilder.getInstance().getInventoryGUI((Player)e.getWhoClicked())) e.setCancelled(true);
     }
 
 

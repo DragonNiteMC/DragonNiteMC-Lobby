@@ -54,10 +54,11 @@ public class SetLobbyCommand implements CommandExecutor {
                     }
                 }).whenComplete((e,ex)->{
                     if (ex == null){
-                        player.sendMessage(ChatColor.RED + "出現問題, 我們無法保存你的記錄!");
+                        player.sendMessage(msg.getPrefix() + ChatColor.GREEN + "重生點保存成功!");
                     }else{
                         ex.getCause().printStackTrace();
-                        player.sendMessage(msg.getPrefix() + ChatColor.GREEN + "重生點保存成功!");
+                        player.sendMessage(ChatColor.RED + "出現問題, 我們無法保存你的記錄!");
+
                     }
                 });
             }else {

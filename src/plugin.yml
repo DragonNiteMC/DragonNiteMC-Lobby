@@ -1,6 +1,6 @@
 name: HyperNiteMC-Lobby
 main: com.hypernite.mc.hnmc.lobby.main.HNMCLobby
-version: "2.0"
+version: "2.4"
 api-version: "1.13"
 authors: [ericlam]
 depend: [HyperNiteMC-Core]
