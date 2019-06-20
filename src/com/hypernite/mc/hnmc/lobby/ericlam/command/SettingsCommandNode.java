@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class SettingsCommandNode extends CommandNode {
 
-    public SettingsCommandNode(@Nonnull String command, @Nonnull String description) {
+    SettingsCommandNode(@Nonnull String command, @Nonnull String description) {
         super(null, command, "setting."+command, description, "[player]");
     }
 

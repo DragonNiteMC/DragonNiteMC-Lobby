@@ -40,6 +40,7 @@ public class LobbyJoinItem implements Listener {
     public void NoItemPick(InventoryPickupItemEvent e){
         ItemStack item = e.getItem().getItemStack();
         Player player = (Player) e.getInventory().getHolder();
+        if (player == null) return;
         if (joinitem.getJoinItems().containsKey(item)) {
             if (!player.getGameMode().equals(GameMode.CREATIVE)) e.setCancelled(true);
         }

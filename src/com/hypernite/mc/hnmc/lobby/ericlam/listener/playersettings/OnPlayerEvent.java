@@ -56,15 +56,8 @@ public class OnPlayerEvent implements Listener {
             Set<Player> toThrow = new HashSet<>();
             Player top = thrower;
             while (top.getPassengers().size() > 0){
-                if (top.getPassengers().size() != 1){
-                    return;
-                }
-                Entity topentity = top.getPassengers().get(0);
-                if (!(topentity instanceof Player)){
-                    return;
-                }
-                top = (Player) topentity;
-                toThrow.add(top);
+                top = getPlayer(toThrow, top);
+                if (top == null) return;
             }
             thrower.eject();
             for (Player toPush : toThrow){
@@ -75,6 +68,19 @@ public class OnPlayerEvent implements Listener {
             }
             if (toThrow.size() > 1)thrower.sendMessage(cf.getMessage("Commands.Stacker.pushed-all"));
         }
+    }
+
+    private Player getPlayer(Set<Player> toThrow, Player top) {
+        if (top.getPassengers().size() != 1){
+            return null;
+        }
+        Entity topentity = top.getPassengers().get(0);
+        if (!(topentity instanceof Player)){
+            return null;
+        }
+        top = (Player) topentity;
+        toThrow.add(top);
+        return top;
     }
 
     @EventHandler
@@ -180,17 +186,7 @@ public class OnPlayerEvent implements Listener {
         Set<Player> stacks = new HashSet<>();
         stacks.add(top);
         while (top.getPassengers().size() > 0) {
-            if (top.getPassengers().size() != 1) {
-                Bukkit.broadcastMessage("returned");
-                return;
-            }
-            Entity topEntity = top.getPassengers().get(0);
-            if (!(topEntity instanceof Player)) {
-                Bukkit.broadcastMessage("returned");
-                return;
-            }
-            top = (Player) topEntity;
-            stacks.add(top);
+            top = getPlayer(stacks, top);
             stack++;
             //Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
         }

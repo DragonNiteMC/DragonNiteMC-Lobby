@@ -16,6 +16,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import java.util.Optional;
+
 public class BasicListener implements Listener {
 
     private LobbyConfig var;
@@ -40,7 +42,7 @@ public class BasicListener implements Listener {
     public void onLobbyJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
         if (player.hasPermission("donor.join")){
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',var.lobbyfile.getString("join.donor-msg").replace("<player>", player.getDisplayName())));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(var.lobbyfile.getString("join.donor-msg")).map(str->str.replace("<player>", player.getDisplayName())).orElse("null")));
         }
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);

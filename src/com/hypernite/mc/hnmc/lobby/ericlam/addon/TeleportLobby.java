@@ -11,6 +11,8 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Optional;
+
 public class TeleportLobby {
     private static TeleportLobby tplobby;
     private LobbyConfig var;
@@ -33,7 +35,7 @@ public class TeleportLobby {
     }
     private void getNewSpawn(){
         if (needchangeSpawn()) {
-            lobby = Bukkit.getWorld(var.lobbyfile.getString("spawntp.world"));
+            lobby = Bukkit.getWorld(Optional.ofNullable(var.lobbyfile.getString("spawntp.world")).orElse(""));
             X = var.lobbyfile.getDouble("spawntp.x");
             Y = var.lobbyfile.getDouble("spawntp.y");
             Z = var.lobbyfile.getDouble("spawntp.z");
@@ -51,7 +53,7 @@ public class TeleportLobby {
         boolean changeX = X != var.lobbyfile.getDouble("spawntp.x");
         boolean changeY = Y != var.lobbyfile.getDouble("spawntp.y");
         boolean changeZ = Z != var.lobbyfile.getDouble("spawntp.z");
-        boolean changeW = lobby != Bukkit.getWorld(var.lobbyfile.getString("spawntp.world"));
+        boolean changeW = lobby != Bukkit.getWorld(Optional.ofNullable(var.lobbyfile.getString("spawntp.world")).orElse(""));
         boolean changeYaw = Yaw != var.lobbyfile.getDouble("spawntp.yaw");
         boolean changePitch = Pitch != var.lobbyfile.getDouble("spawntp.pitch");
         return changeX || changeY || changeZ || changeW || changeYaw || changePitch;

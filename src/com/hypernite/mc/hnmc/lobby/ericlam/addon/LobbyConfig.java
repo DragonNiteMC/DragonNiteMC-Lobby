@@ -17,7 +17,6 @@ public class LobbyConfig extends ConfigSetter {
     public FileConfiguration lobbyfile;
     public String header;
     private List<JoinItem> joinItems = new ArrayList<>();
-    private List<String> test = List.of("a","d","dawda","Dawdaw","awdawdwa");
 
     public LobbyConfig(Plugin plugin) {
         super(plugin, "Messages.yml","config.yml","Lobby.yml");
@@ -29,7 +28,7 @@ public class LobbyConfig extends ConfigSetter {
         this.config = map.get("config.yml");
         this.lobbyfile = map.get("Lobby.yml");
         header = lobbyfile.getString("tablist-header");
-        Set<String> join_items = lobbyfile.getConfigurationSection("join-items").getKeys(false);
+        Set<String> join_items = Optional.ofNullable(lobbyfile.getConfigurationSection("join-items")).map(sec->sec.getKeys(false)).orElse(Set.of());
         for (String item : join_items) {
             Material material = Material.valueOf(item);
             String name = lobbyfile.getString("join-items." + item + ".name");
@@ -42,7 +41,7 @@ public class LobbyConfig extends ConfigSetter {
 
     @Override
     public Map<String, Object> variablesMap() {
-        return Map.of("header",header,"join_items",joinItems,"mysql",isMySQL(),"test",test);
+        return Map.of("header",header,"join_items",joinItems,"mysql",isMySQL());
     }
 
     List<JoinItem> getJoinItems() {

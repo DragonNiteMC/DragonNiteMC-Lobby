@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 public class ScheduleRestart {
     private Plugin plugin;
@@ -29,7 +30,7 @@ public class ScheduleRestart {
         boolean customZone = config.getBoolean("Restart.Custom-Time-Zone");
         spigotRestart = config.getBoolean("Restart.Spigot-Restart");
         String timeZone = config.getString("Restart.Time-Zone");
-        String[] time = config.getString("Restart.Time").split(":");
+        String[] time = Optional.ofNullable(config.getString("Restart.Time")).map(t->t.split(":")).orElse(new String[]{"03","30"});
         int beforeMin = config.getInt("Restart.Notify-Before");
         this.time =  beforeMin * 60;
         int interval = config.getInt("Restart.Check-Interval") * 60;
@@ -40,7 +41,7 @@ public class ScheduleRestart {
         LocalTime restartTime = LocalTime.of(hours,mins).plusMinutes(-beforeMin);
         plugin.getLogger().info("DEBUG: Server scheduled restart at "+restartTime.plusMinutes(beforeMin).truncatedTo(ChronoUnit.MINUTES));
         plugin.getLogger().info("DEBUG: Server launch the countdown at "+restartTime.truncatedTo(ChronoUnit.MINUTES));
-        if (!customZone) zone = ZoneId.systemDefault();
+        if (!customZone || timeZone == null) zone = ZoneId.systemDefault();
         else zone = ZoneId.of(timeZone);
         new BukkitRunnable() {
             @Override

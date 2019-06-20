@@ -20,8 +20,7 @@ public class StackerCommand extends SettingsCommandNode {
     @Override
     public void executeSettings(Player name, CommandSender sender, ConfigManager var, boolean isMySQL) throws IOException {
         if (HNMCLobby.getLobbyConfig().config.getBoolean("Stacker.Enable")) {
-            Player player = name.getPlayer();
-            UUID puuid = player.getUniqueId();
+            UUID puuid = name.getUniqueId();
             PlayerSettingManager psm = PlayerSettingManager.getInstance();
             boolean nostack = !psm.getPlayerSetting(puuid).isStacker();
             if (sender != name)
