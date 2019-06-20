@@ -53,6 +53,7 @@ public class HNMCLobby extends JavaPlugin {
         register.registerCommand(this,new FlyCommand());
         register.registerCommand(this,new HealCommand());
         register.registerCommand(this,new HideChatCommand());
+        register.registerCommand(this,new HidePlayerCommand());
         register.registerCommand(this,new StackerCommand());
         register.registerCommand(this,new SpeedCommand());
         register.registerCommand(this,new HideChatCommand());
