@@ -24,7 +24,7 @@ public class JoinItemBuilder {
                     .displayName(joinItem.getName()).lore(joinItem.getLores())
                     .onInteract(e -> {
                         if(e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-                        e.getPlayer().performCommand(joinItem.getCommand());
+                        e.getPlayer().chat("/"+joinItem.getCommand());
                     }).build();
             joinItems.put(stack, joinItem.getSlot());
         }

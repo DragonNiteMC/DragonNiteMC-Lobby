@@ -1,6 +1,7 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.addon;
 
 import com.hypernite.mc.hnmc.core.config.ConfigSetter;
+import com.hypernite.mc.hnmc.core.config.Extract;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,8 +16,15 @@ public class LobbyConfig extends ConfigSetter {
     FileConfiguration messagefile;
     public FileConfiguration config;
     public FileConfiguration lobbyfile;
+
+    @Extract
     public String header;
+
+    @Extract(name = "join_items")
     private List<JoinItem> joinItems = new ArrayList<>();
+
+    @Extract
+    private boolean mysql;
 
     public LobbyConfig(Plugin plugin) {
         super(plugin, "Messages.yml","config.yml","Lobby.yml");
@@ -27,6 +35,7 @@ public class LobbyConfig extends ConfigSetter {
         this.messagefile = map.get("Messages.yml");
         this.config = map.get("config.yml");
         this.lobbyfile = map.get("Lobby.yml");
+        this.mysql = config.getBoolean("General.Use-MySQL");
         header = lobbyfile.getString("tablist-header");
         Set<String> join_items = Optional.ofNullable(lobbyfile.getConfigurationSection("join-items")).map(sec->sec.getKeys(false)).orElse(Set.of());
         for (String item : join_items) {
@@ -39,10 +48,6 @@ public class LobbyConfig extends ConfigSetter {
         }
     }
 
-    @Override
-    public Map<String, Object> variablesMap() {
-        return Map.of("header",header,"join_items",joinItems,"mysql",isMySQL());
-    }
 
     List<JoinItem> getJoinItems() {
         return joinItems;

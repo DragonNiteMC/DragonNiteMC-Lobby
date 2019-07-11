@@ -39,7 +39,7 @@ public abstract class SettingsCommandNode extends CommandNode {
             }
         }else if(permother || terminal){
             target = Bukkit.getServer().getPlayer(list.get(0));
-            if (!target.isOnline()){
+            if (target == null){
                 commandSender.sendMessage(config.getPrefix()+config.getNotFoundPlayer());
             }else{
                 try {
