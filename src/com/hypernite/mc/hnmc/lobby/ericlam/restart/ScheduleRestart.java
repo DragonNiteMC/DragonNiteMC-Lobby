@@ -8,10 +8,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
@@ -23,11 +20,15 @@ public class ScheduleRestart {
     private int delayPlayers;
     private ZoneId zone;
     private LocalDateTime firstCheck;
+    private LocalDate firstDate;
+    private int dayPeriod;
 
     public ScheduleRestart() {
+        firstDate = LocalDate.now();
         FileConfiguration config = HNMCLobby.getLobbyConfig().config;
         plugin = HNMCLobby.plugin;
         boolean customZone = config.getBoolean("Restart.Custom-Time-Zone");
+        dayPeriod = config.getInt("Restart.Day-Period");
         spigotRestart = config.getBoolean("Restart.Spigot-Restart");
         String timeZone = config.getString("Restart.Time-Zone");
         String[] time = Optional.ofNullable(config.getString("Restart.Time")).map(t->t.split(":")).orElse(new String[]{"03","30"});
@@ -57,8 +58,11 @@ public class ScheduleRestart {
                     long restart = Timestamp.valueOf(LocalDateTime.of(LocalDate.now(), restartTime)).getTime();
 
                     if (restart >= first && restart <= second) {
-                        countDownRestart();
-                        cancel();
+                        LocalDate nowDate = LocalDate.now();
+                        if (Period.between(firstDate, nowDate).getDays() >= dayPeriod){
+                            countDownRestart();
+                            cancel();
+                        }
                     }
                 }
 

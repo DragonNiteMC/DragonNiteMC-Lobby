@@ -14,6 +14,7 @@ GUI:
 Restart:
   # 24 hours format
   Time: "03:30"
+  Day-Period: 7
   Custom-Time-Zone: false
   Time-Zone: "UTC+8"
   Spigot-Restart: true

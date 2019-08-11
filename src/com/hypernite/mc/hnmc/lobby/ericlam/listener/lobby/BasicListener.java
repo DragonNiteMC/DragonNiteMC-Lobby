@@ -46,7 +46,7 @@ public class BasicListener implements Listener {
     public void onLobbyJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
         if (player.hasPermission("donor.join")){
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(var.lobbyfile.getString("join.donor-msg")).map(str->str.replace("<player>", player.getDisplayName())).orElse("null")));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(var.lobbyfile.getString("join.donor-msg")).map(str->str.replace("<player>",HyperNiteMC.getAPI().getVaultAPI().getChat().getPlayerPrefix(player)+player.getDisplayName())).orElse("null")));
         }
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
