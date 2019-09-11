@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class LobbyJoinItem implements Listener {
-    private JoinItemBuilder joinitem = JoinItemBuilder.getInstance();
+    private JoinItemBuilder joinitem = new JoinItemBuilder();
 
     @EventHandler
     public void GiveItemOnJoin(PlayerJoinEvent event){

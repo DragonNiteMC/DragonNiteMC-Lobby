@@ -2,8 +2,6 @@ package com.hypernite.mc.hnmc.lobby.caxerx;
 
 import com.hypernite.mc.hnmc.lobby.caxerx.storage.PlayerStatusStorage;
 import com.hypernite.mc.hnmc.lobby.caxerx.storage.SQLDatabaseStorage;
-import com.hypernite.mc.hnmc.lobby.caxerx.storage.YamlStorage;
-import com.hypernite.mc.hnmc.lobby.ericlam.addon.LobbyConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 
 import java.util.HashMap;
@@ -17,11 +15,10 @@ public class PlayerSettingManager {
 
     private PlayerSettingManager() {
         playerSettingMap = new HashMap<>();
-        LobbyConfig var = HNMCLobby.getLobbyConfig();
-        if (var.isMySQL()) {
+        if (HNMCLobby.isMySQL) {
             storage = new SQLDatabaseStorage();
         } else {
-            storage = new YamlStorage(HNMCLobby.plugin);
+            throw new UnsupportedOperationException("cannot save in yaml");
         }
     }
 

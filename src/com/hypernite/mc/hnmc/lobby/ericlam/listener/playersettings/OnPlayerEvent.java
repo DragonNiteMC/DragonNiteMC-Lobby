@@ -1,9 +1,10 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.listener.playersettings;
 
-import com.hypernite.mc.hnmc.core.managers.ConfigManager;
+import com.hypernite.mc.hnmc.core.managers.YamlManager;
 import com.hypernite.mc.hnmc.lobby.caxerx.PlayerSettingManager;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.GUIBuilder;
-import com.hypernite.mc.hnmc.lobby.ericlam.addon.LobbyConfig;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.MainConfig;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.MessagesConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -26,13 +27,14 @@ import java.util.UUID;
 
 public class OnPlayerEvent implements Listener {
 
-    private ConfigManager cf;
-    private LobbyConfig lobbycf;
-    private PlayerSettingManager psm;
+    private final MessagesConfig msg;
+    private final MainConfig config;
+    private final PlayerSettingManager psm;
 
     public OnPlayerEvent(){
-        cf = HNMCLobby.getConfigManager();
-        lobbycf = HNMCLobby.getLobbyConfig();
+        YamlManager cf = HNMCLobby.getConfigManager();
+        config = cf.getConfigAs("config.yml", MainConfig.class);
+        msg = cf.getConfigAs("Messages.yml", MessagesConfig.class);
         psm = PlayerSettingManager.getInstance();
     }
 
@@ -44,7 +46,7 @@ public class OnPlayerEvent implements Listener {
         if (psm.getPlayerSetting(puuid).isHideChat()) {
             event.setCancelled(true);
             event.getRecipients().remove(player);
-            player.sendMessage(cf.getMessage("Commands.HideChat.hidden"));
+            player.sendMessage(msg.getCommandMSG().getHideChat().get("hidden"));
         }
         event.getRecipients().removeIf(pl -> psm.getPlayerSetting(pl.getUniqueId()).isHideChat());
     }
@@ -62,11 +64,12 @@ public class OnPlayerEvent implements Listener {
             thrower.eject();
             for (Player toPush : toThrow){
                 toPush.eject();
-                toPush.setVelocity(thrower.getLocation().getDirection().multiply(lobbycf.config.getInt("Stacker.Throw-Power")));
-                toPush.setVelocity(new Vector(toPush.getVelocity().getX(), lobbycf.config.getDouble("Stacker.Throw-Y"), toPush.getVelocity().getZ()));
-                if (toThrow.size() == 1) thrower.sendMessage(cf.getMessage("Commands.Stacker.pushed").replace("<player>", toPush.getName()));
+                toPush.setVelocity(thrower.getLocation().getDirection().multiply(config.getStacker().getFlowPower()));
+                toPush.setVelocity(new Vector(toPush.getVelocity().getX(), config.getStacker().getFlowY(), toPush.getVelocity().getZ()));
+                if (toThrow.size() == 1)
+                    thrower.sendMessage(msg.getCommandMSG().getStacker().get("pushed").replace("<player>", toPush.getName()));
             }
-            if (toThrow.size() > 1)thrower.sendMessage(cf.getMessage("Commands.Stacker.pushed-all"));
+            if (toThrow.size() > 1) thrower.sendMessage(msg.getCommandMSG().getStacker().get("pushed-all"));
         }
     }
 
@@ -87,7 +90,7 @@ public class OnPlayerEvent implements Listener {
     public void PlayerLeaveMySQL(PlayerQuitEvent event){
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        if (lobbycf.isMySQL())
+        if (config.isUseMySQL())
             Bukkit.getScheduler().runTaskAsynchronously(HNMCLobby.plugin, () -> {
                 PlayerSettingManager.getInstance().savePlayerSetting(puuid);
             });
@@ -97,7 +100,7 @@ public class OnPlayerEvent implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID puuid = player.getUniqueId();
-        int amplifier = lobbycf.config.getInt("Speed.Level") - 1;
+        int amplifier = config.getSpeedLevel() - 1;
 
         Bukkit.getScheduler().runTaskAsynchronously(HNMCLobby.plugin, () -> {
             psm.getPlayerSetting(puuid);
@@ -110,8 +113,8 @@ public class OnPlayerEvent implements Listener {
                 else player.removePotionEffect(PotionEffectType.SPEED);
 
 
-                if (lobbycf.config.getBoolean("Join-Show-UUID.Enable")) {
-                    player.sendMessage(cf.getMessage("Functions.ShowUUID.JoinMessage").replace("<UUID>", puuid.toString()));
+                if (config.isJoinShowUUID()) {
+                    player.sendMessage(msg.getJoinUUIDMessage().replace("<UUID>", puuid.toString()));
                 }
                 GUIBuilder gui = GUIBuilder.getInstance();
                 gui.getInventoryGUI(player);
@@ -152,7 +155,7 @@ public class OnPlayerEvent implements Listener {
     @EventHandler
     public void onPlayerStacker(PlayerInteractEntityEvent event) throws SQLException {
         if (event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
-        if (!lobbycf.config.getBoolean("Stacker.Enable")) {
+        if (!config.getStacker().isEnable()) {
             return;
         }
 
@@ -167,16 +170,16 @@ public class OnPlayerEvent implements Listener {
         Player target = (Player) entity;
 
         if (!psm.getPlayerSetting(puuid).isStacker()) {
-            player.sendMessage(cf.getMessage("Commands.Stacker.disactive"));
+            player.sendMessage(msg.getCommandMSG().getStacker().get("disactive"));
             return;
         }
         if (!psm.getPlayerSetting(target.getUniqueId()).isStacker()) {
-            player.sendMessage(cf.getMessage("Commands.Stacker.be-disactive"));
+            player.sendMessage(msg.getCommandMSG().getStacker().get("be-disactive"));
             return;
         }
 
 
-        int maxStack = lobbycf.config.getInt("Stacker.Max-Stack");
+        int maxStack = config.getStacker().getMaxStack();
         int stack = 0;
         Player top = player;
         /*Bukkit.broadcastMessage(ChatColor.RED + "======DEBUG======");
@@ -194,11 +197,11 @@ public class OnPlayerEvent implements Listener {
 
         if (!stacks.contains(target)) {
             if (stack >= maxStack) {
-                player.sendMessage(cf.getMessage("Commands.Stacker.Max"));
+                player.sendMessage(msg.getCommandMSG().getStacker().get("Max"));
                 return;
             }
             top.addPassenger(target);
-            player.sendMessage(cf.getMessage("Commands.Stacker.stacked").replace("<player>", ((Player) entity).getDisplayName()));
+            player.sendMessage(msg.getCommandMSG().getStacker().get("stacked").replace("<player>", ((Player) entity).getDisplayName()));
         }
 
     }

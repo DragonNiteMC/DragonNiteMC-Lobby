@@ -2,7 +2,6 @@ package com.hypernite.mc.hnmc.lobby.ericlam.command;
 
 import com.hypernite.mc.hnmc.core.main.HyperNiteMC;
 import com.hypernite.mc.hnmc.core.managers.CoreConfig;
-import com.hypernite.mc.hnmc.lobby.ericlam.addon.LobbyConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -10,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -38,17 +38,17 @@ public class SetLobbyCommand implements CommandExecutor {
                 Double Yaw = (double) set.getYaw();
                 Double Pitch = (double) set.getPitch();
                 CompletableFuture.runAsync(()->{
-                    LobbyConfig var = HNMCLobby.getLobbyConfig();
-                    var.lobbyfile.set("spawntp.y", Y);
-                    var.lobbyfile.set("spawntp.x", X);
-                    var.lobbyfile.set("spawntp.z", Z);
-                    var.lobbyfile.set("spawntp.yaw", Yaw);
-                    var.lobbyfile.set("spawntp.pitch", Pitch);
-                    var.lobbyfile.set("spawntp.world", setworld.getName());
+                    FileConfiguration lobbyfile = HNMCLobby.getConfigManager().getFileConfig("Lobby.yml");
+                    lobbyfile.set("spawntp.y", Y);
+                    lobbyfile.set("spawntp.x", X);
+                    lobbyfile.set("spawntp.z", Z);
+                    lobbyfile.set("spawntp.yaw", Yaw);
+                    lobbyfile.set("spawntp.pitch", Pitch);
+                    lobbyfile.set("spawntp.world", setworld.getName());
                     try {
-                        File lobbyfile = new File(plugin.getDataFolder(), "Lobby.yml");
-                        var.lobbyfile.save(lobbyfile);
-                        YamlConfiguration.loadConfiguration(lobbyfile);
+                        File lobby = new File(plugin.getDataFolder(), "Lobby.yml");
+                        lobbyfile.save(lobby);
+                        YamlConfiguration.loadConfiguration(lobby);
                     } catch (IOException e) {
                         throw new CompletionException(e);
                     }

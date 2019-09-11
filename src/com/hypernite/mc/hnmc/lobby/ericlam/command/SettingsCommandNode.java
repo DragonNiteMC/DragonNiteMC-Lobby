@@ -1,9 +1,9 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.command;
 
 import com.hypernite.mc.hnmc.core.main.HyperNiteMC;
-import com.hypernite.mc.hnmc.core.managers.ConfigManager;
 import com.hypernite.mc.hnmc.core.managers.CoreConfig;
 import com.hypernite.mc.hnmc.core.misc.commands.CommandNode;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.MessagesConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -11,7 +11,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
 import java.util.List;
 
 public abstract class SettingsCommandNode extends CommandNode {
@@ -26,14 +25,11 @@ public abstract class SettingsCommandNode extends CommandNode {
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
         boolean permother = commandSender.hasPermission(this.getPermission()+".other");
+        MessagesConfig messagesConfig = HNMCLobby.getConfigManager().getConfigAs("Messages.yml", MessagesConfig.class);
         if (list.size() < 1) {
             if (!terminal) {
                 Player player = (Player) commandSender;
-                try {
-                    executeSettings(player, player, HNMCLobby.getConfigManager(), HNMCLobby.isMySQL);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                executeSettings(player, player, messagesConfig);
             } else {
                 commandSender.sendMessage(config.getPrefix() + "Console can only use /"+this.getCommand()+" <player>");
             }
@@ -42,11 +38,7 @@ public abstract class SettingsCommandNode extends CommandNode {
             if (target == null){
                 commandSender.sendMessage(config.getPrefix()+config.getNotFoundPlayer());
             }else{
-                try {
-                    executeSettings(target, commandSender, HNMCLobby.getConfigManager(), HNMCLobby.isMySQL);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                executeSettings(target, commandSender, messagesConfig);
             }
         }else{
             commandSender.sendMessage(config.getPrefix()+config.getNoPerm());
@@ -59,6 +51,6 @@ public abstract class SettingsCommandNode extends CommandNode {
         return null;
     }
 
-    public abstract void executeSettings(Player name, CommandSender sender, ConfigManager var, boolean isMySQL) throws IOException;
+    public abstract void executeSettings(Player name, CommandSender sender, MessagesConfig var);
 
 }

@@ -2,11 +2,12 @@ package com.hypernite.mc.hnmc.lobby.ericlam.addon;
 
 import com.hypernite.mc.hnmc.core.builders.InventoryBuilder;
 import com.hypernite.mc.hnmc.core.builders.ItemStackBuilder;
-import com.hypernite.mc.hnmc.core.managers.ConfigManager;
+import com.hypernite.mc.hnmc.core.managers.YamlManager;
 import com.hypernite.mc.hnmc.lobby.caxerx.PlayerSettingManager;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -40,14 +41,14 @@ public class GUIBuilder {
 
     public Inventory getInventoryGUI(Player player){
         if (ownGUI.containsKey(player)) return ownGUI.get(player);
-        ConfigManager var = HNMCLobby.getConfigManager();
+        YamlManager var = HNMCLobby.getConfigManager();
+        FileConfiguration msg = var.getFileConfig("Messages.yml");
         InventoryBuilder inv = new InventoryBuilder(54, var.getPureMessage("Commands.GUI.title"));
         for (SettingItem settingItem : items) {
             inv.item(settingItem.getSlot(),
                     new ItemStackBuilder(settingItem.getMaterial())
                             .displayName(var.getPureMessage("Commands.GUI."+settingItem.getName()))
-                            .lore(HNMCLobby.getLobbyConfig().messagefile.getStringList("Commands.GUI.Lore")
-                                    .stream().map(e-> ChatColor.translateAlternateColorCodes('&',e)).collect(Collectors.toList()))
+                            .lore(msg.getStringList("Commands.GUI.Lore").stream().map(e -> ChatColor.translateAlternateColorCodes('&', e)).collect(Collectors.toList()))
                             .onClick(e->{
                                 Player p = (Player) e.getWhoClicked();
                                 p.performCommand(settingItem.getCommand());

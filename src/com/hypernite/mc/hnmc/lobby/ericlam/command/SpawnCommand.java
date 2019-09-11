@@ -1,11 +1,9 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.command;
 
-import com.hypernite.mc.hnmc.core.managers.ConfigManager;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.TeleportLobby;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.MessagesConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.io.IOException;
 
 public class SpawnCommand extends SettingsCommandNode {
 
@@ -14,11 +12,11 @@ public class SpawnCommand extends SettingsCommandNode {
     }
 
     @Override
-    public void executeSettings(Player name, CommandSender sender, ConfigManager var, boolean isMySQL) throws IOException {
+    public void executeSettings(Player name, CommandSender sender, MessagesConfig config) {
         TeleportLobby lobby = TeleportLobby.getInstance();
         if (sender == name){
             if (lobby.TeleportToLobby(name)){
-                name.sendMessage(var.getMessage("Commands.spawn.send"));
+                name.sendMessage(config.getCommandMSG().getSpawn().get("send"));
             }
         }else{
             lobby.TeleportToLobby(name,sender);

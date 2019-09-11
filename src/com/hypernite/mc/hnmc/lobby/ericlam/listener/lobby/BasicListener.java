@@ -2,8 +2,8 @@ package com.hypernite.mc.hnmc.lobby.ericlam.listener.lobby;
 
 import com.hypernite.mc.hnmc.core.main.HyperNiteMC;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.GUIBuilder;
-import com.hypernite.mc.hnmc.lobby.ericlam.addon.LobbyConfig;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.TeleportLobby;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.LobbyConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,9 +24,9 @@ import java.util.Optional;
 
 public class BasicListener implements Listener {
 
-    private LobbyConfig var;
+    private LobbyConfig lobbyConfig;
     public BasicListener(){
-        var = HNMCLobby.getLobbyConfig();
+        lobbyConfig = HNMCLobby.getConfigManager().getConfigAs("Lobby.yml", LobbyConfig.class);
     }
 
     @EventHandler
@@ -46,11 +46,11 @@ public class BasicListener implements Listener {
     public void onLobbyJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
         if (player.hasPermission("donor.join")){
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(var.lobbyfile.getString("join.donor-msg")).map(str->str.replace("<player>",HyperNiteMC.getAPI().getVaultAPI().getChat().getPlayerPrefix(player)+player.getDisplayName())).orElse("null")));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(lobbyConfig.getJoinDonorMessage()).map(str -> str.replace("<player>", HyperNiteMC.getAPI().getVaultAPI().getChat().getPlayerPrefix(player) + player.getDisplayName())).orElse("null")));
         }
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
-        HyperNiteMC.getAPI().getTabListManager().setHeader(var.header, player);
+        HyperNiteMC.getAPI().getTabListManager().setHeader(lobbyConfig.getTablistHeader(), player);
     }
 
     @EventHandler

@@ -1,14 +1,12 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.command;
 
-import com.hypernite.mc.hnmc.core.managers.ConfigManager;
 import com.hypernite.mc.hnmc.lobby.caxerx.PlayerSettingManager;
-import com.hypernite.mc.hnmc.lobby.ericlam.addon.LobbyConfig;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.MessagesConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public class HidePlayerCommand extends SettingsCommandNode {
@@ -17,12 +15,13 @@ public class HidePlayerCommand extends SettingsCommandNode {
     }
 
     @Override
-    public void executeSettings(Player name, CommandSender sender, ConfigManager var, boolean isMySQL) throws IOException {
+    public void executeSettings(Player name, CommandSender sender, MessagesConfig config) {
         UUID puuid = name.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean nohide = !psm.getPlayerSetting(puuid).isHidePlayer();
-        if (sender != name) sender.sendMessage(var.getMessage("Commands.HidePlayer.be-" + (nohide ? "hide":"show")).replace("<player>",name.getName()));
-        name.sendMessage(var.getMessage("Commands.HidePlayer." + (nohide ? "hide":"show")));
+        if (sender != name)
+            sender.sendMessage(config.getCommandMSG().getHidePlayer().get("be-" + (nohide ? "hide" : "show")).replace("<player>", name.getName()));
+        name.sendMessage(config.getCommandMSG().getHidePlayer().get(nohide ? "hide" : "show"));
         psm.getPlayerSetting(puuid).setHidePlayer(nohide);
         for (Player onlinep : Bukkit.getServer().getOnlinePlayers()) {
             if (nohide) {
@@ -31,6 +30,5 @@ public class HidePlayerCommand extends SettingsCommandNode {
                 name.showPlayer(HNMCLobby.plugin, onlinep);
             }
         }
-        if (!isMySQL) LobbyConfig.setYml("HidePlayer", puuid, nohide);
     }
 }

@@ -1,9 +1,10 @@
 package com.hypernite.mc.hnmc.lobby.ericlam.restart;
 
 
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.MainConfig;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.component.RestartOption;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -25,18 +26,18 @@ public class ScheduleRestart {
 
     public ScheduleRestart() {
         firstDate = LocalDate.now();
-        FileConfiguration config = HNMCLobby.getLobbyConfig().config;
+        RestartOption config = HNMCLobby.getConfigManager().getConfigAs("config.yml", MainConfig.class).getRestartOption();
         plugin = HNMCLobby.plugin;
-        boolean customZone = config.getBoolean("Restart.Custom-Time-Zone");
-        dayPeriod = config.getInt("Restart.Day-Period");
-        spigotRestart = config.getBoolean("Restart.Spigot-Restart");
-        String timeZone = config.getString("Restart.Time-Zone");
-        String[] time = Optional.ofNullable(config.getString("Restart.Time")).map(t->t.split(":")).orElse(new String[]{"03","30"});
-        int beforeMin = config.getInt("Restart.Notify-Before");
+        boolean customZone = config.isCustomTimeZone();
+        dayPeriod = config.getDayPeriod();
+        spigotRestart = config.isSpigotRestart();
+        String timeZone = config.getTimeZone();
+        String[] time = Optional.ofNullable(config.getTime()).map(t -> t.split(":")).orElse(new String[]{"03", "30"});
+        int beforeMin = config.getNotifyBefore();
         this.time =  beforeMin * 60;
-        int interval = config.getInt("Restart.Check-Interval") * 60;
-        delayTime = config.getInt("Restart.Delay-Sec");
-        delayPlayers = config.getInt("Restart.Delay-Online");
+        int interval = config.getCheckInterval() * 60;
+        delayTime = config.getDelaySec();
+        delayPlayers = config.getDelayOnline();
         int hours = Integer.parseInt(time[0]);
         int mins = Integer.parseInt(time[1]);
         LocalTime restartTime = LocalTime.of(hours,mins).plusMinutes(-beforeMin);

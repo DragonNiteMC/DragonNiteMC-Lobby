@@ -1,10 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="HyperNiteMC-Lobby">
-    <output-path>$PROJECT_DIR$/../../../Studio Production/2019/1.14.2/plugins</output-path>
+    <output-path>W:/Minecraft/2019/1.14.4/plugins</output-path>
     <root id="archive" name="HyperNiteMC-Lobby.jar">
-      <element id="file-copy" path="$PROJECT_DIR$/src/config.yml" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/plugin.yml" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/Messages.yml" />
       <element id="module-output" name="HyperNiteMC-Lobby" />
     </root>
   </artifact>
