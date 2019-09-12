@@ -18,7 +18,7 @@ public class StackerCommand extends SettingsCommandNode {
 
     @Override
     public void executeSettings(Player name, CommandSender sender, MessagesConfig var) {
-        if (HNMCLobby.getConfigManager().getConfigAs("config.yml", MainConfig.class).getStacker().isEnable()) {
+        if (HNMCLobby.getConfigManager().getConfigAs(MainConfig.class).getStacker().isEnable()) {
             UUID puuid = name.getUniqueId();
             PlayerSettingManager psm = PlayerSettingManager.getInstance();
             boolean nostack = !psm.getPlayerSetting(puuid).isStacker();

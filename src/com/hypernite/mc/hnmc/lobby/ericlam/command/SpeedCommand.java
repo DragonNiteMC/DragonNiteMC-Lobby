@@ -23,7 +23,7 @@ public class SpeedCommand extends SettingsCommandNode {
         UUID puuid = name.getUniqueId();
         PlayerSettingManager psm = PlayerSettingManager.getInstance();
         boolean speed = !psm.getPlayerSetting(puuid).isSpeed();
-        int amplifier = HNMCLobby.getConfigManager().getConfigAs("config.yml", MainConfig.class).getSpeedLevel() - 1;
+        int amplifier = HNMCLobby.getConfigManager().getConfigAs(MainConfig.class).getSpeedLevel() - 1;
         if (sender != name)
             sender.sendMessage(config.getCommandMSG().getSpeed().get("Be-Turn-" + (speed ? "On" : "Off")).replace("<player>", name.getName()));
         name.sendMessage(config.getCommandMSG().getSpeed().get("Turn-" + (speed ? "On" : "Off")));

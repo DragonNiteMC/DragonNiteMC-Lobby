@@ -22,7 +22,7 @@ public class SettingsCommand extends SettingsCommandNode {
         name.openInventory(owngui);
         if (sender != name)
             sender.sendMessage(config.getCommandMSG().getGui().get("be-show").replace("<player>", name.getName()));
-        if (HNMCLobby.getConfigManager().getConfigAs("config.yml", MainConfig.class).isNotifyGUIOpen())
+        if (HNMCLobby.getConfigManager().getConfigAs(MainConfig.class).isNotifyGUIOpen())
             name.sendMessage(config.getCommandMSG().getGui().get("show"));
         gui.changeStatus(name);
     }

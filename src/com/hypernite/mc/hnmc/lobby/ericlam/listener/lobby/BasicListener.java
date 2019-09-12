@@ -26,7 +26,7 @@ public class BasicListener implements Listener {
 
     private LobbyConfig lobbyConfig;
     public BasicListener(){
-        lobbyConfig = HNMCLobby.getConfigManager().getConfigAs("Lobby.yml", LobbyConfig.class);
+        lobbyConfig = HNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class);
     }
 
     @EventHandler

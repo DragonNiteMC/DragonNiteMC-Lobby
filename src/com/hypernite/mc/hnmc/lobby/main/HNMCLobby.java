@@ -43,7 +43,7 @@ public class HNMCLobby extends JavaPlugin {
                 .register("Lobby.yml", LobbyConfig.class)
                 .register("Messages.yml", MessagesConfig.class)
                 .dump();
-        isMySQL = yamlManager.getConfigAs("config.yml", MainConfig.class).isUseMySQL();
+        isMySQL = yamlManager.getConfigAs(MainConfig.class).isUseMySQL();
 
         /*
          * Register Command

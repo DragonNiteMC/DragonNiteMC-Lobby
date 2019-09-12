@@ -8,7 +8,7 @@ import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.component.JoinItem;
 import java.util.Map;
 
 @Resource(locate = "Lobby.yml")
-public class LobbyConfig implements Configuration {
+public class LobbyConfig extends Configuration {
 
     @Prop(path = "join.donor-msg")
     private String joinDonorMessage;

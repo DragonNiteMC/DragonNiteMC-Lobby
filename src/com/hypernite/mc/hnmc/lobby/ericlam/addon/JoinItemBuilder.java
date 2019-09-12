@@ -15,7 +15,7 @@ public class JoinItemBuilder {
     private HashMap<ItemStack, Integer> joinItems = new HashMap<>();
 
     public JoinItemBuilder() {
-        HNMCLobby.getConfigManager().getConfigAs("Lobby.yml", LobbyConfig.class).getJoinItemMap().forEach((k, joinItem) -> {
+        HNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class).getJoinItemMap().forEach((k, joinItem) -> {
             Material material = Material.getMaterial(k);
             if (material == null) {
                 HNMCLobby.plugin.getLogger().warning(k + " is not exist in material");

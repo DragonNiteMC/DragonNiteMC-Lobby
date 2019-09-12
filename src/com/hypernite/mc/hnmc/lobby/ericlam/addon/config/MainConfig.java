@@ -7,7 +7,7 @@ import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.component.RestartOption;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.component.Stacker;
 
 @Resource(locate = "config.yml")
-public class MainConfig implements Configuration {
+public class MainConfig extends Configuration {
 
     @Prop(path = "General.Use-MySQL")
     private boolean useMySQL;

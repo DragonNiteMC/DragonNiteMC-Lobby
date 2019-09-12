@@ -25,7 +25,7 @@ public abstract class SettingsCommandNode extends CommandNode {
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
         boolean permother = commandSender.hasPermission(this.getPermission()+".other");
-        MessagesConfig messagesConfig = HNMCLobby.getConfigManager().getConfigAs("Messages.yml", MessagesConfig.class);
+        MessagesConfig messagesConfig = HNMCLobby.getConfigManager().getConfigAs(MessagesConfig.class);
         if (list.size() < 1) {
             if (!terminal) {
                 Player player = (Player) commandSender;

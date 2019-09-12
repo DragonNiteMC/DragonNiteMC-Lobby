@@ -33,8 +33,8 @@ public class OnPlayerEvent implements Listener {
 
     public OnPlayerEvent(){
         YamlManager cf = HNMCLobby.getConfigManager();
-        config = cf.getConfigAs("config.yml", MainConfig.class);
-        msg = cf.getConfigAs("Messages.yml", MessagesConfig.class);
+        config = cf.getConfigAs(MainConfig.class);
+        msg = cf.getConfigAs(MessagesConfig.class);
         psm = PlayerSettingManager.getInstance();
     }
 

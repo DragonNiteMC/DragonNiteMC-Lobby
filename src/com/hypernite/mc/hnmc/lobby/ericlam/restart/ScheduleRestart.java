@@ -26,7 +26,7 @@ public class ScheduleRestart {
 
     public ScheduleRestart() {
         firstDate = LocalDate.now();
-        RestartOption config = HNMCLobby.getConfigManager().getConfigAs("config.yml", MainConfig.class).getRestartOption();
+        RestartOption config = HNMCLobby.getConfigManager().getConfigAs(MainConfig.class).getRestartOption();
         plugin = HNMCLobby.plugin;
         boolean customZone = config.isCustomTimeZone();
         dayPeriod = config.getDayPeriod();
