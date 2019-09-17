@@ -3,6 +3,7 @@ package com.hypernite.mc.hnmc.lobby.ericlam.addon;
 import com.hypernite.mc.hnmc.core.main.HyperNiteMC;
 import com.hypernite.mc.hnmc.core.managers.CoreConfig;
 import com.hypernite.mc.hnmc.core.managers.YamlManager;
+import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.LobbyConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,7 +33,7 @@ public class TeleportLobby {
     }
     
     private TeleportLobby(){
-        lobbyfile = HNMCLobby.getConfigManager().getFileConfig("Lobby.yml");
+        lobbyfile = HNMCLobby.getConfigManager().getFileConfig(LobbyConfig.class);
     }
     private void getNewSpawn(){
         if (needchangeSpawn()) {
@@ -67,7 +68,7 @@ public class TeleportLobby {
             player.sendMessage(var.getPrefix() + ChatColor.RED+ "伺服器尚未設置重生點，因此無法傳送");
             return false;
         }
-        player.teleport(spawn);
+        player.teleportAsync(spawn);
         return true;
     }
     public void TeleportToLobby(Player player, CommandSender sender){
@@ -77,7 +78,7 @@ public class TeleportLobby {
             sender.sendMessage(HyperNiteMC.getAPI().getCoreConfig().getPrefix() + ChatColor.RED + "由於重生點尚未設置，因此無法傳送 " + ChatColor.YELLOW + player.getName() + ChatColor.RED + " 。");
             return;
         }
-        player.teleport(spawn);
+        player.teleportAsync(spawn);
         sender.sendMessage(var.getMessage("Commands.spawn.be-send").replace("<player>",player.getName()));
         player.sendMessage(var.getMessage("Commands.spawn.send"));
     }

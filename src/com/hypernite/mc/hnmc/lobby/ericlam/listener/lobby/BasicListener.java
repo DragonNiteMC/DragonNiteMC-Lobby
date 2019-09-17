@@ -33,10 +33,13 @@ public class BasicListener implements Listener {
     public void NoDamageAndVoidTp(EntityDamageEvent e){
         if (e.getEntity() instanceof Player){
             Player player = (Player) e.getEntity();
+            e.setCancelled(true);
             if(e.getCause() == EntityDamageEvent.DamageCause.VOID) {
-                spawn.TeleportToLobby(player);
+                Bukkit.getScheduler().runTask(HNMCLobby.plugin, () -> {
+                    spawn.TeleportToLobby(player);
+                    player.setFallDistance(0f);
+                });
             }
-                e.setCancelled(true);
         }
     }
 
