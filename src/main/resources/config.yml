@@ -1,0 +1,21 @@
+stacker:
+  enable: true
+  throwPower: 10
+  throwY: 5.0
+  maxStack: 5
+speedLevel: 2
+restart:
+  # 24 hours format
+  time: "03:30"
+  dayPeriod: 7
+  customTimeZone: false
+  timeZone: "UTC+8"
+  spigotRestart: true
+  #how many players in server will delay the restart
+  delayOnline: 1
+  #delay timer in sec
+  delaySec: 60
+  #check interval before countdown (in min)
+  checkInterval: 5
+  # in minute
+  notifyBefore: 3
