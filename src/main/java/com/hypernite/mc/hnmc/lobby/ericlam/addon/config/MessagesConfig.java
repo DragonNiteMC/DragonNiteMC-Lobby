@@ -47,6 +47,6 @@ public class MessagesConfig extends MessageConfiguration {
     }
 
     public String getGUI(String path) {
-        return get("GUI." + path);
+        return getPure("GUI." + path);
     }
 }

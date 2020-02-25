@@ -46,7 +46,7 @@ public class GUIBuilder {
             inv.item(settingItem.getSlot(),
                     new ItemStackBuilder(settingItem.getMaterial())
                             .displayName(msg.getGUI(settingItem.getName()))
-                            .lore(msg.getList("GUI.Lore").stream().map(e -> ChatColor.translateAlternateColorCodes('&', e)).collect(Collectors.toList()))
+                            .lore(msg.getPureList("GUI.Lore").stream().map(e -> ChatColor.translateAlternateColorCodes('&', e)).collect(Collectors.toList()))
                             .onClick(e -> {
                                 Player p = (Player) e.getWhoClicked();
                                 p.performCommand(settingItem.getCommand());

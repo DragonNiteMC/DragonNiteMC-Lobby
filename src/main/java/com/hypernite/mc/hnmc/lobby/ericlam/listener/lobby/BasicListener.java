@@ -56,7 +56,7 @@ public class BasicListener implements Listener {
         }
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
-        HyperNiteMC.getAPI().getTabListManager().setHeader(msg.get("tablist-header"), player);
+        HyperNiteMC.getAPI().getTabListManager().setHeader(msg.getPure("tablist-header"), player);
     }
 
     @EventHandler
