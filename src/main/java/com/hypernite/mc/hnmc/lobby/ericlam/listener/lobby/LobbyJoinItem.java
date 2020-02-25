@@ -18,26 +18,26 @@ public class LobbyJoinItem implements Listener {
     private JoinItemBuilder joinitem = new JoinItemBuilder();
 
     @EventHandler
-    public void GiveItemOnJoin(PlayerJoinEvent event){
+    public void GiveItemOnJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         joinitem.givePlayerJoinItem(player);
     }
 
     @EventHandler
-    public void GiveItemOnRespawn(PlayerRespawnEvent e){
+    public void GiveItemOnRespawn(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
-        Bukkit.getScheduler().scheduleSyncDelayedTask(HNMCLobby.plugin, () ->{
+        Bukkit.getScheduler().scheduleSyncDelayedTask(HNMCLobby.plugin, () -> {
             joinitem.givePlayerJoinItem(player);
         });
     }
 
     @EventHandler
-    public void NoItemMovementOnNotCreative(InventoryClickEvent e){
+    public void NoItemMovementOnNotCreative(InventoryClickEvent e) {
         if (!e.getWhoClicked().getGameMode().equals(GameMode.CREATIVE)) e.setCancelled(true);
     }
 
     @EventHandler
-    public void NoItemPick(InventoryPickupItemEvent e){
+    public void NoItemPick(InventoryPickupItemEvent e) {
         ItemStack item = e.getItem().getItemStack();
         Player player = (Player) e.getInventory().getHolder();
         if (player == null) return;
@@ -45,8 +45,9 @@ public class LobbyJoinItem implements Listener {
             if (!player.getGameMode().equals(GameMode.CREATIVE)) e.setCancelled(true);
         }
     }
+
     @EventHandler
-    public void NoItemDrop(PlayerDropItemEvent e){
+    public void NoItemDrop(PlayerDropItemEvent e) {
         ItemStack item = e.getItemDrop().getItemStack();
         Player player = e.getPlayer();
         if (joinitem.getJoinItems().containsKey(item)) {

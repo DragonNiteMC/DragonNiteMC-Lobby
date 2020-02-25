@@ -13,7 +13,7 @@ public class FlyCommand extends SettingsCommandNode {
 
 
     public FlyCommand() {
-        super("fly","切換飛行");
+        super("fly", "切換飛行");
     }
 
     @Override

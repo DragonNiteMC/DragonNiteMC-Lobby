@@ -34,7 +34,7 @@ public class SettingItem {
     @Override
     public boolean equals(Object obj) {
         if (obj.getClass() != this.getClass()) return false;
-        SettingItem item = (SettingItem)obj;
+        SettingItem item = (SettingItem) obj;
         return item.getMaterial().equals(this.getMaterial());
     }
 

@@ -15,14 +15,16 @@ import java.io.IOException;
 
 public class SetLobbyCommand implements CommandExecutor {
     private final HNMCLobby plugin;
-    public SetLobbyCommand(HNMCLobby plugin){
+
+    public SetLobbyCommand(HNMCLobby plugin) {
         this.plugin = plugin;
     }
+
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] strings) {
         CoreConfig msg = HyperNiteMC.getAPI().getCoreConfig();
         LobbyConfig lobbyConfig = HNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class);
-        if (commandSender instanceof Player){
+        if (commandSender instanceof Player) {
             if (commandSender.hasPermission("hypernite.setlobby")) {
                 Player player = (Player) commandSender;
                 lobbyConfig.spawntp = player.getLocation();
@@ -33,7 +35,7 @@ public class SetLobbyCommand implements CommandExecutor {
                     e.printStackTrace();
                     player.sendMessage(ChatColor.RED + "出現問題, 我們無法保存你的記錄!");
                 }
-            }else {
+            } else {
                 commandSender.sendMessage(msg.getPrefix() + msg.getNoPerm());
             }
         } else {

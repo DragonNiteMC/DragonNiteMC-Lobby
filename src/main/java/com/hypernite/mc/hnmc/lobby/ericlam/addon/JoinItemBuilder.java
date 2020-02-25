@@ -26,7 +26,7 @@ public class JoinItemBuilder {
         });
     }
 
-    public void givePlayerJoinItem(Player player){
+    public void givePlayerJoinItem(Player player) {
         player.getInventory().clear();
         joinItems.forEach((item, slot) -> player.getInventory().setItem(slot, item));
     }

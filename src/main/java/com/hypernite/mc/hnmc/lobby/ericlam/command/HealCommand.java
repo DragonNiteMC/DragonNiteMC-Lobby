@@ -19,11 +19,11 @@ public class HealCommand extends SettingsCommandNode {
         int hp = (int) name.getHealth();
         int hg = name.getFoodLevel();
         double maxHealth = Optional.ofNullable(name.getAttribute(Attribute.GENERIC_MAX_HEALTH)).map(AttributeInstance::getBaseValue).orElse(20.0);
-        if (hp < maxHealth || hg < 20){
+        if (hp < maxHealth || hg < 20) {
             name.setHealth(maxHealth);
             name.setFoodLevel(20);
             name.sendMessage(var.get("Heal.active"));
-            if (name != sender){
+            if (name != sender) {
                 sender.sendMessage(var.get("Heal.Be-active").replace("<player>", name.getName()));
             }
         } else {

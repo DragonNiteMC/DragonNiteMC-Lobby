@@ -22,6 +22,7 @@ public class ScheduleRestart {
     private LocalDateTime firstCheck;
     private LocalDate firstDate;
     private int dayPeriod;
+    private int Task;
 
     public ScheduleRestart() {
         firstDate = LocalDate.now();
@@ -59,7 +60,7 @@ public class ScheduleRestart {
 
                     if (restart >= first && restart <= second) {
                         LocalDate nowDate = LocalDate.now();
-                        if (Period.between(firstDate, nowDate).getDays() >= dayPeriod){
+                        if (Period.between(firstDate, nowDate).getDays() >= dayPeriod) {
                             countDownRestart();
                             cancel();
                         }
@@ -71,24 +72,24 @@ public class ScheduleRestart {
             }
         }.runTaskTimerAsynchronously(plugin, 0L, interval * 20L);
     }
-    private int Task;
-    private void countDownRestart(){
-        Task = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin,()->{
-            if (time%60 == 0 && time > 0){
-                plugin.getLogger().info("Server is restarting in "+time/60+" mins");
-                Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("","§a伺服器將在§e "+time/60+" §a分鐘後重啟。",20,60,20));
-            }else if (time%30 == 0 || time <= 10) {
-                plugin.getLogger().info("Server is restarting in "+time+ " sec.");
-                Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("","§a伺服器將在§e "+time+" §a秒後重啟。",0,30,0));
+
+    private void countDownRestart() {
+        Task = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+            if (time % 60 == 0 && time > 0) {
+                plugin.getLogger().info("Server is restarting in " + time / 60 + " mins");
+                Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("", "§a伺服器將在§e " + time / 60 + " §a分鐘後重啟。", 20, 60, 20));
+            } else if (time % 30 == 0 || time <= 10) {
+                plugin.getLogger().info("Server is restarting in " + time + " sec.");
+                Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("", "§a伺服器將在§e " + time + " §a秒後重啟。", 0, 30, 0));
             }
 
-            if (time == 0){
-                Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("§a伺服器正在重啟...","",0,100,20));
+            if (time == 0) {
+                Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("§a伺服器正在重啟...", "", 0, 100, 20));
                 if (Bukkit.getOnlinePlayers().size() >= delayPlayers) {
-                    Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("","§e人數過多，加時§b "+delayTime+" §e秒。",20,60,20));
-                    Bukkit.broadcastMessage("§4系統// §c由於伺服器內的玩家人數超過了"+delayPlayers+"個，本系統將延時"+delayTime+"秒後再重啟。");
-                    time += delayTime+1;
-                }else{
+                    Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle("", "§e人數過多，加時§b " + delayTime + " §e秒。", 20, 60, 20));
+                    Bukkit.broadcastMessage("§4系統// §c由於伺服器內的玩家人數超過了" + delayPlayers + "個，本系統將延時" + delayTime + "秒後再重啟。");
+                    time += delayTime + 1;
+                } else {
                     if (spigotRestart) Bukkit.getServer().spigot().restart();
                     else Bukkit.getServer().shutdown();
                     Bukkit.getScheduler().cancelTask(Task);
@@ -97,6 +98,6 @@ public class ScheduleRestart {
 
             time -= 1;
 
-        },0L,20L);
+        }, 0L, 20L);
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class SettingsCommandNode extends CommandNode {
 
     SettingsCommandNode(@Nonnull String command, @Nonnull String description) {
-        super(null, command, "setting."+command, description, "[player]");
+        super(null, command, "setting." + command, description, "[player]");
     }
 
     @Override
@@ -24,24 +24,24 @@ public abstract class SettingsCommandNode extends CommandNode {
         CoreConfig config = HyperNiteMC.getAPI().getCoreConfig();
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
-        boolean permother = commandSender.hasPermission(this.getPermission()+".other");
+        boolean permother = commandSender.hasPermission(this.getPermission() + ".other");
         MessagesConfig messagesConfig = HNMCLobby.getConfigManager().getConfigAs(MessagesConfig.class);
         if (list.size() < 1) {
             if (!terminal) {
                 Player player = (Player) commandSender;
                 executeSettings(player, player, messagesConfig);
             } else {
-                commandSender.sendMessage(config.getPrefix() + "Console can only use /"+this.getCommand()+" <player>");
+                commandSender.sendMessage(config.getPrefix() + "Console can only use /" + this.getCommand() + " <player>");
             }
-        }else if(permother || terminal){
+        } else if (permother || terminal) {
             target = Bukkit.getServer().getPlayer(list.get(0));
-            if (target == null){
-                commandSender.sendMessage(config.getPrefix()+config.getNotFoundPlayer());
-            }else{
+            if (target == null) {
+                commandSender.sendMessage(config.getPrefix() + config.getNotFoundPlayer());
+            } else {
                 executeSettings(target, commandSender, messagesConfig);
             }
-        }else{
-            commandSender.sendMessage(config.getPrefix()+config.getNoPerm());
+        } else {
+            commandSender.sendMessage(config.getPrefix() + config.getNoPerm());
         }
         return true;
     }

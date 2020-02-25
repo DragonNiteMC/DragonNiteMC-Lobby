@@ -3,7 +3,6 @@ package com.hypernite.mc.hnmc.lobby.ericlam.listener.lobby;
 import com.hypernite.mc.hnmc.core.main.HyperNiteMC;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.GUIBuilder;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.TeleportLobby;
-import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.LobbyConfig;
 import com.hypernite.mc.hnmc.lobby.ericlam.addon.config.MessagesConfig;
 import com.hypernite.mc.hnmc.lobby.main.HNMCLobby;
 import org.bukkit.Bukkit;
@@ -25,19 +24,19 @@ import java.util.Optional;
 
 public class BasicListener implements Listener {
 
-    private LobbyConfig lobbyConfig;
     private MessagesConfig msg;
-    public BasicListener(){
-        lobbyConfig = HNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class);
+    private TeleportLobby spawn = TeleportLobby.getInstance();
+
+    public BasicListener() {
         msg = HNMCLobby.getConfigManager().getConfigAs(MessagesConfig.class);
     }
 
     @EventHandler
-    public void NoDamageAndVoidTp(EntityDamageEvent e){
-        if (e.getEntity() instanceof Player){
+    public void NoDamageAndVoidTp(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
             e.setCancelled(true);
-            if(e.getCause() == EntityDamageEvent.DamageCause.VOID) {
+            if (e.getCause() == EntityDamageEvent.DamageCause.VOID) {
                 Bukkit.getScheduler().runTask(HNMCLobby.plugin, () -> {
                     spawn.TeleportToLobby(player);
                     player.setFallDistance(0f);
@@ -45,8 +44,6 @@ public class BasicListener implements Listener {
             }
         }
     }
-
-    private TeleportLobby spawn = TeleportLobby.getInstance();
 
     @EventHandler
     public void onLobbyJoin(PlayerJoinEvent e) {
@@ -60,44 +57,32 @@ public class BasicListener implements Listener {
     }
 
     @EventHandler
-    public void onLobbyRespawn(PlayerRespawnEvent e){
+    public void onLobbyRespawn(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
         Bukkit.getScheduler().scheduleSyncDelayedTask(HNMCLobby.plugin, () -> spawn.TeleportToLobby(player));
     }
 
 
-
     @EventHandler
-    public void antiBlockBreak(BlockBreakEvent e){
+    public void antiBlockBreak(BlockBreakEvent e) {
         Player player = e.getPlayer();
         if (player.hasPermission("hypernite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
         e.setCancelled(true);
     }
 
     @EventHandler
-    public void antiBlockPlace(BlockPlaceEvent e){
+    public void antiBlockPlace(BlockPlaceEvent e) {
         Player player = e.getPlayer();
         if (player.hasPermission("hypernite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
         e.setCancelled(true);
     }
 
     @EventHandler
-    public void cancelMenuClickable(InventoryClickEvent e){
+    public void cancelMenuClickable(InventoryClickEvent e) {
         Inventory inventory = e.getInventory();
         if (e.getSlotType() == InventoryType.SlotType.OUTSIDE) return;
-        if (inventory == GUIBuilder.getInstance().getInventoryGUI((Player)e.getWhoClicked())) e.setCancelled(true);
+        if (inventory == GUIBuilder.getInstance().getInventoryGUI((Player) e.getWhoClicked())) e.setCancelled(true);
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

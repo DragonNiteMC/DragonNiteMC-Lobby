@@ -46,22 +46,22 @@ public class HNMCLobby extends JavaPlugin {
          */
 
         CommandRegister register = HyperNiteMC.getAPI().getCommandRegister();
-        register.registerCommand(this,new FlyCommand());
-        register.registerCommand(this,new HealCommand());
-        register.registerCommand(this,new HideChatCommand());
-        register.registerCommand(this,new HidePlayerCommand());
-        register.registerCommand(this,new StackerCommand());
-        register.registerCommand(this,new SpeedCommand());
-        register.registerCommand(this,new HideChatCommand());
-        register.registerCommand(this,new SettingsCommand());
-        register.registerCommand(this,new SpawnCommand());
+        register.registerCommand(this, new FlyCommand());
+        register.registerCommand(this, new HealCommand());
+        register.registerCommand(this, new HideChatCommand());
+        register.registerCommand(this, new HidePlayerCommand());
+        register.registerCommand(this, new StackerCommand());
+        register.registerCommand(this, new SpeedCommand());
+        register.registerCommand(this, new HideChatCommand());
+        register.registerCommand(this, new SettingsCommand());
+        register.registerCommand(this, new SpawnCommand());
         this.getCommand("setlobby").setExecutor(new SetLobbyCommand(this));
 
         /*
          * Register Event Listener
          */
 
-        Listener[] listeners = { new OnPlayerEvent(), new BasicListener(), new LobbyJoinItem() };
+        Listener[] listeners = {new OnPlayerEvent(), new BasicListener(), new LobbyJoinItem()};
 
         for (Listener listen : listeners) {
             getServer().getPluginManager().registerEvents(listen, this);

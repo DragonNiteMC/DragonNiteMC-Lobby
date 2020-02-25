@@ -31,27 +31,15 @@ public class PlayerConfigStatus {
         return fly;
     }
 
-    public boolean isHideChat() {
-        return hideChat;
-    }
-
-    public boolean isHidePlayer() {
-        return hidePlayer;
-    }
-
-    public boolean isStacker() {
-        return stacker;
-    }
-
-    public boolean isSpeed() {
-        return speed;
-    }
-
     public void setFly(boolean fly) {
         if (fly != this.fly) {
             this.changed = true;
         }
         this.fly = fly;
+    }
+
+    public boolean isHideChat() {
+        return hideChat;
     }
 
     public void setHideChat(boolean hideChat) {
@@ -61,6 +49,10 @@ public class PlayerConfigStatus {
         this.hideChat = hideChat;
     }
 
+    public boolean isHidePlayer() {
+        return hidePlayer;
+    }
+
     public void setHidePlayer(boolean hidePlayer) {
         if (hidePlayer != this.hidePlayer) {
             this.changed = true;
@@ -68,11 +60,19 @@ public class PlayerConfigStatus {
         this.hidePlayer = hidePlayer;
     }
 
+    public boolean isStacker() {
+        return stacker;
+    }
+
     public void setStacker(boolean stacker) {
         if (stacker != this.stacker) {
             this.changed = true;
         }
         this.stacker = stacker;
+    }
+
+    public boolean isSpeed() {
+        return speed;
     }
 
     public void setSpeed(boolean speed) {

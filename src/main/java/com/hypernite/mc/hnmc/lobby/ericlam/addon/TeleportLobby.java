@@ -14,16 +14,16 @@ public class TeleportLobby {
     private LobbyConfig lobbyfile;
 
 
-    public static TeleportLobby getInstance() {
-        if(tplobby == null) tplobby = new TeleportLobby();
-        return tplobby;
-    }
-    
-    private TeleportLobby(){
+    private TeleportLobby() {
         lobbyfile = HNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class);
     }
 
-    public boolean TeleportToLobby(Player player){
+    public static TeleportLobby getInstance() {
+        if (tplobby == null) tplobby = new TeleportLobby();
+        return tplobby;
+    }
+
+    public boolean TeleportToLobby(Player player) {
         CoreConfig var = HyperNiteMC.getAPI().getCoreConfig();
         if (lobbyfile.spawntp == null || lobbyfile.spawntp.getY() == 0) {
             player.sendMessage(var.getPrefix() + ChatColor.RED + "伺服器尚未設置重生點，因此無法傳送");

@@ -14,12 +14,12 @@ public class SpawnCommand extends SettingsCommandNode {
     @Override
     public void executeSettings(Player name, CommandSender sender, MessagesConfig config) {
         TeleportLobby lobby = TeleportLobby.getInstance();
-        if (sender == name){
-            if (lobby.TeleportToLobby(name)){
+        if (sender == name) {
+            if (lobby.TeleportToLobby(name)) {
                 name.sendMessage(config.getSpawn("send"));
             }
-        }else{
-            lobby.TeleportToLobby(name,sender);
+        } else {
+            lobby.TeleportToLobby(name, sender);
         }
 
     }
