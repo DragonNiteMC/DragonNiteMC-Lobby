@@ -49,7 +49,7 @@ public class BasicListener implements Listener {
     public void onLobbyJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         if (player.hasPermission("donor.join")) {
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(msg.get("joinDonorMsg")).map(str -> str.replace("<player>", HyperNiteMC.getAPI().getVaultAPI().getChat().getPlayerPrefix(player) + player.getDisplayName())).orElse("null")));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(msg.getPure("joinDonorMsg")).map(str -> str.replace("<player>", HyperNiteMC.getAPI().getVaultAPI().getChat().getPlayerPrefix(player) + player.getDisplayName())).orElse("null")));
         }
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
