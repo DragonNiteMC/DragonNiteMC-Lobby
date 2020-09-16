@@ -184,6 +184,7 @@ public class OnPlayerListener implements Listener {
         stacks.add(top);
         while (top.getPassengers().size() > 0) {
             top = getPlayer(stacks, top);
+            if (top == null) return;
             stack++;
             //Bukkit.broadcastMessage("Layer" + stack + ": " + top.getName());
         }

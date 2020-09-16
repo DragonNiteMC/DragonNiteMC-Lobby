@@ -3,7 +3,7 @@
 
     <groupId>com.ericlam.mc</groupId>
     <artifactId>HyperNiteMC-Lobby</artifactId>
-    <version>2.6.9</version>
+    <version>2.7.0</version>
 
     <repositories>
         <repository>
