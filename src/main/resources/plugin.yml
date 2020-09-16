@@ -1,9 +1,9 @@
 name: HyperNiteMC-Lobby
-main: com.hypernite.mc.hnmc.lobby.main.HNMCLobby
+main: com.ericlam.mc.hnmclobby.main.HNMCLobby
 version: ${project.version}
 api-version: "1.15"
 authors: [ericlam]
-depend: [HyperNiteMC-Core, Vault]
+depend: [ HyperNiteMC-Core ]
 commands:
   fly:
     aliases: [flight, sky]
