@@ -16,7 +16,7 @@ public class SQLDatabaseStorage implements PlayerStatusStorage {
 
     public SQLDatabaseStorage() {
         this.dataSourceManager = HyperNiteMC.getAPI().getSQLDataSource();
-        try (Connection connection = dataSourceManager.getConnection(); PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `PS_stats` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit, `HideChat` bit, `Stacker` bit, `Speed` bit, `HidePlayer` bit)")) {
+        try (Connection connection = dataSourceManager.getConnection(); PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `Lobby_settings` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit, `HideChat` bit, `Stacker` bit, `Speed` bit, `HidePlayer` bit)")) {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,7 +26,7 @@ public class SQLDatabaseStorage implements PlayerStatusStorage {
     @Override
     public PlayerConfigStatus getPlayerSetting(UUID player) {
         PlayerConfigStatus setting = new PlayerConfigStatus();
-        try (Connection connection = dataSourceManager.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM `PS_stats` WHERE `PlayerUUID` = ?")) {
+        try (Connection connection = dataSourceManager.getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM `Lobby_settings` WHERE `PlayerUUID` = ?")) {
             statement.setString(1, player + "");
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -45,7 +45,11 @@ public class SQLDatabaseStorage implements PlayerStatusStorage {
 
     @Override
     public void savePlayerSetting(UUID player, PlayerConfigStatus setting) {
-        try (Connection connection = dataSourceManager.getConnection(); PreparedStatement statement = connection.prepareStatement("INSERT INTO `PS_stats` VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Fly = ?, HideChat = ?, Stacker = ?, Speed = ?, HidePlayer = ?")) {
+        try (Connection connection = dataSourceManager.getConnection();
+             PreparedStatement lockStatement = connection.prepareStatement("SELECT * FROM `Lobby_settings` WHERE `PlayerUUID`=? FOR UPDATE");
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO `Lobby_settings` VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Fly = ?, HideChat = ?, Stacker = ?, Speed = ?, HidePlayer = ?")) {
+            lockStatement.setString(1, player.toString());
+            lockStatement.execute();
             setStatement(statement, player, setting);
             statement.execute();
         } catch (SQLException e) {
@@ -59,7 +63,7 @@ public class SQLDatabaseStorage implements PlayerStatusStorage {
             for (UUID player : configs.keySet()) {
                 PlayerConfigStatus setting = configs.get(player);
                 if (!setting.isChanged()) continue;
-                try (PreparedStatement statement = connection.prepareStatement("INSERT INTO `PS_stats` VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Fly = ?, HideChat = ?, Stacker = ?, Speed = ?, HidePlayer = ?")) {
+                try (PreparedStatement statement = connection.prepareStatement("INSERT INTO `Lobby_settings` VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Fly = ?, HideChat = ?, Stacker = ?, Speed = ?, HidePlayer = ?")) {
                     setStatement(statement, player, setting);
                     statement.execute();
                 }
