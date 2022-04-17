@@ -2,7 +2,7 @@
   <artifact type="jar" name="HyperNiteMC-Lobby">
     <output-path>W:/Minecraft/2019/HyperNiteMC-2019/Lobby/plugins</output-path>
     <root id="archive" name="HyperNiteMC-Lobby.jar">
-      <element id="module-output" name="HyperNiteMC-Lobby" />
+      <element id="module-output" name="DragonNiteMC-Lobby" />
     </root>
   </artifact>
 </component>

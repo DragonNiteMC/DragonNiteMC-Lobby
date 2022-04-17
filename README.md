@@ -1,6 +1,6 @@
 # PlayerSettings
 
-use for replace PlayerOptions from HyperNiteMC
+use for replace PlayerOptions from DragonNiteMC
 
 Functions:
 - MySQL/Yaml Saving

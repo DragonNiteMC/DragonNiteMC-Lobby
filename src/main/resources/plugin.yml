@@ -1,9 +1,9 @@
-name: HyperNiteMC-Lobby
-main: com.ericlam.mc.hnmclobby.main.HNMCLobby
+name: DragonNiteMC-Lobby
+main: com.ericlam.mc.dnmclobby.main.DNMCLobby
 version: ${project.version}
 api-version: "1.15"
 authors: [ericlam]
-depend: [ HyperNiteMC-Core ]
+depend: [ DragonNiteMC-Core ]
 commands:
   fly:
     aliases: [flight, sky]
@@ -33,7 +33,7 @@ commands:
     aliases: respawn
     description: teleport to spawn
 permissions:
-  hypernite.build:
+  dragonnite.build:
     description: build perm
     default: false
   donor.join:
@@ -54,5 +54,5 @@ permissions:
     default: false
   setting.hideplayer:
     default: false
-  hypernite.setlobby:
+  dragonnite.setlobby:
     default: op
