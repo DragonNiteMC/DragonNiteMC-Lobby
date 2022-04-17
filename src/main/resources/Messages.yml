@@ -50,5 +50,7 @@ GUI:
     - "&7&m----------"
     - "&e點擊以切換"
     - "&7&m----------"
-tablist-header: "&6&lDragonNiteMC"
+tablist:
+  header: "&6&lDragonNiteMC"
+  footer: "&emc.dragonite.com"
 joinDonorMsg: "&b加入// &e<player>"

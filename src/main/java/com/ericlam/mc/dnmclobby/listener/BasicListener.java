@@ -58,7 +58,7 @@ public class BasicListener implements Listener {
         }
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
-        DragonNiteMC.getAPI().getTabListManager().setHeader(msg.getPure("tablist-header"), player);
+        DragonNiteMC.getAPI().getTabListManager().setHeaderFooter(msg.getPure("tablist.header"), msg.getPure("tablist.footer"), player);
     }
 
     @EventHandler
