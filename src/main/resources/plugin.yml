@@ -3,7 +3,7 @@ main: com.ericlam.mc.dnmclobby.main.DNMCLobby
 version: ${project.version}
 api-version: "1.15"
 authors: [ericlam]
-depend: [ DragonNiteMC-Core ]
+depend: [ DragoniteMC-Core ]
 commands:
   fly:
     aliases: [flight, sky]
