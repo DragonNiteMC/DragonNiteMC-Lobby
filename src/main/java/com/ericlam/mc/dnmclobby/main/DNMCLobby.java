@@ -79,14 +79,14 @@ public class DNMCLobby extends JavaPlugin {
         }
 
         console.sendMessage(ChatColor.AQUA + "Using MYSQL as saving Type.");
-        console.sendMessage(ChatColor.GOLD + "DragonNiteMC Lobby Enabled!");
+        console.sendMessage(ChatColor.GOLD + "DragoniteMC Lobby Enabled!");
         console.sendMessage(ChatColor.YELLOW + "===========================================");
         new RestartRunnable(this).runTaskTimerAsynchronously(this, 0L, mainConfig.restart.checkInterval * 20L);
     }
 
     public void onDisable() {
         playerSettingManager.saveAll();
-        getLogger().info("DragonNiteMC-Lobby Disabled.");
+        getLogger().info("DragoniteMC-Lobby Disabled.");
     }
 
 }

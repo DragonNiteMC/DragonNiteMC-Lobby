@@ -20,7 +20,7 @@ public class SetLobbyCommand implements CommandExecutor {
         CoreConfig msg = DragoniteMC.getAPI().getCoreConfig();
         LobbyConfig lobbyConfig = DNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class);
         if (commandSender instanceof Player) {
-            if (commandSender.hasPermission("dragonnite.setlobby")) {
+            if (commandSender.hasPermission("dragonite.setlobby")) {
                 Player player = (Player) commandSender;
                 lobbyConfig.spawntp = player.getLocation();
                 try {

@@ -71,14 +71,14 @@ public class BasicListener implements Listener {
     @EventHandler
     public void antiBlockBreak(BlockBreakEvent e) {
         Player player = e.getPlayer();
-        if (player.hasPermission("dragonnite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
+        if (player.hasPermission("dragonite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
         e.setCancelled(true);
     }
 
     @EventHandler
     public void antiBlockPlace(BlockPlaceEvent e) {
         Player player = e.getPlayer();
-        if (player.hasPermission("dragonnite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
+        if (player.hasPermission("dragonite.build") && player.getGameMode().equals(GameMode.CREATIVE)) return;
         e.setCancelled(true);
     }
 

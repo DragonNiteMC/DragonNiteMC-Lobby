@@ -1,4 +1,4 @@
-name: DragonNiteMC-Lobby
+name: DragoniteMC-Lobby
 main: com.ericlam.mc.dnmclobby.main.DNMCLobby
 version: ${project.version}
 api-version: "1.15"
@@ -33,7 +33,7 @@ commands:
     aliases: respawn
     description: teleport to spawn
 permissions:
-  dragonnite.build:
+  dragonite.build:
     description: build perm
     default: false
   donor.join:
@@ -54,5 +54,5 @@ permissions:
     default: false
   setting.hideplayer:
     default: false
-  dragonnite.setlobby:
+  dragonite.setlobby:
     default: op
