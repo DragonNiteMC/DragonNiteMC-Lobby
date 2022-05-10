@@ -4,7 +4,7 @@ import com.ericlam.mc.dnmclobby.config.MainConfig;
 import com.ericlam.mc.dnmclobby.config.MessagesConfig;
 import com.ericlam.mc.dnmclobby.manager.GUIManager;
 import com.ericlam.mc.dnmclobby.manager.PlayerSettingManager;
-import com.dragonnite.mc.dnmc.core.managers.YamlManager;
+import com.dragonite.mc.dnmc.core.managers.YamlManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;

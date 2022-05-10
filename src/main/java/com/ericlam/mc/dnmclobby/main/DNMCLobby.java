@@ -11,9 +11,9 @@ import com.ericlam.mc.dnmclobby.manager.GUIManager;
 import com.ericlam.mc.dnmclobby.manager.LobbyManager;
 import com.ericlam.mc.dnmclobby.manager.PlayerSettingManager;
 import com.ericlam.mc.dnmclobby.runnable.RestartRunnable;
-import com.dragonnite.mc.dnmc.core.main.DragonNiteMC;
-import com.dragonnite.mc.dnmc.core.managers.CommandRegister;
-import com.dragonnite.mc.dnmc.core.managers.YamlManager;
+import com.dragonite.mc.dnmc.core.main.DragoniteMC;
+import com.dragonite.mc.dnmc.core.managers.CommandRegister;
+import com.dragonite.mc.dnmc.core.managers.YamlManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.Listener;
@@ -35,7 +35,7 @@ public class DNMCLobby extends JavaPlugin {
          * Load ConfigManager File and Initial
          */
 
-        yamlManager = DragonNiteMC.getAPI().getFactory().getConfigFactory(this)
+        yamlManager = DragoniteMC.getAPI().getFactory().getConfigFactory(this)
                 .register("config.yml", MainConfig.class)
                 .register("Lobby.yml", LobbyConfig.class)
                 .register("Messages.yml", MessagesConfig.class)
@@ -52,7 +52,7 @@ public class DNMCLobby extends JavaPlugin {
         final GUIManager guiManager = new GUIManager(playerSettingManager);
         final LobbyManager lobbyManager = new LobbyManager(lobbyConfig);
 
-        CommandRegister register = DragonNiteMC.getAPI().getCommandRegister();
+        CommandRegister register = DragoniteMC.getAPI().getCommandRegister();
         register.registerCommand(this, new FlyCommand(playerSettingManager));
         register.registerCommand(this, new HealCommand());
         register.registerCommand(this, new HideChatCommand(playerSettingManager));

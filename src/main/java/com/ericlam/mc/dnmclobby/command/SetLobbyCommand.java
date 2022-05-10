@@ -2,8 +2,8 @@ package com.ericlam.mc.dnmclobby.command;
 
 import com.ericlam.mc.dnmclobby.config.LobbyConfig;
 import com.ericlam.mc.dnmclobby.main.DNMCLobby;
-import com.dragonnite.mc.dnmc.core.main.DragonNiteMC;
-import com.dragonnite.mc.dnmc.core.managers.CoreConfig;
+import com.dragonite.mc.dnmc.core.main.DragoniteMC;
+import com.dragonite.mc.dnmc.core.managers.CoreConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +17,7 @@ public class SetLobbyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@Nonnull CommandSender commandSender, @Nonnull Command command, @Nonnull String s, @Nonnull String[] strings) {
-        CoreConfig msg = DragonNiteMC.getAPI().getCoreConfig();
+        CoreConfig msg = DragoniteMC.getAPI().getCoreConfig();
         LobbyConfig lobbyConfig = DNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class);
         if (commandSender instanceof Player) {
             if (commandSender.hasPermission("dragonnite.setlobby")) {

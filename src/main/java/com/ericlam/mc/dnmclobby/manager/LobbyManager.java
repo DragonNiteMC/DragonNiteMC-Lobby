@@ -3,8 +3,8 @@ package com.ericlam.mc.dnmclobby.manager;
 import com.ericlam.mc.dnmclobby.config.LobbyConfig;
 import com.ericlam.mc.dnmclobby.config.MessagesConfig;
 import com.ericlam.mc.dnmclobby.main.DNMCLobby;
-import com.dragonnite.mc.dnmc.core.main.DragonNiteMC;
-import com.dragonnite.mc.dnmc.core.managers.CoreConfig;
+import com.dragonite.mc.dnmc.core.main.DragoniteMC;
+import com.dragonite.mc.dnmc.core.managers.CoreConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class LobbyManager {
     }
 
     public boolean TeleportToLobby(Player player) {
-        CoreConfig var = DragonNiteMC.getAPI().getCoreConfig();
+        CoreConfig var = DragoniteMC.getAPI().getCoreConfig();
         if (config.spawntp == null || config.spawntp.getY() == 0) {
             player.sendMessage(var.getPrefix() + ChatColor.RED + "伺服器尚未設置重生點，因此無法傳送");
             return false;
@@ -28,7 +28,7 @@ public class LobbyManager {
 
     public void TeleportToLobby(Player player, CommandSender sender) {
         if (config.spawntp == null || config.spawntp.getY() == 0) {
-            sender.sendMessage(DragonNiteMC.getAPI().getCoreConfig().getPrefix() + ChatColor.RED + "由於重生點尚未設置，因此無法傳送 " + ChatColor.YELLOW + player.getName() + ChatColor.RED + " 。");
+            sender.sendMessage(DragoniteMC.getAPI().getCoreConfig().getPrefix() + ChatColor.RED + "由於重生點尚未設置，因此無法傳送 " + ChatColor.YELLOW + player.getName() + ChatColor.RED + " 。");
             return;
         }
         MessagesConfig msg = DNMCLobby.getConfigManager().getConfigAs(MessagesConfig.class);

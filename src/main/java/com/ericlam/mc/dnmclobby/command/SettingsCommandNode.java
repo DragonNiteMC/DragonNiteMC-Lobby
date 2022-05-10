@@ -3,9 +3,9 @@ package com.ericlam.mc.dnmclobby.command;
 import com.ericlam.mc.dnmclobby.config.MessagesConfig;
 import com.ericlam.mc.dnmclobby.main.DNMCLobby;
 import com.ericlam.mc.dnmclobby.manager.PlayerSettingManager;
-import com.dragonnite.mc.dnmc.core.main.DragonNiteMC;
-import com.dragonnite.mc.dnmc.core.managers.CoreConfig;
-import com.dragonnite.mc.dnmc.core.misc.commands.CommandNode;
+import com.dragonite.mc.dnmc.core.main.DragoniteMC;
+import com.dragonite.mc.dnmc.core.managers.CoreConfig;
+import com.dragonite.mc.dnmc.core.misc.commands.CommandNode;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -25,7 +25,7 @@ public abstract class SettingsCommandNode extends CommandNode {
 
     @Override
     public boolean executeCommand(@Nonnull CommandSender commandSender, @Nonnull List<String> list) {
-        CoreConfig config = DragonNiteMC.getAPI().getCoreConfig();
+        CoreConfig config = DragoniteMC.getAPI().getCoreConfig();
         Player target;
         boolean terminal = commandSender instanceof ConsoleCommandSender;
         boolean permother = commandSender.hasPermission(this.getPermission() + ".other");

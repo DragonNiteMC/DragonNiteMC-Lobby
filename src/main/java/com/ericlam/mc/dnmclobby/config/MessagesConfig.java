@@ -1,7 +1,7 @@
 package com.ericlam.mc.dnmclobby.config;
 
-import com.dragonnite.mc.dnmc.core.config.yaml.MessageConfiguration;
-import com.dragonnite.mc.dnmc.core.config.yaml.Resource;
+import com.dragonite.mc.dnmc.core.config.yaml.MessageConfiguration;
+import com.dragonite.mc.dnmc.core.config.yaml.Resource;
 
 @Resource(locate = "Messages.yml")
 public class MessagesConfig extends MessageConfiguration {

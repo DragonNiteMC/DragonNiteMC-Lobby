@@ -1,8 +1,8 @@
 package com.ericlam.mc.dnmclobby.storage;
 
 import com.ericlam.mc.dnmclobby.PlayerConfigStatus;
-import com.dragonnite.mc.dnmc.core.main.DragonNiteMC;
-import com.dragonnite.mc.dnmc.core.managers.SQLDataSource;
+import com.dragonite.mc.dnmc.core.main.DragoniteMC;
+import com.dragonite.mc.dnmc.core.managers.SQLDataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ public class SQLDatabaseStorage implements PlayerStatusStorage {
     private final SQLDataSource dataSourceManager;
 
     public SQLDatabaseStorage() {
-        this.dataSourceManager = DragonNiteMC.getAPI().getSQLDataSource();
+        this.dataSourceManager = DragoniteMC.getAPI().getSQLDataSource();
         try (Connection connection = dataSourceManager.getConnection(); PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `Lobby_settings` (`PlayerUUID` VARCHAR(40) NOT NULL PRIMARY KEY, `Fly` bit, `HideChat` bit, `Stacker` bit, `Speed` bit, `HidePlayer` bit)")) {
             statement.execute();
         } catch (SQLException e) {

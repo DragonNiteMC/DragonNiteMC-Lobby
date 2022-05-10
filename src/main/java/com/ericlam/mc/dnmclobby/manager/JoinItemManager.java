@@ -2,7 +2,7 @@ package com.ericlam.mc.dnmclobby.manager;
 
 import com.ericlam.mc.dnmclobby.config.LobbyConfig;
 import com.ericlam.mc.dnmclobby.main.DNMCLobby;
-import com.dragonnite.mc.dnmc.core.builders.ItemStackBuilder;
+import com.dragonite.mc.dnmc.core.builders.ItemStackBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;

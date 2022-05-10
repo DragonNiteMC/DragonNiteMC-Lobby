@@ -3,7 +3,7 @@ package com.ericlam.mc.dnmclobby.listener;
 import com.ericlam.mc.dnmclobby.config.MessagesConfig;
 import com.ericlam.mc.dnmclobby.manager.GUIManager;
 import com.ericlam.mc.dnmclobby.manager.LobbyManager;
-import com.dragonnite.mc.dnmc.core.main.DragonNiteMC;
+import com.dragonite.mc.dnmc.core.main.DragoniteMC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -54,11 +54,11 @@ public class BasicListener implements Listener {
     public void onLobbyJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         if (player.hasPermission("donor.join")) {
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(msg.getPure("joinDonorMsg")).map(str -> str.replace("<player>", DragonNiteMC.getAPI().getVaultAPI().getChat().getPlayerPrefix(player) + player.getDisplayName())).orElse("null")));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Optional.ofNullable(msg.getPure("joinDonorMsg")).map(str -> str.replace("<player>", DragoniteMC.getAPI().getChatFormatManager().getPlayerPrefix(player) + player.getDisplayName())).orElse("null")));
         }
         spawn.TeleportToLobby(player);
         player.setGameMode(GameMode.ADVENTURE);
-        DragonNiteMC.getAPI().getTabListManager().setHeaderFooter(msg.getPure("tablist.header"), msg.getPure("tablist.footer"), player);
+        DragoniteMC.getAPI().getTabListManager().setHeaderFooter(msg.getPure("tablist.header"), msg.getPure("tablist.footer"), player);
     }
 
     @EventHandler

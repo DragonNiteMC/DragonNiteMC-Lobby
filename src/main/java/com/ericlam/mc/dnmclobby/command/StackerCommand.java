@@ -4,7 +4,7 @@ import com.ericlam.mc.dnmclobby.config.MainConfig;
 import com.ericlam.mc.dnmclobby.config.MessagesConfig;
 import com.ericlam.mc.dnmclobby.main.DNMCLobby;
 import com.ericlam.mc.dnmclobby.manager.PlayerSettingManager;
-import com.dragonnite.mc.dnmc.core.main.DragonNiteMC;
+import com.dragonite.mc.dnmc.core.main.DragoniteMC;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,7 +25,7 @@ public class StackerCommand extends SettingsCommandNode {
                 sender.sendMessage(var.getStacker("be-" + (nostack ? "enable" : "disable")).replace("<player>", name.getName()));
             name.sendMessage(var.getStacker(nostack ? "enable" : "disable"));
             psm.getPlayerSetting(puuid).setStacker(nostack);
-        } else sender.sendMessage(DragonNiteMC.getAPI().getCoreConfig().getPrefix() + ChatColor.RED + "此功能已被管理員禁用。");
+        } else sender.sendMessage(DragoniteMC.getAPI().getCoreConfig().getPrefix() + ChatColor.RED + "此功能已被管理員禁用。");
     }
 }
 
