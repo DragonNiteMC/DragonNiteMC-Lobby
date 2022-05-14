@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class JoinItemManager {
@@ -16,7 +17,7 @@ public class JoinItemManager {
     public JoinItemManager() {
         DNMCLobby.getConfigManager().getConfigAs(LobbyConfig.class).joinItems.forEach((material, joinItem) -> {
             ItemStack stack = new ItemStackBuilder(material)
-                    .displayName(joinItem.name).lore(joinItem.lores)
+                    .displayName(joinItem.name).lore(joinItem.lores != null ? joinItem.lores : new ArrayList<>())
                     .onInteract(e -> {
                         if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK)
                             return;
